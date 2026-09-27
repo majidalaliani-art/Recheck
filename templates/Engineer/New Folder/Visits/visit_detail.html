@@ -1,0 +1,63 @@
+
+{% load static %}
+
+<html lang="ar" dir="rtl">
+  <head >
+    <link rel="stylesheet" type="text/css" href="{% static 'Visits/css/New/visit_detail.css' %}" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/cloudflare/2.11.4/css/lightbox.min.css"
+    />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}" />
+
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}" />
+  </head>
+
+<body id="main-body">
+
+ <div id="main-content" class="container">
+
+  <div class="header-section">
+    <p class="header-title">رقم الطلب: </p>
+    <div class="order-number">
+      <span class="order-number-title">OR-{{ visit.pk }}</span>
+      <span class="order-number-status">في انتظار التقرير</span>
+    </div>
+  </div>
+  <div class="details-section ">
+    <div class="details-section-box-1">
+
+      <div class="details-section-content">
+        <p class="p">فحص شامل</p>
+        <p class="p">فيلا</p>
+        <p class="p"> م 430</p>
+      </div>
+
+      <div class="details-section-content">
+        <p class="p">فحص شامل</p>
+        <p class="p">فيلا</p>
+        <p class="p"> م 430</p>
+      </div>
+    </div>
+
+
+
+    <div class="details-section-box-2">
+
+            <a class="nav-link" href="{% url 'start_visit' visit.pk %}">الاستفسارات</a>
+
+
+
+    </div>
+
+  </div>
+
+
+</div>
+
+  </body>
+  </html>

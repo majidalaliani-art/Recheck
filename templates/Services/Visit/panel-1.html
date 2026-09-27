@@ -1,0 +1,96 @@
+<!-- الصف الأول: حقول البيانات كاملة -->
+<div class="row g-4 section-inputs mb-4">
+  <div class="col-12 col-md-6 col-lg-3 section-input">
+    {{ form.requestType.label }} {{ form.requestType }}
+  </div>
+  <div class="col-12 col-md-6 col-lg-3 section-input">
+    {{ form.propertyType.label }} {{ form.propertyType }}
+  </div>
+  <div class="col-12 col-md-6 col-lg-3 section-input">{{ form.date.label }} {{ form.date }}</div>
+  <div class="col-12 col-md-6 col-lg-3 section-input">{{ form.time.label }} {{ form.time }}</div>
+  <div class="col-12 col-md-6 col-lg-3 section-input">{{ form.city.label }} {{ form.city }}</div>
+  <div class="col-12 col-md-6 col-lg-3 section-input">
+    {{ form.unit_number.label }} {{ form.unit_number }}
+  </div>
+  <div class="col-12 col-md-6 col-lg-3 section-input">
+    {{ form.latitude.label }} {{ form.latitude }}
+  </div>
+  <div class="col-12 col-md-6 col-lg-3 section-input">
+    {{ form.longitude.label }} {{ form.longitude }}
+  </div>
+  <div class="col-12 col-md-6 col-lg-6 section-input">
+    {{ form.neighborhood.label }} {{ form.neighborhood }}
+  </div>
+  <div class="col-12 col-md-6 col-lg-6 section-input">
+    {{ form.detailed_address.label }} {{ form.detailed_address }}
+  </div>
+
+  <div class="col-12 my-4">
+    <hr class="text-muted report-divider" />
+  </div>
+
+  <div class="col-12 col-md-6">
+    <div class="text-center">{{form.property_image.label }}</div>
+    <div class="gold-upload-card">
+      {% if form.instance.property_image %}
+      <!-- نستخدم data-lightbox لربط الزر بالمكتبة -->
+      <a
+        href="{{ form.instance.property_image.url }}"
+        data-lightbox="property-gallery"
+        class="view-image-btn"
+        id="preview-image-trigger"
+        data-fancybox
+        title="عرض الصورة كاملة"
+      >
+        <i class="fa-solid fa-eye"></i>
+      </a>
+      {% endif %}
+
+      <label for="{{ form.property_image.id_for_label }}" class="upload-box">
+        {% if form.instance.property_image %}
+        <img
+          src="{{ form.instance.property_image.url }}"
+          class="preview-image img-fluid"
+          id="img-preview"
+        />
+        {% else %}
+        <div class="upload-placeholder">
+          <i class="bi bi-cloud-arrow-up upload-icon"></i>
+          <span class="upload-text">ارفع صورة</span>
+        </div>
+        {% endif %}
+      </label>
+      {% if status == "in_progress" %}
+      <div class="d-none">{{ form.property_image }}</div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="col-12 col-md-6">
+    <div class="text-center form-label">موقع العقار</div>
+    <div class="gold-map-card">
+      <div id="map-data-visit" data-city="{{city}}" class="d-none"></div>
+      <div id="property-map-visit" class="real-map-container"></div>
+    </div>
+  </div>
+
+  <div class="col-12 my-4">
+    <hr class="text-muted report-divider" />
+  </div>
+  <div class="text-end mt-auto">
+    {% if status == "in_progress" %}
+    <button type="button" class="orderNow save-btn px-5 py-2 fw-bold" data-panel="1" data-next="2">
+      <samp class="text fs-5 fw-bold">حفظ</samp>
+      <span class="icon-left">
+        <i class="fa-solid fa-angles-left"></i>
+      </span>
+    </button>
+    {% endif %}
+  </div>
+</div>
+{% load static %}
+
+
+<script>const status = "{{status}}";</script>
+
+<script src="{% static 'Style/js/Services/Visit/panel-1.js' %}"></script>

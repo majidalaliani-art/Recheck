@@ -1,0 +1,39 @@
+name: 🚀 Deploy to Production
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🔗 Connect & Deploy to Server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            echo "📦 Pulling latest code..."
+            cd /var/www/moon
+            git pull origin main
+
+            echo "🐍 Activating virtual environment..."
+            source venv/bin/activate
+
+            echo "📚 Installing dependencies..."
+            pip install -r requirements.txt --quiet
+
+            echo "🗄️ Running database migrations..."
+            python manage.py migrate --no-input
+
+            echo "🗂️ Collecting static files..."
+            python manage.py collectstatic --no-input
+
+            echo "🔄 Restarting application..."
+            systemctl restart moon
+
+            echo "✅ Deployment completed successfully!"

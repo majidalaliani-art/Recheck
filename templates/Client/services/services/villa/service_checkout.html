@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+  <meta charset="UTF-8">
+  <title>خريطة الموقع</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+  <style>
+    #map {
+      height: 500px;
+      /* ارتفاع الخريطة */
+      width: 100%;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h3>حدد موقعك على الخريطة</h3>
+  <div id="map"></div>
+
+  <!-- Form to send coordinates to server -->
+  <form method="post" action="{% url 'buying' %}">
+    {% csrf_token %}
+    <input type="hidden" id="lat" name="latitude">
+    <input type="hidden" id="lng" name="longitude">
+
+
+    <button type="submit">تأكيد الموقع</button>
+  </form>
+
+<form method="post" action="{% url 'buying' %}">
+  {% csrf_token %}
+
+  <!-- بيانات المستخدم -->
+  <input type="text" name="phone_number" placeholder="رقم الجوال" value="{{ request.session.phone_number }}" required>
+  <input type="text" name="inspection_type" placeholder="نوع العقار (Standard / Full)" required>
+  <input type="text" name="service_name" placeholder="اسم الخدمة" required>
+  <input type="text" name="service_type" placeholder="نوع الخدمة (Basic / Pro)" required>
+
+  <!-- بيانات الدفع -->
+  <input type="text" name="account_name" placeholder="اسم الحساب" required>
+  <input type="text" name="bank_number" placeholder="رقم الحساب" required>
+  <input type="number" name="amount" placeholder="المبلغ" required>
+
+  <button type="submit">إرسال الدفع</button>
+</form>
+
+
+
+
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <script>
+    // Default location (Riyadh)
+    var defaultLat = 24.7136;
+    var defaultLng = 46.6753;
+
+    var map = L.map('map').setView([defaultLat, defaultLng], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Draggable marker
+    var marker = L.marker([defaultLat, defaultLng], { draggable: true }).addTo(map);
+
+    // Function to update hidden inputs
+    function updateMarker(lat, lng) {
+      document.getElementById("lat").value = lat;
+      document.getElementById("lng").value = lng;
+      marker.setLatLng([lat, lng]); // Move marker to new position
+      console.log("Latitude:", lat, "Longitude:", lng);
+    }
+
+    // Set default values
+    updateMarker(defaultLat, defaultLng);
+
+    // When dragging the marker
+    marker.on('dragend', function () {
+      var pos = marker.getLatLng();
+      updateMarker(pos.lat, pos.lng);
+    });
+
+    // When clicking on the map
+    map.on('click', function (e) {
+      updateMarker(e.latlng.lat, e.latlng.lng);
+    });
+
+    // Auto-detect user's location
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        var userLat = position.coords.latitude;
+        var userLng = position.coords.longitude;
+
+        map.setView([userLat, userLng], 15);
+        updateMarker(userLat, userLng);
+      });
+    }
+  </script>
+
+</body>
+
+</html>

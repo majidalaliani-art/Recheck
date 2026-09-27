@@ -1,0 +1,14 @@
+{% extends 'base/html/base.html' %} {% load static %} {% block header %} {% endblock %}
+{% block content %}
+<div class="staff-dashboard">
+  {% block EngineerSidebar %} {% include 'Engineer/EngineerSidebar.html' %} {% endblock %}
+
+  <div class="staff-main-content">
+
+    {% block staff_content %}
+    {% endblock %}
+  </div>
+</div>
+
+
+{% endblock %}

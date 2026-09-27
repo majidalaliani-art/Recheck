@@ -1,0 +1,520 @@
+{% extends 'Client/CientBase.html' %} {% block client_content %} {% load static %}
+
+<div class="apply-wrapper card-wrapper">
+  <div class="apply-form-card card-form container">
+    <form method="POST" class="needs-validation" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="form-field">
+            {{ form.full_name_ar.label }}
+            <div class="position-relative">
+              {{ form.full_name_ar }}
+              <i class="fa-solid fa-user calendar-icon"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-field">
+            {{ form.full_name_en.label }}
+            <div class="position-relative">
+              {{ form.full_name_en }}
+              <i class="fa-solid fa-user calendar-icon"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-field">
+            {{ form.phone.label }}
+            <div class="position-relative">
+              <i class="fa-solid fa-phone-flip calendar-icon"></i>
+              {{ form.phone }}
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-field">
+            {{ form.secondary_phone.label }}
+
+            <div class="position-relative">
+              <i class="fa-solid fa-phone-flip calendar-icon"></i>
+              {{ form.secondary_phone }}
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-field">
+            {{ form.email.label }}
+            <div class="position-relative">
+              <i class="fa-solid fa-at calendar-icon"></i>
+              {{ form.email }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-field">
+            {{ form.iban_number.label }}
+            <div class="position-relative">
+              {{ form.iban_number }}
+              <i class="fa-solid fa-money-check-dollar calendar-icon"></i>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-md-6">
+          <div class="form-field">
+            {{ form.city.label }}
+            <div class="position-relative">
+              {{ form.city }}
+              <i class="fa-solid fa-location-dot calendar-icon"></i>
+            </div>
+          </div>
+        </div>
+     <div class="col-md-6">
+          <div class="form-field">
+            {{ form.sce_number.label }}
+            <div class="position-relative">
+              <i class="fa-solid fa-calendar-plus calendar-icon"></i>
+              {{ form.sce_number }}
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-md-6">
+          <div class="form-field">
+            {{ form.years_of_experience.label }}
+            <div class="position-relative">
+              <i class="fa-solid fa-microscope calendar-icon"></i>
+              {{ form.years_of_experience }}
+            </div>
+          </div>
+        </div>
+        <!-- ################################################# -->
+        <!-- # 1 university_degree # degree_status # degree_notes -->
+        <div class="col-md-6 lifting_card">
+          <div class="form-field">
+            {{ form.university_degree.label }}
+            <div class="card-form">
+              <div class="apply_status">
+                <div class="status-steps">
+                  <i class="fa-solid fa-circle-exclamation exclamation-icon"></i>
+                  <i class="fa-solid fa-clock clock-icon"></i>
+                  <i class="fa-solid fa-circle-xmark xmark-icon"></i>
+                  <i class="fa-solid fa-circle-check check-icon"></i>
+                </div>
+
+                <div class="status-condition">
+                  {% if file.degree_status == 'required' %}
+                  <i class="fa-solid fa-circle-exclamation exclamation-icon degree-icon"></i>
+                  {% elif file.degree_status == 'pending' %}
+                  <i class="fa-solid fa-clock clock-icon degree-icon"></i>
+                  {% elif file.degree_status == 'rejected' %}
+                  <i class="fa-solid fa-circle-xmark xmark-icon degree-icon"></i>
+                  {% elif file.degree_status == 'accepted' %}
+                  <i class="fa-solid fa-circle-check check-icon degree-icon"></i>
+                  {% else %}
+                  <i class="fa-solid fa-cloud-arrow-up send-icon degree-icon"></i>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="card-body-wrapper">
+                <input
+                  type="file"
+                  name="university_degree"
+                  id="{{ form.university_degree.id_for_label }}"
+                  class="file-input"
+                  style="display: none"
+                  accept=".pdf"
+                />
+                <label for="{{ form.university_degree.id_for_label }}" class="upload-area">
+                  <div class="upload-area-icon">📄</div>
+                  <div class="upload-area-text">
+                    <span class="main-text">اضغط هنا لرفع الشهادة الجامعية أو اسحب الملف هنا</span>
+                  </div>
+                  <div
+                    class="file-name-display"
+                    style="margin-top: 10px; font-weight: bold; display: none"
+                  ></div>
+                </label>
+              </div>
+
+              {% if form.university_degree.errors %}
+              <div class="comment-display-box degree_error">
+                {{ form.university_degree.errors.0 }}
+              </div>
+              {% elif notes.degree_notes %} {% if file.degree_status == 'required' %}
+              <div class="comment-display-box degree_error">{{notes.degree_notes}}</div>
+              {% endif %} {% elif university_degree_error %}
+              <div class="comment-display-box degree_error">{{ university_degree_error }}</div>
+              {% else %}
+              <div class="comment-display-box degree_error d-none"></div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <!-- # 2 iban_proof # iban_status # iban_notes -->
+
+        <div class="col-md-6 lifting_card">
+          <div class="form-field">
+            {{ form.iban_proof.label }}
+            <div class="card-form">
+              <div class="apply_status">
+                <div class="status-steps">
+                  <i class="fa-solid fa-circle-exclamation exclamation-icon"></i>
+                  <i class="fa-solid fa-clock clock-icon"></i>
+                  <i class="fa-solid fa-circle-xmark xmark-icon"></i>
+                  <i class="fa-solid fa-circle-check check-icon"></i>
+                </div>
+                <div class="status-condition">
+                  {% if file.iban_status == 'required' %}
+                  <i class="fa-solid fa-circle-exclamation exclamation-icon iban-icon"></i>
+                  {% elif file.iban_status == 'pending' %}
+                  <i class="fa-solid fa-clock clock-icon iban-icon"></i>
+                  {% elif file.iban_status == 'rejected' %}
+                  <i class="fa-solid fa-circle-xmark xmark-icon iban-icon"></i>
+                  {% elif file.iban_status == 'accepted' %}
+                  <i class="fa-solid fa-circle-check check-icon iban-icon"></i>
+                  {% else %}
+                  <i class="fa-solid fa-cloud-arrow-up send-icon iban-icon"></i>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="card-body-wrapper">
+                <input
+                  type="file"
+                  name="iban_proof"
+                  id="{{ form.iban_proof.id_for_label }}"
+                  class="file-input"
+                  style="display: none"
+                  accept=".pdf"
+                />
+                <label for="{{ form.iban_proof.id_for_label }}" class="upload-area">
+                  <div class="upload-area-icon">📄</div>
+                  <div class="upload-area-text">
+                    <span class="main-text">اضغط هنا لرفع إثبات الآيبان أو اسحب الملف هنا</span>
+                  </div>
+                  <div
+                    class="file-name-display"
+                    style="margin-top: 10px; font-weight: bold; display: none"
+                  ></div>
+                </label>
+              </div>
+
+              {% if form.iban_proof.errors %}
+              <div class="comment-display-box iban_error">{{ form.iban_proof.errors.0 }}</div>
+              {% elif notes.iban_notes %} {% if file.iban_status == 'required' %}
+              <div class="comment-display-box iban_error">{{notes.iban_notes}}</div>
+              {% endif %} {% elif iban_proof_error %}
+              <div class="comment-display-box iban_error">{{ iban_proof_error }}</div>
+              {% else %}
+              <div class="comment-display-box iban_error d-none"></div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <!-- # 3 sce_membership # sce_status # sce_notes -->
+        <div class="col-md-6 lifting_card">
+          <div class="form-field">
+            {{ form.sce_membership.label }}
+
+            <div class="card-form">
+              <div class="apply_status">
+                <div class="status-steps">
+                  <i class="fa-solid fa-circle-exclamation exclamation-icon"></i>
+                  <i class="fa-solid fa-clock clock-icon"></i>
+                  <i class="fa-solid fa-circle-xmark xmark-icon"></i>
+                  <i class="fa-solid fa-circle-check check-icon"></i>
+                </div>
+
+                <div class="status-condition">
+                  {% if file.sce_status == 'required' %}
+                  <i class="fa-solid fa-circle-exclamation exclamation-icon sce-icon"></i>
+                  {% elif file.sce_status == 'pending' %}
+                  <i class="fa-solid fa-clock clock-icon sce-icon"></i>
+                  {% elif file.sce_status == 'rejected' %}
+                  <i class="fa-solid fa-circle-xmark xmark-icon sce-icon"></i>
+                  {% elif file.sce_status == 'accepted' %}
+                  <i class="fa-solid fa-circle-check check-icon sce-icon"></i>
+                  {% else %}
+                  <i class="fa-solid fa-cloud-arrow-up send-icon sce-icon"></i>
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="card-body-wrapper">
+                <input
+                  type="file"
+                  name="sce_membership"
+                  id="{{ form.sce_membership.id_for_label }}"
+                  class="file-input"
+                  style="display: none"
+                  accept=".pdf"
+                />
+
+                <label for="{{ form.sce_membership.id_for_label }}" class="upload-area">
+                  <div class="upload-area-icon">📄</div>
+                  <div class="upload-area-text">
+                    <span class="main-text"
+                      >اضغط هنا لرفع عضوية هيئة المهندسين أو اسحب الملف هنا</span
+                    >
+                  </div>
+                  <div
+                    class="file-name-display"
+                    style="margin-top: 10px; font-weight: bold; display: none"
+                  ></div>
+                </label>
+              </div>
+
+              {% if form.sce_membership.errors %}
+
+              <div class="comment-display-box sce_error">{{ form.sce_membership.errors.0 }}</div>
+              {% elif notes.sce_notes %} {% if file.sce_status == 'required' %}
+              <div class="comment-display-box sce_error">{{notes.sce_notes}}</div>
+              {% endif %} {% elif sce_membership_error %}
+              <div class="comment-display-box sce_error">{{ sce_membership_error }}</div>
+
+              {% else %}
+              <div class="comment-display-box sce_error d-none"></div>
+              {% endif %}
+
+
+
+
+            </div>
+          </div>
+        </div>
+        <!-- # 4 cv_file # cv_status # sce_notes -->
+        <div class="col-md-6 lifting_card">
+          <div class="form-field">
+            {{ form.cv_file.label }}
+            <div class="card-form">
+              <div class="apply_status">
+                <div class="status-steps">
+                  <i class="fa-solid fa-circle-exclamation exclamation-icon"></i>
+                  <i class="fa-solid fa-clock clock-icon"></i>
+                  <i class="fa-solid fa-circle-xmark xmark-icon"></i>
+                  <i class="fa-solid fa-circle-check check-icon"></i>
+                </div>
+                <div class="status-condition">
+                  {% if file.cv_status == 'required' %}
+                  <i class="fa-solid fa-circle-exclamation exclamation-icon cv-icon"></i>
+                  {% elif file.cv_status == 'pending' %}
+                  <i class="fa-solid fa-clock clock-icon cv-icon"></i>
+                  {% elif file.cv_status == 'rejected' %}
+                  <i class="fa-solid fa-circle-xmark xmark-icon cv-icon"></i>
+                  {% elif file.cv_status == 'accepted' %}
+                  <i class="fa-solid fa-circle-check check-icon cv-icon"></i>
+                  {% else %}
+                  <i class="fa-solid fa-cloud-arrow-up send-icon cv-icon"></i>
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="card-body-wrapper">
+                <input
+                  type="file"
+                  name="cv_file"
+                  id="{{ form.cv_file.id_for_label }}"
+                  class="file-input"
+                  style="display: none"
+                  accept=".pdf"
+                />
+                <label for="{{ form.cv_file.id_for_label }}" class="upload-area">
+                  <div class="upload-area-icon">📄</div>
+                  <div class="upload-area-text">
+                    <span class="main-text"
+                      >اضغط هنا لرفع السيرة الذاتية (CV) أو اسحب الملف هنا</span
+                    >
+                  </div>
+                  <div
+                    class="file-name-display"
+                    style="margin-top: 10px; font-weight: bold; display: none"
+                  ></div>
+                </label>
+              </div>
+
+              {% if form.cv_file.errors %}
+              <div class="comment-display-box cv_error">{{ form.cv_file.errors.0 }}</div>
+
+              {% elif notes.cv_notes %} {% if file.cv_status == 'required' %}
+              <div class="comment-display-box cv_error">{{notes.cv_notes}}</div>
+              {% endif %} {% elif cv_file_error %}
+              <div class="comment-display-box cv_error">{{ cv_file_error }}</div>
+
+              {% else %}
+              <div class="comment-display-box cv_error d-none"></div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <!-- # 5 equipment_photos # equipment_notes # equipment_status -->
+        <div class="col-md-12 lifting_card">
+          <div class="form-field">
+            <div class="card-form">
+              <div class="apply_status">
+                <div class="status-steps">
+                  <i class="fa-solid fa-circle-exclamation exclamation-icon"></i>
+                  <i class="fa-solid fa-clock clock-icon"></i>
+                  <i class="fa-solid fa-circle-xmark xmark-icon"></i>
+                  <i class="fa-solid fa-circle-check check-icon"></i>
+                </div>
+                <div class="status-condition">
+                  {% if file.equipment_status == 'required' %}
+                  <i class="fa-solid fa-circle-exclamation exclamation-icon equipment-icon"></i>
+                  {% elif file.equipment_status == 'pending' %}
+                  <i class="fa-solid fa-clock clock-icon equipment-icon"></i>
+                  {% elif file.equipment_status == 'rejected' %}
+                  <i class="fa-solid fa-circle-xmark xmark-icon equipment-icon"></i>
+                  {% elif file.equipment_status == 'accepted' %}
+                  <i class="fa-solid fa-circle-check check-icon equipment-icon"></i>
+                  {% else %}
+                  <i class="fa-solid fa-cloud-arrow-up send-icon equipment-icon"></i>
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="card-body-wrapper">
+                <input
+                  type="file"
+                  name="equipment_photos"
+                  id="{{ form.equipment_photos.id_for_label }}"
+                  class="file-input"
+                  style="display: none"
+                  accept=".pdf"
+                />
+                <label for="{{ form.equipment_photos.id_for_label }}" class="upload-area">
+                  <div class="upload-area-icon">📄</div>
+                  <div class="upload-area-text">
+                    <span class="main-text"
+                      >اضغط هنا لرفع صور وجاهزية المعدات أو اسحب الملف هنا</span
+                    >
+                  </div>
+                  <div
+                    class="file-name-display"
+                    style="margin-top: 10px; font-weight: bold; display: none"
+                  ></div>
+                </label>
+              </div>
+
+              {% if form.equipment_photos.errors %}
+
+              <div class="comment-display-box equipment_error">
+                {{ form.equipment_photos.errors.0 }}
+
+              </div>
+              {% elif notes.equipment_notes %} {% if file.equipment_status == 'required' %}
+              <div class="comment-display-box equipment_error">{{notes.equipment_notes}}</div>
+              {% endif %} {% elif equipment_photos_error %}
+              <div class="comment-display-box equipment_error">{{equipment_photos_error}}</div>
+              {% else %}
+              <div class="comment-display-box equipment_error d-none"></div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <div id="status-container" class="col-md-5 col-12 mx-auto ">
+          {% if request.session.user is not None %}
+          <!-- Order Card -->
+          {% if file.status == 'rejected' %} {% for item in contacts %} {% if item.key == "WhatsApp"%}
+
+          <a
+            href="{{ item.link }}"
+            id="applicant-status"
+            class="contact-WhatsApp-Link orderNow fs-3"
+            style="background-color: #002b07"
+            >فريق الدعم
+            <span class="icon-left">
+              <i class="fab fa-whatsapp ms-2"></i>
+            </span>
+          </a>
+
+          {% endif %} {% endfor %} {% elif file.status == 'pending' %}
+
+          <button id="applicant-status" type="submit" class="orderNow fs-3">
+            اعاده ارسال
+            <span class="icon-left">
+              <i class="fa-solid fa-file-pdf ms-2"></i>
+            </span>
+          </button>
+          {% elif file.status == 'success' %}
+          <a
+            href="{% url 'Staff:register' %}"
+            id="applicant-status"
+            class="orderNow fs-3"
+            style="background-color: #52616f"
+            >انشاء حساب</a
+          >
+
+          {% else %}
+          <button id="applicant-status" type="submit" class="orderNow fs-3">إرسال النموذج</button>
+
+          {% endif %} {% else %}
+          <a href="{% url 'Client:login' %}" id="applicant-status" class="orderNow fs-3"
+            >تسجيل الدخول</a
+          >
+          <div class="status-card"> </div>
+          {% endif %}
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+
+<template id="tmpl-accepted">
+  <a href="{% url 'Staff:register' %}" id="applicant-status" class="orderNow fs-3" style="background-color: #52616f"
+    >انشاء حساب</a
+  >
+</template>
+
+<template id="tmpl-pending">
+  <button id="applicant-status" type="submit" class="orderNow fs-3">
+    اعاده ارسال
+    <span class="icon-left">
+      <i class="fa-solid fa-file-pdf ms-2"></i>
+    </span>
+  </button>
+</template>
+
+
+
+<template id="tmpl-rejected">
+  {% for item in contacts %} {% if item.key == "WhatsApp"%}
+  <a
+    href="{{ item.link }}"
+    id="applicant-status"
+    class="contact-WhatsApp-Link orderNow fs-3"
+    style="background-color: #002b07"
+    >فريق الدعم
+    <span class="icon-left">
+      <i class="fab fa-whatsapp ms-2"></i>
+    </span>
+  </a>
+  {% endif %} {% endfor %}
+</template>
+
+
+
+<script src="{% static 'Style/js/client/status.js' %}"></script>
+<script src="{% static 'Style/js/client/apply.js' %}"></script>
+<script>
+    const status = "{{ file.status }}";
+    if (status && status !== "None") {
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted || performance.navigation.type === 2) {
+                location.reload();
+            }
+        });
+    }
+</script>
+
+{% endblock %}

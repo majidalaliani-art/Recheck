@@ -1,0 +1,126 @@
+{% extends 'Engineer/EngineerBase.html' %}
+<!--  -->
+{% block EngineerSidebar %} {% endblock %}
+<!--  -->
+{% block footer %} {% endblock %}
+<!--  -->
+{% block staff_content %}
+
+<div class="register-dashboardd card-wrapper">
+  <div class="register-form-card card-form">
+    <form method="POST" class="needs-validation" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <div class="row g-4">
+        <div class="col-12">
+          <div class="form-field">
+            {{ form.username.label }}
+
+            <div class="position-relative">
+              {{ form.username }}
+              <i class="fa-solid fa-user calendar-icon"></i>
+            </div>
+            {% if form.username.errors %}
+            <div class="text-danger small mt-1 error-text">{{ form.username.errors.0 }}</div>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="form-field">
+            {{ form.password.label }}
+
+            <div class="position-relative">
+              {{ form.password }}
+              <i class="fa-solid fa-key calendar-icon"></i>
+            </div>
+            {% if form.password.errors %}
+            <div class="text-danger small mt-1 error-text">{{ form.password.errors.0 }}</div>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="form-field">
+            {{ form.confirm_password.label }}
+
+            <div class="position-relative">
+              {{ form.confirm_password }}
+              <i class="fa-solid fa-key calendar-icon"></i>
+            </div>
+            {% if form.confirm_password.errors %}
+            <div class="text-danger small mt-1 error-text">
+              {{ form.confirm_password.errors.0 }}
+            </div>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-field">
+            {{ form.first_name.label }}
+
+            <div class="position-relative">
+              {{ form.first_name }}
+              <i class="fa-solid fa-address-card calendar-icon"></i>
+            </div>
+            {% if form.first_name.errors %}
+            <div class="text-danger small mt-1 error-text">{{ form.first_name.errors.0 }}</div>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-field">
+            {{ form.last_name.label }}
+
+            <div class="position-relative">
+              {{ form.last_name }}
+              <i class="fa-solid fa-address-card calendar-icon"></i>
+            </div>
+            {% if form.last_name.errors %}
+            <div class="text-danger small mt-1 error-text">{{ form.last_name.errors.0 }}</div>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-field">
+            {{ form.years_of_experience.label }}
+
+            <div class="position-relative">
+              {{ form.years_of_experience }}
+              <i class="fa-solid fa-calendar-plus calendar-icon"></i>
+            </div>
+
+            {% if form.years_of_experience.errors %}
+            <div class="text-danger small mt-1 error-text">
+              {{ form.years_of_experience.errors.0 }}
+            </div>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-field">
+            {{ form.email.label }}
+
+            <div class="position-relative">
+              {{ form.email }}
+              <i class="fa-solid fa-at calendar-icon"></i>
+            </div>
+            {% if form.email.errors %}
+            <div class="text-danger small mt-1 error-text">{{ form.email.errors.0 }}</div>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="col-6 mx-auto">
+          <button type="submit" class="orderNow fs-3">إتمام التسجيل</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

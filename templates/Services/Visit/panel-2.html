@@ -1,0 +1,228 @@
+<div class="row section-inputs">
+  <div class="col-12 col-md-6 col-lg-3 section-input">
+    {{ form.building_activity.label }} {{ form.building_activity }}
+  </div>
+  <div class="col-12 col-md-6 col-lg-3 section-input">
+    {{ form.property_condition.label }} {{ form.property_condition }}
+  </div>
+  <div class="col-12 col-md-6 col-lg-6 section-input">
+    {{ form.property_owner.label }} {{ form.property_owner }}
+  </div>
+  <div class="col-12 col-md-6 col-lg-3 section-input">
+    {{ form.number_of_floors.label }} {{ form.number_of_floors }}
+  </div>
+
+  <div class="col-12 col-md-6 col-lg-3 section-input">
+    {{ form.building_license_number.label }} {{ form.building_license_number }}
+  </div>
+
+  <div class="col-12 col-md-6 col-lg-6 section-input">
+    {{ form.property_developer.label }} {{ form.property_developer }}
+  </div>
+
+  <div class="col-12 my-4">
+    <hr class="text-muted report-divider" />
+  </div>
+  <div class="col-12 col-md-6 col-lg-3 section-input">
+    {{ form.design_office.label }} {{ form.design_office }}
+  </div>
+
+  <div class="col-12 col-md-6 col-lg-3 section-input">
+    {{ form.engineering_supervisor.label }} {{ form.engineering_supervisor }}
+  </div>
+
+  <div class="col-12 col-md-6 col-lg-3 section-input">
+    {{ form.electricity_meter_number.label }} {{ form.electricity_meter_number }}
+  </div>
+  <div class="col-12 col-md-6 col-lg-3 section-input">
+    {{ form.electricity_meter_reading.label }} {{ form.electricity_meter_reading }}
+  </div>
+
+  <div class="col-12 col-md-6 col-lg-3 section-input">
+    {{ form.water_meter_number.label }} {{ form.water_meter_number }}
+  </div>
+
+  <div class="col-12 col-md-6 col-lg-3 section-input">
+    {{ form.water_meter_reading.label }} {{ form.water_meter_reading }}
+  </div>
+
+  <div class="col-12 col-md-6 col-lg-3 section-input">
+    {{ form.property_age_years.label }} {{ form.property_age_years }}
+  </div>
+  <div class="col-12 col-md-6 col-lg-3 section-input">
+    {{ form.building_area_sqm.label }}{{ form.building_area_sqm }}
+  </div>
+
+  <div class="col-12 my-4">
+    <hr class="text-muted report-divider" />
+  </div>
+  <div class="col-6">
+    <h4 class="section-subtitle my-4 text-center">شوارع مجاورة</h4>
+    <div class="Checkbox_street">
+      <div class="section-input section_checkbox">
+        {{ form.street_north.label }} {{ form.street_north }}
+      </div>
+      <div class="section-input section_checkbox">
+        {{ form.street_south.label }} {{ form.street_south }}
+      </div>
+      <div class="section-input section_checkbox">
+        {{ form.street_east.label }} {{ form.street_east }}
+      </div>
+      <div class="section-input section_checkbox">
+        {{ form.street_west.label }} {{ form.street_west }}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-6">
+    <h4 class="section-subtitle my-4 text-center">بنايات مجاورة</h4>
+    <div class="Checkbox_street">
+      <div class="section-input section_checkbox">
+        {{ form.building_north.label }} {{ form.building_north }}
+      </div>
+      <div class="section-input section_checkbox">
+        {{ form.building_south.label }} {{ form.building_south }}
+      </div>
+      <div class="section-input section_checkbox">
+        {{ form.building_east.label }} {{ form.building_east }}
+      </div>
+      <div class="section-input section_checkbox">
+        {{ form.building_west.label }} {{ form.building_west }}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 my-4">
+    <hr class="text-muted report-divider" />
+  </div>
+
+  <!-- 1. البنى التحتية -->
+  <div class="col-12">
+    <h4 class="section-subtitle my-4 text-center">البنى التحتية</h4>
+    <div class="Checkbox_street">
+      <div class="section_checkbox section-input">
+        {{ form.infra_electricity.label }} {{ form.infra_electricity }}
+      </div>
+      <div class="section_checkbox section-input">
+        {{ form.infra_water.label }} {{ form.infra_water }}
+      </div>
+      <div class="section_checkbox section-input">
+        {{ form.infra_sewage.label }} {{ form.infra_sewage }}
+      </div>
+      <div class="section_checkbox section-input">
+        {{ form.infra_asphalt.label }} {{ form.infra_asphalt }}
+      </div>
+      <div class="section_checkbox section-input">
+        {{ form.infra_lighting.label }} {{ form.infra_lighting }}
+      </div>
+      <div class="section_checkbox section-input">
+        {{ form.infra_network.label }} {{ form.infra_network }}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 my-4">
+    <hr class="text-muted report-divider" />
+  </div>
+
+  <!-- 2. مزايا أخرى للعقار -->
+  <div class="col-12">
+    <h4 class="section-subtitle my-4 text-center">مزايا أخرى للعقار</h4>
+    <div class="Checkbox_street">
+      <div class="section-input section_checkbox">
+        {{ form.feat_disabled_friendly.label }} {{ form.feat_disabled_friendly }}
+      </div>
+      <div class="section-input section_checkbox">
+        {{ form.feat_fire_system.label }} {{ form.feat_fire_system }}
+      </div>
+      <div class="section-input section_checkbox">
+        {{ form.feat_garden.label }} {{ form.feat_garden }}
+      </div>
+      <div class="section-input section_checkbox">
+        {{ form.feat_parking.label }} {{ form.feat_parking }}
+      </div>
+      <div class="section-input section_checkbox">
+        {{ form.feat_skylight.label }} {{ form.feat_skylight }}
+      </div>
+      <div class="section-input section_checkbox">
+        {{ form.feat_pool.label }} {{ form.feat_pool }}
+      </div>
+      <div class="section-input section_checkbox">
+        {{ form.feat_elevator.label }} {{ form.feat_elevator }}
+      </div>
+      <div class="section-input section_checkbox">
+        {{ form.feat_cameras.label }} {{ form.feat_cameras }}
+      </div>
+      <div class="section-input section_checkbox">
+        {{ form.feat_central_ac.label }} {{ form.feat_central_ac }}
+      </div>
+      <div class="section-input section_checkbox">
+        {{ form.feat_water_tanks.label }} {{ form.feat_water_tanks }}
+      </div>
+      <div class="section-input section_checkbox">
+        {{ form.feat_outdoor_seating.label }} {{ form.feat_outdoor_seating }}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 my-4">
+    <hr class="text-muted report-divider" />
+  </div>
+
+  <!-- 3. مستندات العقار -->
+  <div class="col-12">
+    <h4 class="section-subtitle my-4 text-center">مستندات العقار</h4>
+    <div class="Checkbox_street">
+      <div class="section-input section_checkbox">
+        {{ form.doc_building_license.label }} {{ form.doc_building_license }}
+      </div>
+      <div class="section-input section_checkbox">
+        {{ form.doc_soil_test.label }} {{ form.doc_soil_test }}
+      </div>
+      <div class="section-input section_checkbox">
+        {{ form.doc_structural_warranty.label }} {{ form.doc_structural_warranty }}
+      </div>
+      <div class="section-input section_checkbox">
+        {{ form.doc_finishes_warranty.label }} {{ form.doc_finishes_warranty }}
+      </div>
+      <div class="section-input section_checkbox">
+        {{ form.doc_architectural_plans.label }} {{ form.doc_architectural_plans }}
+      </div>
+      <div class="section-input section_checkbox">
+        {{ form.doc_structural_plans.label }} {{ form.doc_structural_plans }}
+      </div>
+      <div class="section-input section_checkbox">
+        {{ form.doc_electrical_plans.label }} {{ form.doc_electrical_plans }}
+      </div>
+      <div class="section-input section_checkbox">
+        {{ form.doc_mechanical_plans.label }} {{ form.doc_mechanical_plans }}
+      </div>
+      <div class="section-input section_checkbox">
+        {{ form.doc_survey_form.label }} {{ form.doc_survey_form }}
+      </div>
+      <div class="section-input section_checkbox">
+        {{ form.doc_eng_supervision.label }} {{ form.doc_eng_supervision }}
+      </div>
+      <div class="section-input section_checkbox">
+        {{ form.doc_rebar_report.label }} {{ form.doc_rebar_report }}
+      </div>
+    </div>
+  </div>
+
+
+  {% if status == "in_progress" %}
+  <div class="col-12 d-flex gap-2 align-items-center">
+    <button
+      type="button"
+      class="orderNow save-btn px-3 py-2 fw-bold flex-fill"
+      data-panel="2"
+      data-next="3"
+    >
+      <samp class="text fs-5 fw-bold">حفظ</samp>
+      <span class="icon-left">
+        <i class="fa-solid fa-angles-left"></i>
+      </span>
+    </button>
+  </div>
+  {% endif %}
+</div>

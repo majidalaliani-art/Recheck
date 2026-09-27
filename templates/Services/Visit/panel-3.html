@@ -1,0 +1,653 @@
+{% load static %}
+
+<div id="areas-preview-container" class="areas-container">
+  {% for area in Order.areas.all %}
+  <div id="area-card-{{ area.id }}" class="area-card collapsed-card">
+    <div class="area-card-header">
+      <!-- الجهة اليمنى: بادج المنطقة وعنوان المهندس المخصص -->
+      <div class="header-right">
+        <!-- الكلمة الثابتة من الموديل (مثل: المطبخ) -->
+        <span class="area-badge">
+          <i class="fa-solid fa-location-dot me-1"></i>
+          {{ area.get_key_display }}
+        </span>
+
+        <div class="custom-title-wrapper">
+          <input
+            type="text"
+            id="custom-title-{{ area.id }}"
+            name="custom_title_{{ area.id }}"
+            class="area-custom-input"
+            placeholder="اكتب تفاصيل المنطقة (مثال: الدور الأول)..."
+            value="{{ area.name|default:'' }}"
+            data-original-value="{{ area.name|default:'' }}"
+          />
+
+          <button type="button" class="btn-save-title" data-id="{{ area.id }}" title="حفظ التعديل">
+            <i class="fa-solid fa-floppy-disk"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- الجهة اليسرى: أزرار التحكم المختصرة (حذف وتصغير) -->
+      <div class="header-left">
+        <!-- زر الحذف الأنيق -->
+        {% if status == "in_progress" %}
+        <button
+          type="button"
+          class="btn-delete-icon dynamic-delete-btn"
+          data-id="{{ area.id }}"
+          data-name="{{ area.name|default:area.get_key_display}}"
+          data-target="#area-card-{{ area.id }}"
+          title="حذف المنطقة"
+        >
+          <i class="fa-solid fa-trash-can"></i>
+        </button>
+        {% endif %}
+
+        <!-- زر التبديل -->
+        <button type="button" class="btn-collapse-toggle" title="تكبير/تصغير">
+          <i class="fa-solid fa-chevron-up toggle-icon"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="area-card-body">
+      <div class="general_image p-4">
+        <h3 class="block-title text-center mb-3">صور عامة</h3>
+        <div class="title-separator-dashed mb-4"></div>
+
+        <div class="images-horizontal-row align-items-center">
+          <label
+            for="general-images-input-{{ area.id }}"
+            class="upload-trigger-card d-flex flex-column align-items-center justify-content-center m-0"
+          >
+            <i class="fas fa-camera mb-2"></i>
+            <span>صورة جديدة</span>
+
+            {% if status == "in_progress" %}
+            <input
+              type="file"
+              id="general-images-input-{{ area.id }}"
+              data-area-id="{{ area.id }}"
+              multiple
+              accept="image/*"
+              class="d-none general-images-input"
+            />
+            {% endif %}
+          </label>
+
+          {% for img in area.images.all %}
+          <div class="uploaded-image-wrapper gallery-preview-card" id="img-wrapper-{{ img.id }}">
+            <a
+              href="{{ img.image.url }}"
+              data-fancybox="group-{{ area.id }}"
+              class="img-click-wrapper"
+            >
+              <img src="{{ img.image.url }}" class="img-preview-file" />
+            </a>
+
+            <!-- إضافة كلاسات زر الحذف الجديدة للتطابق مع الـ SCSS -->
+            <button
+              type="button"
+              class="btn btn-danger btn-sm remove-preview-btn delete-img-btn"
+              data-id="{{ img.id }}"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="items-container mt-4">
+        <h3 class="block-title text-center mb-3">البنود</h3>
+        <div class="title-separator-dashed mb-4"></div>
+
+        <div class="item-badge-container">
+          <div id="trigger-{{ area.id }}" class="row g-3 d-flex items-trigger-block">
+            {% for item in area.items.all %}
+            <div class="col-12 col-lg-6 badge-card {{ item.key }}">
+              <div
+                class="badge-content"
+                onclick="switchViews('{{ area.id }}', 'details','{{ item.id }}', '{{ item.key }}', '{{ item.get_key_display }}')"
+              >
+                <div class="badge-icon"></div>
+                <span class="badge-title">{{ item.get_key_display }}</span>
+              </div>
+              {% if status == "in_progress" %}
+              <i
+                class="fas fa-trash-alt delete-icon"
+                data-name="{{ item.get_key_display }}"
+                data-id="{{ item.id }}"
+                title="حذف"
+              ></i>
+              {% endif %}
+            </div>
+            {% endfor %} {% if status == "in_progress" %}
+            <div class="col-12 mt-3 add-item-wrapper">
+              <button class="orderNow btn-add-item" onclick="switchViews('{{ area.id }}', 'list')">
+                <samp class="text fs-5 fw-bold">إضافة</samp>
+                <span class="icon-left">
+                  <i class="fas fa-plus"></i>
+                </span>
+              </button>
+            </div>
+            {% endif %}
+          </div>
+          {% if status == "in_progress" %}
+          <div id="list-{{ area.id }}" class="d-none items-list-block">
+            <div class="items-selection-group">
+              {% for item in inspection_items %}
+              <div class="item-tile">
+                <input
+                  type="checkbox"
+                  id="item-{{ item.slug }}-{{ area.id }}"
+                  class="item-checkbox"
+                  value="{{ item.slug }}"
+                />
+                <label for="item-{{ item.slug }}-{{ area.id }}" class="item-label">
+                  <i class="fas fa-check-circle checkmark-icon"></i>
+                  <i class="{{ item.icon_class }} main-icon"></i>
+                  <span class="item-text">{{ item.name_ar }}</span>
+                </label>
+              </div>
+              {% endfor %}
+            </div>
+
+            <div class="mt-3 list-actions-wrapper">
+              <!-- 2. أضفنا كلاس مخصص لزر الإلغاء هنا: cancel-inspection-btn -->
+              <button
+                class="orderNow cancel-inspection-btn"
+                onclick="switchViews('{{ area.id }}','trigger')"
+              >
+                <samp class="text fs-5 fw-bold">إلغاء</samp>
+              </button>
+
+              <!-- كرت الإنشاء جاهز ومعرّف بكلاس مخصص ممتاز -->
+              <button class="orderNow submit-inspection-btn" data-area-id="{{ area.id }}">
+                <samp class="text fs-5 fw-bold">إنشاء</samp>
+              </button>
+            </div>
+          </div>
+          {% endif %}
+
+          <div id="details-{{ area.id }}" class="d-none item-details-block">
+            <div class="mt-3 list-actions-wrapper">
+              <button
+                class="orderNow btn-outline active"
+                onclick="switchViews('{{ area.id }}', 'form')"
+              >
+                <samp class="text fs-5 fw-bold">النموذج</samp>
+              </button>
+              <button
+                class="orderNow btn-outline"
+                onclick="switchViews('{{ area.id }}', 'evaluations')"
+              >
+                <samp class="text fs-5 fw-bold">التقييمات</samp>
+              </button>
+            </div>
+
+            <div id="form-{{ area.id }}" class="d-none form-wrapper sub-view-section">
+              <h4 class="details-title fw-bold mb-3 text-primary"></h4>
+              {% if status == "in_progress" %}
+              <label class="uploadBox my-upload-zone" data-key="" data-id="">
+                <div class="my-upload-header d-flex gap-2 mb-1">
+                  <i class="fa-solid fa-camera-retro my-icon"></i>
+                  <span class="my-title fw-bold">اضغط هنا لالتقاط صورة أو اختيار صورة</span>
+                </div>
+                <span class="my-hint text-muted d-block">يدعم الكاميرا والمستندات</span>
+
+                <input
+                  type="file"
+                  class="file-input d-none"
+                  accept="image/*"
+                  onchange="handleFileChange(this)"
+                />
+              </label>
+              {% endif %}
+              <samp class="title-separator-dashed"></samp>
+              <div class="row g-3 w-100 upload-cards-wrapper">
+                {% for items in area.items.all %} {% for images in items.images.all %}
+                <div
+                  id="dynamic-upload-card-{{ images.id }}"
+                  class="col-12 col-md-6 dynamic-upload-card"
+                  data-key="{{ images.item.key }}"
+                >
+                  <div class="upload-file-card">
+                    <!-- زر الـ X الأحمر (خارج المربع) -->
+                    {% if status == "in_progress" %}
+                    <button type="button" class="btn-delete-file" data-id="{{ images.id }}">
+                      <i class="fa-solid fa-xmark"></i>
+                    </button>
+                    {% endif %}
+
+                    <!-- 1. شريط الصورة والمعلومات -->
+                    <div class="file-info-bar">
+                      <a class="thumb-box" data-fancybox href="{{ images.image.url }}">
+                        <img data-file-thumb src="{{ images.image.url }}" alt="" />
+                      </a>
+                    </div>
+
+                    <!-- 2. قسم إضافة التعليق -->
+                    <div class="comment-section">
+                      <textarea class="comment-input" rows="4" placeholder="اكتب تعليقك هنا...">
+{{ images.comment }}</textarea
+                      >
+                    </div>
+
+                    <div class="card-actions-section mt-3">
+                      {% if status == "in_progress" %}
+                      <button
+                        type="button"
+                        class="orderNow btn-update-file"
+                        data-id="{{ images.id }}"
+                      >
+                        تعديل
+                      </button>
+
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+                {% endfor %} {% endfor %}
+              </div>
+            </div>
+            <div
+              id="evaluations-{{ area.id }}"
+              class="d-none w-100 row g-3 evaluations-wrapper sub-view-section"
+            >
+              {% for item in area.items.all %}
+
+              <div id="evaluation-{{ item.id }}" class="evaluation-card col-12 col-lg-6">
+                <!-- الجزء العلوي: العنوان والزر -->
+                <div class="card-top-bar">
+                  <h6 class="item-title">{{ item.get_key_display }}</h6>
+
+                  <input
+                    class="toggle-switch item-switch"
+                    type="checkbox"
+                    role="switch"
+                    id="switch-{{ item.id }}"
+
+                    {% if item.is_available %}checked{% endif %}
+                  />
+                </div>
+
+                <!-- الجزء السفلي: السلايدر والدرجة -->
+                <div
+                  class="card-bottom-bar {% if item.is_available %}active-bar{% else %}disabled-bar{% endif %}"
+                  id="score-wrapper-{{ item.id }}"
+                >
+                  <div class="score-header">
+                    <span class="score-label">درجة التقييم</span>
+                    <span class="score-value" id="score-val-{{ item.id }}">
+                      %{{ item.score|default:0 }}
+                    </span>
+                  </div>
+
+                  <input
+                    type="range"
+                    class="form-range eval-range"
+                    min="0"
+                    max="100"
+                    step="10"
+                    value="{{ item.score|default:0 }}"
+                    id="range-{{ item.id }}"
+                    {% if not item.is_available %}disabled{% endif %}
+                  />
+                </div>
+              </div>
+
+              {% endfor %} {% if status == "in_progress" %}
+              <div class="col-12">
+                <button class="orderNow btn-save-evaluations">
+                  <samp class="text fs-5 fw-bold">حفظ التقييمات</samp>
+                </button>
+              </div>
+              {% endif %}
+            </div>
+
+            <button class="orderNow btn-add-item" onclick="switchViews('{{ area.id }}', 'trigger')">
+              <samp class="text fs-5 fw-bold">رجوع</samp>
+              <span class="icon-left">
+                <i class="fa-solid fa-left-long"></i>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endfor %}
+</div>
+
+<br />
+<div class="add-inspection-wrapper d-flex align-items-center justify-content-between p-2">
+  <span class="add-text fw-bold">إضافة عنصر فحص</span>
+
+  <div class="middle-bar flex-grow-1 mx-3 py-2 text-center fw-bold">
+    <span>تقييم عام</span>
+  </div>
+  {% if status == "in_progress" %} {% if Order.Request.inspection_type.key == "complete" %}
+
+  <button
+    class="plus-btn d-flex align-items-center orderNow justify-content-center"
+    id="btn-trigger-modal"
+  >
+    <i class="fa-solid fa-plus"></i>
+  </button>
+
+  {% elif Order.Request.inspection_type.key == "standard" %}
+  <button
+    class="plus-btn d-flex align-items-center orderNow justify-content-center add-area-btn"
+    data-key="general"
+    id="add-public-area-btn"
+  >
+    <i class="fa-solid fa-plus"></i>
+  </button>
+
+  {% endif %} {% else %}
+  <button
+    class="plus-btn d-flex align-items-center orderNow justify-content-center" >
+    <i class="fa-solid fa-lock"></i>
+  </button>
+  {% endif %}
+</div>
+
+<script src="{% static 'Style/js/Services/Visit/panel-3.js' %}"></script>
+
+<!-- //////////////////////////////////////// -->
+
+<template id="area-card-template">
+  <div id="area-card-TEMP_ID" class="area-card collapsed-card">
+    <!-- 1. الهيدر الخاص بالكرت -->
+
+    <div class="area-card-header">
+      <div class="header-right">
+        <span class="area-badge">
+          <i class="fa-solid fa-location-dot me-1"></i>
+          TEMP_DISPLAY
+        </span>
+
+        <div class="custom-title-wrapper">
+          <input
+            type="text"
+            id="custom-title-TEMP_ID"
+            name="custom_title_TEMP_ID"
+            class="area-custom-input"
+            placeholder="اكتب تفاصيل المنطقة (مثال: الدور الأول)..."
+            value=""
+            data-original-value=""
+          />
+          <button type="button" class="btn-save-title" data-id="TEMP_ID" title="حفظ التعديل">
+            <i class="fa-solid fa-floppy-disk"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="header-left">
+        <button
+          type="button"
+          class="btn-delete-icon dynamic-delete-btn"
+          data-id="TEMP_ID"
+          data-name="TEMP_NAME"
+          data-target="#area-card-TEMP_ID"
+          title="حذف المنطقة"
+        >
+          <i class="fa-solid fa-trash-can"></i>
+        </button>
+
+        <button type="button" class="btn-collapse-toggle" title="تكبير/تصغير">
+          <i class="fa-solid fa-chevron-up toggle-icon"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- 2. جسم الكرت (تم إزالة التكرار) -->
+    <div class="area-card-body">
+      <!-- قسم رفع الصور العامة -->
+      <div class="general_image p-4">
+        <h3 class="block-title text-center mb-3">صور عامة</h3>
+        <div class="title-separator-dashed mb-4"></div>
+
+        <div class="images-horizontal-row align-items-center" id="images-container-TEMP_ID">
+          <label
+            for="general-images-input-TEMP_ID"
+            class="upload-trigger-card d-flex flex-column align-items-center justify-content-center m-0"
+          >
+            <i class="fas fa-camera mb-2"></i>
+            <span>صورة جديدة</span>
+            <input
+              type="file"
+              id="general-images-input-TEMP_ID"
+              data-area-id="TEMP_ID"
+              multiple
+              accept="image/*"
+              class="d-none general-images-input"
+            />
+          </label>
+          <!-- الصور المرفوعة حديثاً سيتم حقنها هنا عبر الجافا سكريبت -->
+        </div>
+      </div>
+
+      <!-- قسم البنود الـ 13 -->
+      <div class="items-container mt-4">
+        <h3 class="block-title text-center mb-3">البنود</h3>
+        <div class="title-separator-dashed mb-4"></div>
+
+        <div class="item-badge-container">
+          <!-- الواجهة الافتراضية للبنود المضافة -->
+          <div id="trigger-TEMP_ID" class="row g-3 d-flex items-trigger-block">
+            <!-- البنود المختارة تظهر هنا لاحقاً -->
+            <div class="col-12 mt-3 add-item-wrapper">
+              <button class="orderNow btn-add-item" onclick="switchViews('TEMP_ID', 'list')">
+                <samp class="text fs-5 fw-bold">إضافة</samp>
+
+                <span class="icon-left">
+                  <i class="fas fa-plus"></i>
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <!-- قائمة اختيار البنود (مخفية وتظهر عند الضغط على إضافة) -->
+          <div id="list-TEMP_ID" class="d-none items-list-block">
+            <div class="items-selection-group">
+              <!-- دجانجو هيطبع البنود الـ 13 داخل المطبعة مرة واحدة عند تحميل الصفحة -->
+              {% for item in inspection_items %}
+
+              <div class="item-tile">
+                <input
+                  type="checkbox"
+                  id="item-{{ item.slug }}-TEMP_ID"
+                  class="item-checkbox"
+                  value="{{ item.slug }}"
+                />
+                <label for="item-{{ item.slug }}-TEMP_ID" class="item-label">
+                  <i class="fas fa-check-circle checkmark-icon"></i>
+                  <i class="{{ item.icon_class }} main-icon"></i>
+                  <span class="item-text">{{ item.name_ar }}</span>
+                </label>
+              </div>
+              {% endfor %}
+            </div>
+
+            <!-- أزرار التحكم بالإنشاء والإلغاء داخل الكرت -->
+            <div class="mt-3 list-actions-wrapper">
+              <!-- 2. أضفنا كلاس مخصص لزر الإلغاء هنا: cancel-inspection-btn -->
+              <button
+                class="orderNow cancel-inspection-btn"
+                onclick="switchViews('TEMP_ID', 'trigger')"
+              >
+                <samp class="text fs-5 fw-bold">إلغاء</samp>
+              </button>
+
+              <!-- كرت الإنشاء جاهز ومعرّف بكلاس مخصص ممتاز -->
+              <button class="orderNow submit-inspection-btn" data-area-id="TEMP_ID">
+                <samp class="text fs-5 fw-bold">إنشاء</samp>
+              </button>
+            </div>
+          </div>
+
+          <div id="details-TEMP_ID" class="d-none item-details-block">
+            <div class="mt-3 list-actions-wrapper">
+              <button class="orderNow btn-outline active" onclick="switchViews('TEMP_ID', 'form')">
+                <samp class="text fs-5 fw-bold">النموذج</samp>
+              </button>
+              <button class="orderNow btn-outline" onclick="switchViews('TEMP_ID', 'evaluations')">
+                <samp class="text fs-5 fw-bold">التقييمات</samp>
+              </button>
+            </div>
+
+            <div id="form-TEMP_ID" class="d-none form-wrapper sub-view-section">
+              <h4 class="details-title fw-bold mb-3 text-primary"></h4>
+              <label class="uploadBox my-upload-zone" data-key="" data-id="">
+                <div class="my-upload-header d-flex gap-2 mb-1">
+                  <i class="fa-solid fa-camera-retro my-icon"></i>
+                  <span class="my-title fw-bold">اضغط هنا لالتقاط صورة أو اختيار صورة</span>
+                </div>
+                <span class="my-hint text-muted d-block">يدعم الكاميرا والمستندات</span>
+
+                <input
+                  type="file"
+                  class="file-input d-none"
+                  accept="image/*"
+                  onchange="handleFileChange(this)"
+                />
+              </label>
+              <samp class="title-separator-dashed"></samp>
+              <div class="row g-3 w-100 upload-cards-wrapper"></div>
+            </div>
+            <div
+              id="evaluations-TEMP_ID"
+              class="d-none w-100 row g-3 evaluations-wrapper sub-view-section"
+            >
+              <div class="col-12">
+                <button class="orderNow btn-save-evaluations">
+                  <samp class="text fs-5 fw-bold">حفظ التقييمات</samp>
+                </button>
+              </div>
+            </div>
+
+            <button class="orderNow btn-add-item" onclick="switchViews('TEMP_ID', 'trigger')">
+              <samp class="text fs-5 fw-bold">رجوع</samp>
+              <span class="icon-left">
+                <i class="fa-solid fa-left-long"></i>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<!-- //////////////////////////////////////// -->
+<template id="image-preview-template">
+  <div class="uploaded-image-wrapper gallery-preview-card" id="img-wrapper-TEMP_ID">
+    <a href="TEMP_URL" data-fancybox="group-TEMP_AREA_ID" class="img-click-wrapper">
+      <img src="TEMP_URL" class="img-preview-file" />
+    </a>
+
+    <button
+      type="button"
+      class="btn btn-danger btn-sm remove-preview-btn delete-img-btn"
+      data-id="TEMP_ID"
+    >
+      <i class="fas fa-trash"></i>
+    </button>
+  </div>
+</template>
+<!-- //////////////////////////////////////// -->
+<template id="badge-template">
+  <div class="col-12 col-lg-6 badge-card TEMP_KEY">
+    <div
+      class="badge-content"
+      onclick="switchViews('AREAE_ID', 'details', 'TEMP_ID', 'TEMP_KEY', 'TEMP_TITLE')"
+    >
+      <div class="badge-icon"></div>
+      <span class="badge-title">TEMP_TITLE</span>
+    </div>
+    <i
+      class="fas fa-trash-alt delete-icon"
+      data-name="TEMP_TITLE"
+      data-id="TEMP_ID"
+      title="حذف"
+    ></i>
+  </div>
+</template>
+
+<!-- /////////////////////// -->
+
+<template id="upload-file-card-template">
+  <div class="col-12 col-md-6 dynamic-upload-card" data-key="">
+    <div class="upload-file-card">
+      <!-- زر الـ X الأحمر (خارج المربع) -->
+      <button type="button" class="card-delete-btn">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <!-- 1. شريط الصورة والمعلومات -->
+      <div class="file-info-bar">
+        <a class="thumb-box" data-fancybox>
+          <img data-file-thumb src="" alt="" />
+        </a>
+        <input type="file" class="hidden-image-input d-none" name="image" />
+      </div>
+
+      <!-- 2. قسم إضافة التعليق -->
+      <div class="comment-section">
+        <textarea
+          class="comment-input"
+          rows="4"
+          placeholder="اكتب تعليقك على الصورة هنا..."
+        ></textarea>
+      </div>
+
+      <div class="card-actions-section mt-3">
+        <button type="button" class="orderNow btn-save-file" data-id="">حفظ</button>
+        <button type="button" class="orderNow btn-update-file d-none" data-id="">تعديل</button>
+        <button type="button" class="orderNow btn-delete-card d-none">حذف</button>
+      </div>
+    </div>
+  </div>
+</template>
+<!-- ////////// -->
+<template id="evaluation-card-template">
+  <div id="evaluation-TEMP_ID" class="evaluation-card col-12 col-lg-6">
+    <!-- الجزء العلوي: العنوان والزر (مفعل تلقائياً) -->
+
+    <div class="card-top-bar">
+      <h6 class="item-title">TEMP_TITLE</h6>
+
+      <input
+        class="toggle-switch item-switch"
+        type="checkbox"
+        role="switch"
+        id="switch-TEMP_ID"
+        checked
+      />
+    </div>
+
+    <!-- الجزء السفلي: السلايدر والدرجة (نشط وشغال تلقائياً) -->
+
+    <div class="card-bottom-bar active-bar" id="score-wrapper-TEMP_ID">
+      <div class="score-header">
+        <span class="score-label">نسبة الضرر</span>
+        <span class="score-value" id="score-val-TEMP_ID"> %TEMP_SCORE </span>
+      </div>
+
+      <input
+        type="range"
+        class="form-range eval-range"
+        min="0"
+        max="100"
+        value="TEMP_SCORE"
+        id="range-TEMP_ID"
+        checked
+      />
+    </div>
+  </div>
+</template>

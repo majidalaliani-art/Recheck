@@ -1,0 +1,749 @@
+{% extends 'Client/CientBase.html' %} {% block client_content %} {% load static %}
+
+<div class="homepage-wrapper">
+  <section class="main-hero-slider">
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="slide-content">
+            <video class="hero-video" autoplay loop muted playsinline>
+              <source src="static/images/Client/home/img3.mp4" type="video/mp4" />
+            </video>
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="slide-content">
+            <img src="static/images/Client/home/img1.jpeg" class="hero-img" alt="Hero Image 1" />
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="slide-content">
+            <img src="static/images/Client/home/img2.jpeg" class="hero-img" alt="Hero Image 2" />
+          </div>
+        </div>
+      </div>
+
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </section>
+
+  <section id="services" class="tk__about__section">
+    <div class="tk__header_center">
+      <h2 class="tk__title">خدماتنا</h2>
+    </div>
+    <!-- <h4 class="star__orange my-4 animate__animated animate__fadeIn animate__slow">
+
+    </h4> -->
+    <!-- prettier-ignore -->
+    <div class="tk__pricing mt-2 mt-lg-0 container-fluid">
+    <!-- prettier-ignore -->
+    {% for item in services %}
+      <!-- APARTMENT -->
+      {% if item.key == "apartment" %}
+      <div class="tk__pricing__card animate__animated">
+        <div class="tk__image-wrapper">
+          <img src="{% static 'images/Client/home/services5.png'%}" alt="Property Image" class="tk__floating-img">
+        </div>
+
+        <div class="tk__content-wrapper">
+          <div class="tk__header">
+            <h3 class="tk__title">شقة / طابق</h3>
+          </div>
+
+          <ul class="tk__features">
+            <li class="tk__description">
+              زيارة عقارك، سواء كان شقة أو طابق، وإجراء فحص احترافي. نوفر لك تقريرًا إلكترونيًا تفاعليًا يتضمن جميع الملاحظات والصور الخاصة بحالة العقار
+            </li>
+
+            <li class="tk__price-box">
+              <div class="tk__price d-flex align-items-center justify-content-center">
+                <span class="text-muted">تبدأ من</span>
+                <span class="price-value apartment_std">{{ item.std_price|floatformat:0 }}</span>
+                <small class="icon-saudi_riyal_bold ms-1"></small>
+              </div>
+              <div class="tk__area-badge">
+                <span class="badge">لمساحة <samp class="apartment_free">{{ item.free_meters }}</samp> م² أو أقل</span>
+              </div>
+            </li>
+          </ul>
+
+
+      <div class="tk__action">
+        <a href="{% url 'Client:booking' %}?property={{ item.key }}" class="orderNow">
+          <span class="text">التسعير وطلب الخدمة</span>
+          <span class="icon-left">
+            <i class="fa-solid fa-chevron-left"></i>
+          </span>
+        </a>
+      </div>
+
+      </div>
+
+      </div>
+      {% endif %}
+
+      <!-- VILLA -->
+      {% if item.key == "villa" %}
+      <div class="tk__pricing__card animate__animated">
+        <div class="tk__image-wrapper">
+          <img src="{% static 'images/Client/home/services1.png'%}" alt="Property Image" class="tk__floating-img">
+        </div>
+
+        <div class="tk__content-wrapper">
+          <div class="tk__header">
+            <h3 class="tk__title">فيلا / دوبلكس</h3>
+          </div>
+
+          <ul class="tk__features">
+            <li class="tk__description">
+              زيارة عقارك، سواء كان شقة أو طابق، وإجراء فحص احترافي. نوفر لك تقريرًا إلكترونيًا
+              تفاعليًا يتضمن جميع الملاحظات والصور الخاصة بحالة العقار
+            </li>
+
+            <li class="tk__price-box">
+              <div class="tk__price d-flex align-items-center justify-content-center">
+                <span class="text-muted">تبدأ من</span>
+                <span class="price-value villa_std">{{ item.std_price|floatformat:0 }}</span>
+                <small class="icon-saudi_riyal_bold ms-1"></small>
+              </div>
+              <div class="tk__area-badge">
+                <span class="badge">لمساحة <samp class="villa_free">{{ item.free_meters }}</samp> م² أو أقل</span>
+              </div>
+            </li>
+          </ul>
+
+
+          <div class="tk__action">
+            <a href="{% url 'Client:booking' %}?property={{ item.key }}" class="orderNow">
+              <span class="text">التسعير وطلب الخدمة</span>
+              <span class="icon-left">
+                <i class="fa-solid fa-chevron-left ms-2"></i>
+              </span>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+      {% endif %}
+
+      <!-- consultation -->
+
+      {% if item.key == "consultation" %}
+      <div class="tk__pricing__card animate__animated">
+        <div class="tk__image-wrapper">
+          <img src="{% static 'images/Client/home/services6.png'%}" alt="Property Image" class="tk__floating-img">
+        </div>
+
+        <div class="tk__content-wrapper">
+          <div class="tk__header">
+            <h3 class="tk__title">الاستشارات</h3>
+          </div>
+
+          <ul class="tk__features">
+            <li class="tk__description">
+             تستطيع الحصول على استشارة من احد المهندسين المتخصصين في المجال الذي تهتم به وتكون الاستشارة مسجلة وتستطيع الرجوع لها في اي وقت
+            </li>
+
+            <li class="tk__price-box">
+              <div class="tk__price d-flex align-items-center justify-content-center">
+                <span class="text-muted">تكلفة الاستشارة</span>
+                <span id="price-consultation" class="price-value">{{ item.total_price|floatformat:0 }}</span>
+                <small class="icon-saudi_riyal_bold ms-1"></small>
+              </div>
+              <div class="tk__area-badge">
+
+                <span class="badge">مدة الاستشارة: <span id="duration-consultation">{{ item.duration_minutes|default:60 }}</span> دقيقة <i class="fa-solid fa-hourglass-clock"></i>
+                </span>
+
+              </div>
+            </li>
+
+          </ul>
+
+
+          <div class="tk__action">
+            <a href="{% url 'Client:consultation' %}" class="orderNow">
+              <span class="text">حجز موعد استشاره</span>
+              <span class="icon-left">
+                <i class="fa-solid fa-chevron-left"></i>
+              </span>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+      {% endif %}
+
+      <!-- others -->
+      {% if item.key == "others" %}
+      <div class="tk__pricing__card tk__pricing__card_others animate__animated">
+        <div class="tk__image-wrapper">
+          <img src="{% static 'images/Client/home/services3.png'%}" alt="Property Image" class="tk__floating-img">
+        </div>
+
+        <div class="tk__content-wrapper">
+          <div class="tk__header">
+            <h3 class="tk__title">الخدمات الأخرى</h3>
+          </div>
+
+          <ul class="tk__features">
+            <li class="tk__description">
+             فحص نوع عقار مختلف عن الأنواع المذكورة، وإذا كنت بحاجة إلى مزيد من المعلومات حول خدماتنا في مجال فحص العقارات. فنحن هنا لمساعدتك!
+            </li>
+            <div class="tk__price-box">
+              <div class="tk__price d-flex align-items-center justify-content-center">
+
+              </div>
+            </div>
+          </ul>
+
+          <div class="tk__action">
+            <a target="_blank" href="{{ item.whatsapp }}" class="contact-whatsapp orderNow">
+              <span class="text">استفسر عبر واتساب</span>
+              <span class="icon">
+                <i class="fab fa-whatsapp"></i>
+              </span>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+      {% endif %}
+
+
+
+    {% endfor %}
+    </div>
+  </section>
+
+  <section id="inspection" class="tk__about__section">
+    <div class="tk__header_center">
+      <h2 class="tk__title">بنود فحص وتقييم العقار</h2>
+    </div>
+    <div class="container">
+      <div class="cards-container">
+        <!-- كرت -->
+        <div class="inspect-card">
+          <div class="card-header">
+            <img src="{% static 'images/Client/home/bricks.png'%}" alt="" />
+            <span>فحص الأسقف والجدران</span>
+          </div>
+          <ul class="inspect-card-list">
+            <li><i class="fa-regular fa-left-from-bracket"></i>التشققات والتصدعات</li>
+            <li><i class="fa-regular fa-left-from-bracket"></i>الدهانات والديكورات</li>
+            <li><i class="fa-regular fa-left-from-bracket"></i>فتحات الصيانة</li>
+            <li><i class="fa-regular fa-left-from-bracket"></i>آثار الرطوبة</li>
+          </ul>
+        </div>
+
+        <!-- كرت -->
+        <div class="inspect-card">
+          <div class="card-header">
+            <img src="{% static 'images/Client/home/socket.png'%}" alt="" />
+            <span>فحص وتقييم الكهرباء</span>
+          </div>
+          <ul class="inspect-card-list">
+            <li><i class="fa-regular fa-left-from-bracket"></i>الأفياش ووحدات الإنارة</li>
+            <li><i class="fa-regular fa-left-from-bracket"></i>لوحة التحكم (الطبلون)</li>
+            <li><i class="fa-regular fa-left-from-bracket"></i>حالة تجهيزات الإضاءة</li>
+            <li><i class="fa-regular fa-left-from-bracket"></i>السلامة الكهربائية</li>
+          </ul>
+        </div>
+
+        <!-- كرت -->
+        <div class="inspect-card">
+          <div class="card-header">
+            <img src="{% static 'images/Client/home/plumbing-pipe-svgrepo-com.svg'%}" alt="" />
+            <span>فحص السباكة</span>
+          </div>
+          <ul class="inspect-card-list">
+            <li><i class="fa-regular fa-left-from-bracket"></i>ميول الأرضيات</li>
+            <li><i class="fa-regular fa-left-from-bracket"></i>الأدوات الصحية</li>
+            <li><i class="fa-regular fa-left-from-bracket"></i>المواسير الظاهرة</li>
+            <li><i class="fa-regular fa-left-from-bracket"></i>الخزان والمضخة</li>
+          </ul>
+        </div>
+
+        <!-- كرت -->
+        <div class="inspect-card">
+          <div class="card-header">
+            <img src="{% static 'images/Client/home/floor.png'%}" alt="" />
+            <span>الأرضيات</span>
+          </div>
+          <ul class="inspect-card-list">
+            <li><i class="fa-regular fa-left-from-bracket"></i>التشطيب</li>
+            <li><i class="fa-regular fa-left-from-bracket"></i>التطبيل</li>
+            <li><i class="fa-regular fa-left-from-bracket"></i>النعلات</li>
+            <li><i class="fa-regular fa-left-from-bracket"></i>فواصل التمدد</li>
+          </ul>
+        </div>
+        <!-- كرت -->
+        <div class="inspect-card">
+          <div class="card-header">
+            <img src="{% static 'images/Client/home/front-door.png'%}" alt="" />
+            <span>الأبواب والنوافذ</span>
+          </div>
+          <ul class="inspect-card-list">
+            <li><i class="fa-regular fa-left-from-bracket"></i>الإطار والمفصلات</li>
+            <li><i class="fa-regular fa-left-from-bracket"></i>التشطيب</li>
+            <li><i class="fa-regular fa-left-from-bracket"></i>العزل الحراري</li>
+            <li><i class="fa-regular fa-left-from-bracket"></i>العزل المائي</li>
+          </ul>
+        </div>
+
+        <!-- كرت -->
+        <div class="inspect-card">
+          <div class="card-header">
+            <img src="{% static 'images/Client/home/exterior.png'%}" alt="" />
+            <span>العناصر الخارجية</span>
+          </div>
+          <ul class="inspect-card-list">
+            <li><i class="fa-regular fa-left-from-bracket"></i>الواجهات</li>
+            <li><i class="fa-regular fa-left-from-bracket"></i>السور</li>
+            <li><i class="fa-regular fa-left-from-bracket"></i>فواصل التمدد</li>
+            <li><i class="fa-regular fa-left-from-bracket"></i>مكافحة الحريق</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="report" class="tk__about__section">
+    <div class="tk__header_center">
+      <h2 class="tk__title">تقرير شامل</h2>
+    </div>
+
+    <div class="star__orange">
+      <div class="d-none d-lg-block my-5"></div>
+      <div class="fw-bold h5 mb-4 text-orange lh-lg">تقرير تأكد التفاعلي شامل لكل عناصر العقار</div>
+      <div class="d-none d-lg-block my-5"></div>
+      <div class="my-2">
+        <svg
+          class="star__svg"
+          width="11"
+          height="11"
+          xmlns="http://www.w3.org/2000/svg"
+          version="1.1"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <g>
+            <path
+              d="M 4.5,-0.5 C 4.83333,-0.5 5.16667,-0.5 5.5,-0.5C 5.83333,2.5 7.5,4.16667 10.5,4.5C 10.5,4.83333 10.5,5.16667 10.5,5.5C 7.5,5.83333 5.83333,7.5 5.5,10.5C 5.16667,10.5 4.83333,10.5 4.5,10.5C 4.16667,7.5 2.5,5.83333 -0.5,5.5C -0.5,5.16667 -0.5,4.83333 -0.5,4.5C 2.5,4.16667 4.16667,2.5 4.5,-0.5 Z"
+            ></path>
+          </g>
+        </svg>
+        <span class="ps-2">تقرير إحترافي يستند على معايير هندسية دقيقة</span>
+      </div>
+      <div class="my-2">
+        <svg
+          class="star__svg"
+          width="11"
+          height="11"
+          xmlns="http://www.w3.org/2000/svg"
+          version="1.1"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <g>
+            <path
+              d="M 4.5,-0.5 C 4.83333,-0.5 5.16667,-0.5 5.5,-0.5C 5.83333,2.5 7.5,4.16667 10.5,4.5C 10.5,4.83333 10.5,5.16667 10.5,5.5C 7.5,5.83333 5.83333,7.5 5.5,10.5C 5.16667,10.5 4.83333,10.5 4.5,10.5C 4.16667,7.5 2.5,5.83333 -0.5,5.5C -0.5,5.16667 -0.5,4.83333 -0.5,4.5C 2.5,4.16667 4.16667,2.5 4.5,-0.5 Z"
+            ></path>
+          </g>
+        </svg>
+        <span class="ps-2">عرض الصور والملاحظات بطريقة تفاعلية</span>
+      </div>
+      <div class="my-2">
+        <svg
+          class="star__svg"
+          width="11"
+          height="11"
+          xmlns="http://www.w3.org/2000/svg"
+          version="1.1"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <g>
+            <path
+              d="M 4.5,-0.5 C 4.83333,-0.5 5.16667,-0.5 5.5,-0.5C 5.83333,2.5 7.5,4.16667 10.5,4.5C 10.5,4.83333 10.5,5.16667 10.5,5.5C 7.5,5.83333 5.83333,7.5 5.5,10.5C 5.16667,10.5 4.83333,10.5 4.5,10.5C 4.16667,7.5 2.5,5.83333 -0.5,5.5C -0.5,5.16667 -0.5,4.83333 -0.5,4.5C 2.5,4.16667 4.16667,2.5 4.5,-0.5 Z"
+            ></path>
+          </g>
+        </svg>
+        <span class="ps-2">مؤشرات رقمية تفصيلية عن نقاط وبنود الفحص</span>
+      </div>
+      <div class="my-2">
+        <svg
+          class="star__svg"
+          width="11"
+          height="11"
+          xmlns="http://www.w3.org/2000/svg"
+          version="1.1"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <g>
+            <path
+              d="M 4.5,-0.5 C 4.83333,-0.5 5.16667,-0.5 5.5,-0.5C 5.83333,2.5 7.5,4.16667 10.5,4.5C 10.5,4.83333 10.5,5.16667 10.5,5.5C 7.5,5.83333 5.83333,7.5 5.5,10.5C 5.16667,10.5 4.83333,10.5 4.5,10.5C 4.16667,7.5 2.5,5.83333 -0.5,5.5C -0.5,5.16667 -0.5,4.83333 -0.5,4.5C 2.5,4.16667 4.16667,2.5 4.5,-0.5 Z"
+            ></path>
+          </g>
+        </svg>
+        <span class="ps-2">استعراض الملاحظات حسب العنصر والتصنيف</span>
+      </div>
+    </div>
+
+    <div class="tk__action">
+      <a href="#" class="orderNow">
+        <span class="text">استعراض نموذج التقرير</span>
+        <div class="icon">
+          <i class="fa-solid fa-eye"></i>
+        </div>
+      </a>
+    </div>
+
+    <div class="tk__content_wrapper-img">
+      <img
+        src="{% static 'images/Client/home/report.jpg'%}"
+        class="hero-img"
+        alt="Hero Image report"
+      />
+    </div>
+  </section>
+
+  <section id="coverage-area" class="tk__about__section">
+    <div class="tk__header_center">
+      <h2 class="tk__title">نطاق التغطية</h2>
+    </div>
+
+    <div class="map-wrapper">
+      <div id="map" class="map"></div>
+    </div>
+  </section>
+
+  <section class="tk__about__section">
+    <div class="tk__header_center">
+      <h2 class="tk__title">لماذا تحتاج لفحص العقار؟</h2>
+    </div>
+    <div class="row my-5 lh-lg animate__animated benefits-row">
+      <div class="col-12 col-lg-4">
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <i class="fa-solid fa-microscope"></i>
+          </div>
+          <strong>معرفة حالة العقار</strong>
+          <p>يساعدك تقرير الفحص من تأكد في معرفة شاملة لحالة العقار الحالية.</p>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-4">
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <i class="fa-solid fa-gavel"></i>
+          </div>
+          <strong>المساعدة في اتخاذ القرار</strong>
+          <p>تقرير الفحص من تأكد يساعدك في إتخاذ القرار الصحيح.</p>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-4">
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <i class="fa-solid fa-screwdriver-wrench"></i>
+          </div>
+          <strong>الإصلاح والصيانة</strong>
+          <p>يساعدك في تدارك مشاكل الصيانة ومعرفة التكاليف المسبقة.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonials" class="tk__about__section">
+    <div class="swiper opinion-swiper">
+      <div class="swiper-wrapper tk__opinion-wrapper">
+        <div class="swiper-slide">
+          <div class="opinion-card">
+            <div class="opinion-stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="opinion-text">
+              طلبت خدمة فحص فيلا و الحمدلله طلعت الفيلا فيها مشاكل ما شفتها من قبل شكرا مهندس ماجد.
+            </p>
+            <div class="opinion-client">
+              <div class="client-icon">ف</div>
+              <h4 class="client-name">فيصل</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="opinion-card">
+            <div class="opinion-stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="opinion-text">
+              خدمه مميزه ومهندس خبير ساعدني في اختيار منزلي .. شكرا لكم منصة تدارك.
+            </p>
+            <div class="opinion-client">
+              <div class="client-icon">أ</div>
+              <h4 class="client-name">أميرة</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="opinion-card">
+            <div class="opinion-stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="opinion-text">
+              اجمل خدمة سهلت عليه افحص واستشر خدمتني كثير و وضحو لي المشاكل بكل أمانة.
+            </p>
+            <div class="opinion-client">
+              <div class="client-icon">ع</div>
+              <h4 class="client-name">أم عبدالعزيز</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="opinion-card">
+            <div class="opinion-stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="opinion-text">
+              تم فحص العقار من المهندس ماهر، اسم على مسمى تبارك الله شكراً على الموثوقية.
+            </p>
+            <div class="opinion-client">
+              <div class="client-icon">ح</div>
+              <h4 class="client-name">د. حنان</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="opinion-card">
+            <div class="opinion-stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="opinion-text">
+              تقرير مفصل ودقيق جداً، ساعدني في التفاوض على السعر بشكل أفضل.
+            </p>
+            <div class="opinion-client">
+              <div class="client-icon">س</div>
+              <h4 class="client-name">سلطان</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="opinion-card">
+            <div class="opinion-stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="opinion-text">
+              انصح الجميع بالفحص قبل الشراء، الخدمة سريعة والمهندس كان متعاون جداً.
+            </p>
+            <div class="opinion-client">
+              <div class="client-icon">ن</div>
+              <h4 class="client-name">نورة</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="opinion-card">
+            <div class="opinion-stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="opinion-text">
+              تجربة رائعة، وفرتوا علي مبالغ صيانة كبيرة كانت مخفية تحت البويات.
+            </p>
+            <div class="opinion-client">
+              <div class="client-icon">خ</div>
+              <h4 class="client-name">خالد</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="opinion-card">
+            <div class="opinion-stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="opinion-text">فخور بوجود منصات سعودية بهذا الرقي والاحترافية في التعامل.</p>
+            <div class="opinion-client">
+              <div class="client-icon">م</div>
+              <h4 class="client-name">محمد</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="swiper-pagination opinion-pagination"></div> -->
+    </div>
+  </section>
+
+  <section class="tk__faq tk__about__section">
+    <div class="container tk__accordion px-3" id="faqAccordion">
+      <div class="row align-items-start">
+        <div class="col-12 col-md-6 mb-4">
+          <div class="card animate__animated animate__slideInUp border-0">
+            <div class="card-header p-0 bg-transparent border-0">
+              <button
+                class="accordion__button btn collapsed"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq1"
+              >
+                <span>ماذا يشمل فحص تأكد وما هي بنود الفحص؟</span>
+              </button>
+            </div>
+            <div id="faq1" class="collapse" data-bs-parent="#faqAccordion">
+              <div class="card-body">
+                <small
+                  >الفحص يشمل أكثر من 120 نقطة فحص للعناصر الرئيسية البصرية في المبنى (الموقع العام
+                  - الكهرباء - السباكة - الأرضيات - الأسقف - الجدران - التكييف وتهوية - الأبواب -
+                  النوافذ)</small
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6 mb-4">
+          <div class="card animate__animated animate__slideInUp border-0">
+            <div class="card-header p-0 bg-transparent border-0">
+              <button
+                class="accordion__button btn collapsed"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq2"
+              >
+                <span>هل الفحص البصري كافٍ للتأكد من سلامة العقار؟</span>
+              </button>
+            </div>
+            <div id="faq2" class="collapse" data-bs-parent="#faqAccordion">
+              <div class="card-body">
+                <small
+                  >الفحص البصري هو الخطوة الأولى لتقييم أي عقار. فهو يوفر لك صورة واضحة عن حالة
+                  العقار بشكل عام، دون الحاجة إلى إجراء فحوصات إنشائية متقدمة.</small
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6 mb-4">
+          <div class="card animate__animated animate__slideInUp border-0">
+            <div class="card-header p-0 bg-transparent border-0">
+              <button
+                class="accordion__button btn collapsed"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq3"
+              >
+                <span>ما هي مؤهلات وخبرات فاحصين تأكد؟</span>
+              </button>
+            </div>
+            <div id="faq3" class="collapse" data-bs-parent="#faqAccordion">
+              <div class="card-body">
+                <small
+                  >جميع فاحصين تأكد مهندسون سعوديون لديهم شهادات معتمدة في فحص المباني الجاهزة
+                  ومعتمدين من الهيئة السعودية للمهندسين.</small
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6 mb-4">
+          <div class="card animate__animated animate__slideInUp border-0">
+            <div class="card-header p-0 bg-transparent border-0">
+              <button
+                class="accordion__button btn collapsed"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq4"
+              >
+                <span>ماهي المستندات المطلوبة لإجراء الفحص؟</span>
+              </button>
+            </div>
+            <div id="faq4" class="collapse" data-bs-parent="#faqAccordion">
+              <div class="card-body">
+                <small
+                  >يفضل وجود المخططات المعمارية، الإنشائية، الكهربائية، الميكانيكية، والضمانات
+                  الإنشائية والتشطيبة إن وجدت.</small
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6 mb-4">
+          <div class="card animate__animated animate__slideInUp border-0">
+            <div class="card-header p-0 bg-transparent border-0">
+              <button
+                class="accordion__button btn collapsed"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq5"
+              >
+                <span>متى يمكنني حجز موعد للفحص ؟</span>
+              </button>
+            </div>
+            <div id="faq5" class="collapse" data-bs-parent="#faqAccordion">
+              <div class="card-body">
+                <small
+                  >عند طلب الخدمة، يمكنك اختيار يوم وتوقيت الفحص المناسب لك من المواعيد المتاحة في
+                  صفحة الطلب.</small
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6 mb-4">
+          <div class="card animate__animated animate__slideInUp border-0">
+            <div class="card-header p-0 bg-transparent border-0">
+              <button
+                class="accordion__button btn collapsed"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq6"
+              >
+                <span>متى أحصل على التقرير؟</span>
+              </button>
+            </div>
+            <div id="faq6" class="collapse" data-bs-parent="#faqAccordion">
+              <div class="card-body">
+                <small
+                  >يتم تسليم تقرير الفحص التفصيلي خلال يومين عمل كحد أقصى من تاريخ بدء الفحص.</small
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<script id="cities-data">
+  const cities = JSON.parse('{{ cities_json|escapejs }}');
+</script>
+
+<script type="module" src="{% static 'Style/js/client/homepage.js' %}"></script>
+
+{% endblock %}

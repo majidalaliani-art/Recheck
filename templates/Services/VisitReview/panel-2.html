@@ -1,0 +1,272 @@
+{% if is_pdf %}
+<div class="showPrintBlock py-2 px-3 rounded mt-2 mb-2">بيانات العقار</div>
+{% endif %}
+<div class="info-section">
+  <div class="row g-3">
+    <!-- الصف الأول -->
+    <div class="col-md-3 col-6">
+      <div class="info-box">
+        <div class="info-label">نشاط البناء</div>
+        <div class="info-value">{{ Visit.get_building_activity_display }}</div>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-6">
+      <div class="info-box">
+        <div class="info-label">حالة العقار</div>
+        <div class="info-value">{{ Visit.get_property_condition_display }}</div>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-6">
+      <div class="info-box">
+        <div class="info-label">عمر العقار</div>
+        <div class="info-value">
+          {% if Visit.property_age_years %}{{ Visit.property_age_years }}{% else %}---{% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-6">
+      <div class="info-box">
+        <div class="info-label">مسطحات البناء</div>
+        <div class="info-value">
+          {% if Visit.building_area_sqm %} {{ Visit.building_area_sqm|floatformat:"-2" }} م² {% else %} --- {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- الصف الثاني -->
+    <div class="col-md-3 col-6">
+      <div class="info-box">
+        <div class="info-label">عدد الطوابق</div>
+        <div class="info-value">{{ Visit.number_of_floors|default:"---" }}</div>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-6">
+      <div class="info-box">
+        <div class="info-label">رقم رخصة البناء</div>
+        <div class="info-value">{{ Visit.building_license_number|default:"---" }}</div>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-6">
+      <div class="info-box">
+        <div class="info-label">مالك العقار</div>
+        <div class="info-value">{{ Visit.property_owner|default:"---" }}</div>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-6">
+      <div class="info-box">
+        <div class="info-label">المطور العقاري</div>
+        <div class="info-value">{{ Visit.property_developer|default:"---" }}</div>
+      </div>
+    </div>
+
+    <!-- الصف الثالث -->
+    <div class="col-md-3 col-6">
+      <div class="info-box">
+        <div class="info-label">رقم عداد الكهرباء</div>
+        <div class="info-value">{{ Visit.electricity_meter_number|default:"---" }}</div>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-6">
+      <div class="info-box">
+        <div class="info-label">قراءة عداد الكهرباء</div>
+        <div class="info-value">{{ Visit.electricity_meter_reading|default:"---" }}</div>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-6">
+      <div class="info-box">
+        <div class="info-label">رقم عداد الماء</div>
+        <div class="info-value">{{ Visit.water_meter_number|default:"---" }}</div>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-6">
+      <div class="info-box">
+        <div class="info-label">قراءة عداد الماء</div>
+        <div class="info-value">{{ Visit.water_meter_reading|default:"---" }}</div>
+      </div>
+    </div>
+
+    <!-- الصف الرابع -->
+    <div class="col-md-6 col-12">
+      <div class="info-box">
+        <div class="info-label">المكتب المصمم</div>
+        <div class="info-value">{{ Visit.design_office|default:"---" }}</div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-12">
+      <div class="info-box">
+        <div class="info-label">المشرف الهندسي</div>
+        <div class="info-value">{{ Visit.engineering_supervisor|default:"---" }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="property-spec-card card">
+  <div class="card-header">
+    <i class="fa-solid fa-building-shield me-2"></i> مواصفات ومستندات العقار والبنى التحتية
+  </div>
+
+  <div class="card-body">
+    <!-- الشوارع والبنايات المجاورة -->
+    <div class="surroundings-grid">
+      <!-- الشوارع -->
+      <div class="surroundings-box">
+        <h6><i class="fa-solid fa-road me-2"></i> الشوارع المجاورة</h6>
+        <div class="badges-wrapper">
+          <span class="badge {% if Visit.street_north %}badge-success{% else %}badge-danger{% endif %}">
+            <i class="fa-solid {% if Visit.street_north %}fa-check{% else %}fa-xmark{% endif %} me-1"></i> شمالي
+          </span>
+          <span class="badge {% if Visit.street_south %}badge-success{% else %}badge-danger{% endif %}">
+            <i class="fa-solid {% if Visit.street_south %}fa-check{% else %}fa-xmark{% endif %} me-1"></i> جنوبي
+          </span>
+          <span class="badge {% if Visit.street_east %}badge-success{% else %}badge-danger{% endif %}">
+            <i class="fa-solid {% if Visit.street_east %}fa-check{% else %}fa-xmark{% endif %} me-1"></i> شرقي
+          </span>
+          <span class="badge {% if Visit.street_west %}badge-success{% else %}badge-danger{% endif %}">
+            <i class="fa-solid {% if Visit.street_west %}fa-check{% else %}fa-xmark{% endif %} me-1"></i> غربي
+          </span>
+        </div>
+      </div>
+
+
+      <!-- البنايات -->
+      <div class="surroundings-box">
+        <h6><i class="fa-solid fa-city me-2"></i> البنايات المجاورة</h6>
+        <div class="badges-wrapper">
+          <span class="badge {% if Visit.building_north %}badge-success{% else %}badge-danger{% endif %}">
+            <i class="fa-solid {% if Visit.building_north %}fa-check{% else %}fa-xmark{% endif %} me-1"></i> شمالي
+          </span>
+          <span class="badge {% if Visit.building_south %}badge-success{% else %}badge-danger{% endif %}">
+            <i class="fa-solid {% if Visit.building_south %}fa-check{% else %}fa-xmark{% endif %} me-1"></i> جنوبي
+          </span>
+          <span class="badge {% if Visit.building_east %}badge-success{% else %}badge-danger{% endif %}">
+            <i class="fa-solid {% if Visit.building_east %}fa-check{% else %}fa-xmark{% endif %} me-1"></i> شرقي
+          </span>
+          <span class="badge {% if Visit.building_west %}badge-success{% else %}badge-danger{% endif %}">
+            <i class="fa-solid {% if Visit.building_west %}fa-check{% else %}fa-xmark{% endif %} me-1"></i> غربي
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- شبكة المواصفات والمستندات (بديل الجدول) -->
+    <div class="property-spec-container">
+      <!-- 1. مزايا العقار -->
+      <div class="spec-column">
+        <div class="column-header">مزايا أخرى للعقار</div>
+        <div class="items-group">
+          <span class="{% if Visit.feat_disabled_friendly %}is-true{% else %}is-false{% endif %}">
+            <i class="fa-solid {% if Visit.feat_disabled_friendly %}fa-circle-check{% else %}fa-circle-xmark{% endif %} me-1"></i> صديق للمعاقين وكبار السن
+          </span>
+          <span class="{% if Visit.feat_fire_system %}is-true{% else %}is-false{% endif %}">
+            <i class="fa-solid {% if Visit.feat_fire_system %}fa-circle-check{% else %}fa-circle-xmark{% endif %} me-1"></i> نظام مكافحة الحرائق
+          </span>
+          <span class="{% if Visit.feat_garden %}is-true{% else %}is-false{% endif %}">
+            <i class="fa-solid {% if Visit.feat_garden %}fa-circle-check{% else %}fa-circle-xmark{% endif %} me-1"></i> حديقة داخلية
+          </span>
+          <span class="{% if Visit.feat_parking %}is-true{% else %}is-false{% endif %}">
+            <i class="fa-solid {% if Visit.feat_parking %}fa-circle-check{% else %}fa-circle-xmark{% endif %} me-1"></i> موقف السيارة (جراج)
+          </span>
+          <span class="{% if Visit.feat_skylight %}is-true{% else %}is-false{% endif %}">
+            <i class="fa-solid {% if Visit.feat_skylight %}fa-circle-check{% else %}fa-circle-xmark{% endif %} me-1"></i> فتحة إنارة سقفية
+          </span>
+          <span class="{% if Visit.feat_pool %}is-true{% else %}is-false{% endif %}">
+            <i class="fa-solid {% if Visit.feat_pool %}fa-circle-check{% else %}fa-circle-xmark{% endif %} me-1"></i> مسبح (حمام سباحة)
+          </span>
+          <span class="{% if Visit.feat_elevator %}is-true{% else %}is-false{% endif %}">
+            <i class="fa-solid {% if Visit.feat_elevator %}fa-circle-check{% else %}fa-circle-xmark{% endif %} me-1"></i> مصعد كهربائي
+          </span>
+          <span class="{% if Visit.feat_cameras %}is-true{% else %}is-false{% endif %}">
+            <i class="fa-solid {% if Visit.feat_cameras %}fa-circle-check{% else %}fa-circle-xmark{% endif %} me-1"></i> كاميرات مراقبة
+          </span>
+          <span class="{% if Visit.feat_central_ac %}is-true{% else %}is-false{% endif %}">
+            <i class="fa-solid {% if Visit.feat_central_ac %}fa-circle-check{% else %}fa-circle-xmark{% endif %} me-1"></i> تكييف مركزي
+          </span>
+          <span class="{% if Visit.feat_water_tanks %}is-true{% else %}is-false{% endif %}">
+            <i class="fa-solid {% if Visit.feat_water_tanks %}fa-circle-check{% else %}fa-circle-xmark{% endif %} me-1"></i> خزانات ماء أرضية
+          </span>
+          <span class="{% if Visit.feat_outdoor_seating %}is-true{% else %}is-false{% endif %}">
+            <i class="fa-solid {% if Visit.feat_outdoor_seating %}fa-circle-check{% else %}fa-circle-xmark{% endif %} me-1"></i> جلسة خارجية
+          </span>
+        </div>
+      </div>
+
+      <!-- 2. المستندات والضمانات -->
+      <div class="spec-column">
+        <div class="column-header">مستندات العقار</div>
+        <div class="items-group">
+          <span class="{% if Visit.doc_building_license %}is-true{% else %}is-false{% endif %}">
+            <i class="fa-solid {% if Visit.doc_building_license %}fa-circle-check{% else %}fa-circle-xmark{% endif %} me-1"></i> رخصة البناء
+          </span>
+          <span class="{% if Visit.doc_soil_test %}is-true{% else %}is-false{% endif %}">
+            <i class="fa-solid {% if Visit.doc_soil_test %}fa-circle-check{% else %}fa-circle-xmark{% endif %} me-1"></i> تقرير فحص التربة
+          </span>
+          <span class="{% if Visit.doc_structural_warranty %}is-true{% else %}is-false{% endif %}">
+            <i class="fa-solid {% if Visit.doc_structural_warranty %}fa-circle-check{% else %}fa-circle-xmark{% endif %} me-1"></i> ضمان الهيكل الإنشائي
+          </span>
+          <span class="{% if Visit.doc_finishes_warranty %}is-true{% else %}is-false{% endif %}">
+            <i class="fa-solid {% if Visit.doc_finishes_warranty %}fa-circle-check{% else %}fa-circle-xmark{% endif %} me-1"></i> شهادة ضمان التشطيبات
+          </span>
+          <span class="{% if Visit.doc_architectural_plans %}is-true{% else %}is-false{% endif %}">
+            <i class="fa-solid {% if Visit.doc_architectural_plans %}fa-circle-check{% else %}fa-circle-xmark{% endif %} me-1"></i> المخططات المعمارية
+          </span>
+          <span class="{% if Visit.doc_structural_plans %}is-true{% else %}is-false{% endif %}">
+            <i class="fa-solid {% if Visit.doc_structural_plans %}fa-circle-check{% else %}fa-circle-xmark{% endif %} me-1"></i> المخططات الإنشائية
+          </span>
+          <span class="{% if Visit.doc_electrical_plans %}is-true{% else %}is-false{% endif %}">
+            <i class="fa-solid {% if Visit.doc_electrical_plans %}fa-circle-check{% else %}fa-circle-xmark{% endif %} me-1"></i> المخططات الكهربائية
+          </span>
+          <span class="{% if Visit.doc_mechanical_plans %}is-true{% else %}is-false{% endif %}">
+            <i class="fa-solid {% if Visit.doc_mechanical_plans %}fa-circle-check{% else %}fa-circle-xmark{% endif %} me-1"></i> المخططات الميكانيكية
+          </span>
+          <span class="{% if Visit.doc_survey_form %}is-true{% else %}is-false{% endif %}">
+            <i class="fa-solid {% if Visit.doc_survey_form %}fa-circle-check{% else %}fa-circle-xmark{% endif %} me-1"></i> استمارة الرفع المساحي
+          </span>
+          <span class="{% if Visit.doc_eng_supervision %}is-true{% else %}is-false{% endif %}">
+            <i class="fa-solid {% if Visit.doc_eng_supervision %}fa-circle-check{% else %}fa-circle-xmark{% endif %} me-1"></i> شهادة إشراف مكتب هندسي
+          </span>
+          <span class="{% if Visit.doc_rebar_report %}is-true{% else %}is-false{% endif %}">
+            <i class="fa-solid {% if Visit.doc_rebar_report %}fa-circle-check{% else %}fa-circle-xmark{% endif %} me-1"></i> تقرير استلام حديد التسليح
+          </span>
+        </div>
+      </div>
+
+      <!-- 3. البنى التحتية -->
+      <div class="spec-column">
+        <div class="column-header">البنى التحتية</div>
+        <div class="items-group">
+          <span class="{% if Visit.infra_electricity %}is-true{% else %}is-false{% endif %}">
+            <i class="fa-solid {% if Visit.infra_electricity %}fa-circle-check{% else %}fa-circle-xmark{% endif %} me-1"></i> مرفق كهرباء
+          </span>
+          <span class="{% if Visit.infra_water %}is-true{% else %}is-false{% endif %}">
+            <i class="fa-solid {% if Visit.infra_water %}fa-circle-check{% else %}fa-circle-xmark{% endif %} me-1"></i> مرفق مياة
+          </span>
+          <span class="{% if Visit.infra_sewage %}is-true{% else %}is-false{% endif %}">
+            <i class="fa-solid {% if Visit.infra_sewage %}fa-circle-check{% else %}fa-circle-xmark{% endif %} me-1"></i> صرف صحي
+          </span>
+          <span class="{% if Visit.infra_asphalt %}is-true{% else %}is-false{% endif %}">
+            <i class="fa-solid {% if Visit.infra_asphalt %}fa-circle-check{% else %}fa-circle-xmark{% endif %} me-1"></i> طرق أسفلت
+          </span>
+          <span class="{% if Visit.infra_lighting %}is-true{% else %}is-false{% endif %}">
+            <i class="fa-solid {% if Visit.infra_lighting %}fa-circle-check{% else %}fa-circle-xmark{% endif %} me-1"></i> طرق منارة
+          </span>
+          <span class="{% if Visit.infra_network %}is-true{% else %}is-false{% endif %}">
+            <i class="fa-solid {% if Visit.infra_network %}fa-circle-check{% else %}fa-circle-xmark{% endif %} me-1"></i> شبكة إتصال
+          </span>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>

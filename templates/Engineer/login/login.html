@@ -1,0 +1,49 @@
+{% extends 'Engineer/EngineerBase.html' %}
+<!--  -->
+{% block EngineerSidebar %} {% endblock %}
+<!--  -->
+{% block footer %} {% endblock %}
+<!--  -->
+{% block staff_content %}
+
+<div class="login-dashboardd">
+  <div class="login-form-card card-form">
+    <form method="POST" class="needs-validation" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="row g-4 login-card">
+        <div class="col-10">
+          <div class="form-field">
+            {{ form.username.label }}
+
+            <div class="position-relative">
+              {{ form.username }}
+              <i class="fa-solid fa-user calendar-icon"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-10">
+          <div class="form-field">
+            {{ form.password.label }}
+
+            <div class="position-relative">
+              {{ form.password }}
+              <i class="fa-solid fa-key calendar-icon"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6 mx-auto">
+          <button type="submit" class="orderNow fs-3">دخول تسجيل</button>
+        </div>
+        {% if form.non_field_errors %}
+        <div class="text-danger small mt-2 text-center error-text">
+          {{ form.non_field_errors.0 }}
+        </div>
+        {% endif %}
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

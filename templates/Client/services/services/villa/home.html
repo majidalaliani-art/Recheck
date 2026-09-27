@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+  <meta charset="UTF-8">
+  <title>خدماتنا</title>
+
+
+
+  <style>
+    .service-btn {
+      display: inline-block;
+      margin: 10px;
+      padding: 15px 25px;
+      font-size: 18px;
+      font-weight: bold;
+      color: white;
+      background-color: #007BFF;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .service-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .service-container {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    #map {
+      height: 400px;
+      width: 100%;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="service-container">
+
+    <form method="post" action="{% url 'villa' %}">
+      {% csrf_token %}
+
+      <button type="submit" class="service-btn" name="inspection" value="standard_inspection">
+        خدمة الفيلا
+      </button>
+
+      <button type="submit" class="service-btn" name="inspection" value="full_inspection">
+        خدمة الشقة
+      </button>
+
+    </form>
+
+
+
+  </div>
+
+
+
+
+
+
+</body>
+
+</html>

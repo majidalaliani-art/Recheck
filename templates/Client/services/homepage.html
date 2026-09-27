@@ -1,0 +1,87 @@
+<head>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            text-align: center;
+        }
+
+        header {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        header button {
+            background: #2c7be5;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        header button:hover {
+            background: #1a68d1;
+            transform: scale(1.05);
+        }
+
+        .services {
+            margin-top: 200px;
+            display: grid;
+            grid-template-columns: repeat(2, 150px);
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .services button {
+            background: white;
+            border: 2px solid #2c7be5;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        .services button:hover {
+            background: #2c7be5;
+            color: white;
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== الزر الأول فوق ===== -->
+    <header>
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <button type="submit" name="button" value="login">
+                تسجيل الدخول
+            </button>
+        </form>
+    </header>
+
+
+    <!-- محتوى الصفحة هنا -->
+
+
+    <!-- ===== الأزرار تحت ===== -->
+    <div style="margin-top: 300px;">
+
+        <form method="post" action="{% url 'homepage' %}">
+            {% csrf_token %}
+            <button type="submit" name="service" value="villa">villa</button>
+
+            <button type="submit" name="service" value="apartment">apartment</button>
+
+        </form>
+
+    </div>
+
+</body>

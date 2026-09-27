@@ -1,0 +1,112 @@
+{% if is_pdf %}
+<div class="showPrintBlock py-2 px-3 rounded mt-4 mb-2">تفاصيل الطلب</div>
+{% endif %}
+<div id="order-details" class="info-section">
+  <div class="row g-3">
+    <!-- الصف الأول: 4 عناصر (كل عنصر يأخذ 3/12 في الكمبيوتر) -->
+    <div class="col-md-3 {% if is_pdf %} col-6 {% else %}col-6{% endif %}">
+      <div class="info-box">
+        <div class="info-label">نوع الطلب</div>
+        <div class="info-value">{{Visit.Request.inspection_type}}</div>
+      </div>
+    </div>
+
+    <div class="col-md-3 {% if is_pdf %} col-6 {% else %}col-6{% endif %}">
+      <div class="info-box">
+        <div class="info-label">نوع العقار</div>
+        <div class="info-value">{{Visit.Request.property_type}}</div>
+      </div>
+    </div>
+
+    <div class="col-md-3 {% if is_pdf %} col-6 {% else %}col-6{% endif %}">
+      <div class="info-box">
+        <div class="info-label">وقت الفحص</div>
+        <div class="info-value">{{Visit.date|date:"Y-m-d"}} ({{Visit.time}})</div>
+      </div>
+    </div>
+
+    <div class="col-md-3 {% if is_pdf %} col-6 {% else %}col-6{% endif %}">
+      <div class="info-box">
+        <div class="info-label">رقم الوحدة</div>
+        <div class="info-value">{{Visit.unit_number}}</div>
+      </div>
+    </div>
+
+    <!-- الصف الثاني: 3 عناصر فقط بعد حذف الدولة (تم تعديل الكلاس إلى col-md-4 لتغطي السطر كاملاً) -->
+    <div class="col-md-4 {% if is_pdf %} col-6 {% else %}col-6{% endif %}">
+      <div class="info-box">
+        <div class="info-label">المدينة</div>
+        <div class="info-value">{{Visit.Request.city}}</div>
+      </div>
+    </div>
+
+    <div class="col-md-4 {% if is_pdf %} col-6 {% else %}col-6{% endif %}">
+      <div class="info-box">
+        <div class="info-label">الحي</div>
+        <div class="info-value">{{Visit.neighborhood}}</div>
+      </div>
+    </div>
+
+    <div class="col-md-4 {% if is_pdf %} col-12 {% else %}col-12{% endif %}">
+      <div class="info-box">
+        <div class="info-label">بيانات الفاحص</div>
+        <div class="info-value inspector-value">
+          <span class="inspector-name">م. {{Visit.Request.engineer.staff_profile.data.full_name_ar}}</span>
+          <!-- صورة الـ QR Code المولدة من البايثون أو الـ JS -->
+          <a href="{{ inspector_verification_url }}" target="_blank" title="اضغط للتحقق من العضوية" class="qr-link">
+            <img
+              src="data:image/png;base64,{{ qr_code_base64 }}"
+              alt="QR Code"
+              class="inspector-qr"
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- الصف الثالث: العنوان تفصيلاً (عرض كامل) -->
+    <div class="{% if is_pdf %} col-12 {% else %}col-12{% endif %}">
+      <div class="info-box">
+        <div class="info-label">العنوان تفصيلاً</div>
+        <div class="info-value">{{Visit.detailed_address}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3 mt-1">
+    <!-- الإحداثيات المخفية للخريطة -->
+    {% if not is_pdf %}
+    <input type="hidden" id="latitude" value="{{ Visit.latitude }}" />
+    <input type="hidden" id="longitude" value="{{ Visit.longitude }}" />
+    {% endif %}
+    <!-- 2. الصورة العامة للعقار -->
+    <div class="col-md-6 col-12">
+      <div class="media-card">
+        {% if Visit.property_image %}
+        <a
+          href="{{ Visit.property_image.url }}"
+          data-fancybox
+          data-caption="الصورة العامة للعقار"
+          class="d-block w-100 h-100"
+        >
+          <img
+            src="{{ Visit.property_image.url }}"
+            alt="الصورة العامة للعقار"
+            class="general-image"
+          />
+        </a>
+        {% else %}
+        <div class="no-image">لا توجد صورة عامة متوفرة</div>
+        {% endif %}
+      </div>
+    </div>
+    {% if not is_pdf %}
+    <!-- 1. الخريطة -->
+    <div class="col-md-6 col-12">
+      <div class="media-card">
+        <div id="report-map" class="map-container"></div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>

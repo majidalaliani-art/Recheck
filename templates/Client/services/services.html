@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<!--{% load static %} -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-language Website</title>
+    <!-- <link rel="stylesheet" href="{% static 'CSS/services/style.css' %}"> -->
+    <link rel="stylesheet" href="../../static/CSS/services/style.css">
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+
+
+    <header class="header">
+
+        <nav id="account-controls">
+            <button id="login">
+                <i class="fa-solid fa-user-plus"></i>
+                <span class="login">Login</span>
+            </button>
+
+            <button id="language">
+                <i class="fa-solid fa-earth-europe"></i>
+                <span id="current-lang">EN</span>
+            </button>
+        </nav>
+
+
+        <button id="hamburger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <nav class="services-bin" >
+            <a href="#" class="contact"></a>
+            <a href="#" class="questions"></a>
+            <a href="#" class="consult"></a>
+            <a href="#" class="elements"></a>
+            <a href="#" class="home"></a>
+        </nav>
+
+        <nav class="logo">
+             <span class="checker"></span>
+            <i class="fa-solid fa-house-circle-check"></i>
+        </nav>
+
+
+
+    </header>
+
+    <section class="cards" id="services">
+        <div id="services-container">
+            <div class="title">
+                <div class="video-relative">
+                    <!-- <video id="serviceVideo" src="{% static 'videos/services/services.webm' %}" autoplay muted loop controls playsinline></video> -->
+                    <video src="../../static/videos/services/services.webm" autoplay muted loop controls playsinline></video>
+
+
+                </div>
+                    <div class="communication">
+                        <h3 class="banner-title"> منصة <span>فاحص</span> <br class="d-none d-lg-block">لفحص المباني الجاهزة</h3>
+                        <p class="banner-text">اكثر من 160 نقطة فحص وتقرير مدعوم بالذكاء الاصطناعي.</p>
+                        <a href="#"><i class="fa-brands fa-whatsapp"></i> 4444442 </a>
+                        <a href="#"><i class="fa-brands fa-whatsapp"></i> 444444442</a>
+                    </div>
+
+
+
+            </div>
+
+            <div class="content">
+                <div class="card">
+                    <div class="heading">
+                        <div class="picture_house">
+                            <img src="../../static/images/villa.webp" alt="picture">
+                            <!--<img src="{% static 'images/villa.webp' %}" alt="picture">-->
+                        </div>
+                        <div class="house">
+                        <h2 class="apartment"></h2>
+                        <br>
+                        <p>
+                            <span class="icon-saudi_riyal_bold_new"></span>
+                            <samp>ابتداء من 699</samp>
+                        </p>
+                        </div>
+                    </div>
+                    <div class="details">
+                        <p>يشمل الفحص</p>
+                        <ul>
+                            <li>فحص تفصيلي</li>
+                            <li>فحص تفصيلي</li>
+                            <li>فحص تفصيلي</li>
+                        </ul>
+                        <button class="btn">احصل على عرض</button>
+                    </div>
+                </div>
+
+                            <div class="card">
+                                <div class="heading">
+                                    <div class="picture_house">
+                                        <img src="../../static/images/villa.webp" alt="picture">
+                                        <!--<img src="{% static 'images/villa.webp' %}" alt="picture">-->
+                                    </div>
+                                    <div class="house">
+                                        <h2 class="apartment"></h2>
+                                        <br>
+                                        <p>
+                                            <span class="icon-saudi_riyal_bold_new"></span>
+                                            <samp>ابتداء من 699</samp>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="details">
+                                    <p>يشمل الفحص</p>
+                                    <ul>
+                                        <li>فحص تفصيلي</li>
+                                        <li>فحص تفصيلي</li>
+                                        <li>فحص تفصيلي</li>
+                                    </ul>
+                                    <button class="btn">احصل على عرض</button>
+                                </div>
+                            </div>
+
+
+
+                            <div class="card">
+                                <div class="heading">
+                                    <div class="picture_house">
+                                        <img src="../../static/images/villa.webp" alt="picture">
+                                        <!--<img src="{% static 'images/villa.webp' %}" alt="picture">-->
+                                    </div>
+                                    <div class="house">
+                                        <h2 class="apartment"></h2>
+                                        <br>
+                                        <p>
+                                            <span class="icon-saudi_riyal_bold_new"></span>
+                                            <samp>ابتداء من 699</samp>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="details">
+                                    <p>يشمل الفحص</p>
+                                    <ul>
+                                        <li>فحص تفصيلي</li>
+                                        <li>فحص تفصيلي</li>
+                                        <li>فحص تفصيلي</li>
+                                    </ul>
+                                    <button class="btn">احصل على عرض</button>
+                                </div>
+                            </div>
+
+
+                            <div class="card">
+                                <div class="heading">
+                                    <div class="picture_house">
+                                        <img src="../../static/images/villa.webp" alt="picture">
+                                        <!--<img src="{% static 'images/villa.webp' %}" alt="picture">-->
+                                    </div>
+                                    <div class="house">
+                                        <h2 class="apartment"></h2>
+                                        <br>
+                                        <p>
+                                            <span class="icon-saudi_riyal_bold_new"></span>
+                                            <samp>ابتداء من 699</samp>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="details">
+                                    <p>يشمل الفحص</p>
+                                    <ul>
+                                        <li>فحص تفصيلي</li>
+                                        <li>فحص تفصيلي</li>
+                                        <li>فحص تفصيلي</li>
+                                    </ul>
+                                    <button class="btn">احصل على عرض</button>
+                                </div>
+                            </div>
+
+
+            </div>
+        </div>
+
+
+    </section>
+
+
+    <!-- <script src="{% static 'js/script.js' %}"></script> -->
+    <script src="../../static/js/script.js"></script>
+
+
+</body>
+</html>

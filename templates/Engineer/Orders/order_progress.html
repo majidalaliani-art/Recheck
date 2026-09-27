@@ -1,0 +1,257 @@
+{% extends 'base/base.html' %} {% load static %} {% block content%}
+
+<div class="py-4">
+
+  <div class="order-wrapper w-100 mx-auto" style="max-width: 1150px">
+    <div class="row bg-white rounded-4 py-4 px-3 mb-4 position-relative shadow-sm">
+      <div class="col-12">
+        <div class="d-flex w-100 justify-content-between align-items-center py-2 px-2">
+          <samp class="text-muted fs-5 fw-bold">OR-{{context.id}}</samp>
+          <span class="status-order-{{order.status}} status-order">
+            {{context.status_progress}}
+          </span>
+        </div>
+
+        <div class="mt-3">
+          <div class="form__content row mx-auto">
+            <div class="customer-summary-box">
+              <div class="summary-item">
+                <small class="summary-label">نوع الخدمة</small>
+                <strong class="summary-value">{{ context.service }}</strong>
+              </div>
+
+              <div class="summary-item">
+                <small class="summary-label">اسم العميل</small>
+                <strong class="summary-value">{{ order.name }}</strong>
+              </div>
+
+              <div class="summary-item">
+                <small class="summary-label">رقم الجوال</small>
+                <strong class="summary-value text-nowrap">{{ order.phone }}</strong>
+              </div>
+            </div>
+
+            <div class="customer-data-box d-flex flex-column flex-md-row gap-2 my-4">
+              <div class="order__details col-12 col-md">
+                <div
+                  class="btn btn-light py-3 px-3 rounded-3 fw-bold border-bottom d-flex justify-content-between align-items-center rounded-0 shadow-none text-dark"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#orderDetailsBody"
+                  aria-expanded="true"
+                  aria-controls="orderDetailsBody"
+                >
+                  <span>تفاصيل الطلب</span>
+                  <i class="fas fa-chevron-down text-muted"></i>
+                </div>
+
+                <div class="collapse show border-end border-start" id="orderDetailsBody">
+                  <div class="py-3 align-items-start border-bottom d-flex small">
+                    <div class="text-center w-50">
+                      <div class="px-3 mb-2 text-muted">
+                        <samp class="fw-bold">تاريخ الفحص</samp>
+                        <i class="fas fa-exclamation-circle text-danger ps-1"></i>
+                      </div>
+                      <div class="px-3 fw-bold">{{ context.date }}</div>
+                    </div>
+
+                    <div class="text-center w-50">
+                      <div class="px-3 mb-2 text-muted">
+                        <samp class="fw-bold">توقيت الفحص</samp>
+                        <i class="fas fa-exclamation-circle text-danger ps-1"></i>
+                      </div>
+
+                      <div class="px-3 fw-bold" style="text-wrap: balance">
+                        {% if context.key == 'consultation' %} {{context.day}} {% endif %}
+                        {{context.time_slot}}
+                      </div>
+                    </div>
+                  </div>
+                  {% if context.key == 'visit' %}
+
+                  <div class="py-3 align-items-start border-bottom d-flex">
+                    <div class="text-center w-50">
+                      <samp class="fw-bold">الحي:</samp>
+                      <samp class="fw-bold text-muted">{{ context.district }}</samp>
+                    </div>
+
+                    <div class="text-center w-50">
+                      <samp class="fw-bold">المدينة:</samp>
+                      <samp class="fw-bold text-muted">{{ context.city }}</samp>
+                    </div>
+                  </div>
+
+                  <div class="row mx-0 py-3 align-items-center border-bottom text-center">
+                    <div class="col-4">
+                      <p class="text-muted small mb-1">نوع العقار</p>
+                      <span class="fw-bold text-dark fs-6 d-block">{{ context.property }}</span>
+                    </div>
+
+                    <div class="col-4 border-start border-end border-2">
+                      <p class="text-muted small mb-1">نوع الفحص</p>
+                      <span class="fw-bold text-dark fs-6 d-block">{{ context.inspection }}</span>
+                    </div>
+
+                    <div class="col-4">
+                      <p class="text-muted small mb-1">مساحة العقار</p>
+                      <span class="fw-bold text-dark fs-6 d-block"> {{ context.size }} م²</span>
+                    </div>
+                  </div>
+
+                  {% elif context.key == 'consultation' %}
+                  <div class="py-3 align-items-start border-bottom d-flex">
+                    <div class="text-center w-100">
+                      <div class="px-3 mb-2 text-muted">
+                        <samp class="fw-bold fs-5">وصف</samp>
+                        <i class="fa-solid fa-file-lines"></i>
+                      </div>
+                      <div class="px-3 fw-bold m-2">{{ context.summary }}</div>
+                    </div>
+                  </div>
+                  {% endif %}
+
+                  <div
+                    class="bg-dark-subtle rounded-2 shadow-sm align-items-center small py-3 px-2"
+                  >
+                    <div class="d-flex mx-auto px-2 align-items-center justify-content-between">
+                      <div class="fw-bold">
+                        <span class="fs-5">إجمالي تكلفة الخدمة</span>
+                        <small class="d-block fw-normal fs-6 text-muted"
+                          >شامل ضريبة القيمة المضافة</small
+                        >
+                      </div>
+
+                      <div class="text-end">
+                        <strong class="fs-3 text-success pe-1"
+                          >{{context.price|floatformat:0}}</strong
+                        >
+                        <span class="fs-2 text-success icon-saudi_riyal_bold ms-1"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="payment__wrapper col-12 col-md small">
+                <!-- الصندوق الأبيض الرئيسي ممتد ومقفل بالكامل -->
+
+
+                <div
+                  class="text-center border rounded-3 bg-white d-flex flex-column align-items-center p-4 shadow-sm h-100 justify-content-between"
+                >
+
+                {% if order.order.order_type == 'visit' %}
+
+                  {% if order.status  == "in_progress"%}
+                  <div class="text-center w-100">
+                    <!-- حاوية العداد الكبيرة والفخمة مع العنوان -->
+                    <div class="main-timer-container w-100 mb-4">
+                      <h5 class="main-timer-title mb-3">الوقت المتبقي لإنجاز المهمة</h5>
+
+                      <!-- الحاوية الأساسية للعداد (مهمة جداً لعمل الجافاسكريبت) -->
+                      <div
+                        id="countdown-timer"
+                        class="d-flex justify-content-between align-items-center gap-2 px-2"
+                        data-deadline="{{ context.deadline_iso }}"
+                      >
+                        <!-- مربع الثواني -->
+                        <div class="timer-component flex-fill">
+                          <span class="timer-label">ثواني</span>
+                          <div class="timer-block" id="timer-seconds">00</div>
+                        </div>
+
+                        <!-- مربع الدقائق -->
+                        <div class="timer-component flex-fill">
+                          <span class="timer-label">دقائق</span>
+                          <div class="timer-block" id="timer-minutes">00</div>
+                        </div>
+
+                        <!-- مربع الساعات -->
+                        <div class="timer-component flex-fill">
+                          <span class="timer-label">ساعات</span>
+                          <div class="timer-block" id="timer-hours">00</div>
+                        </div>
+
+                        <!-- مربع الأيام -->
+                        <div class="timer-component flex-fill">
+                          <span class="timer-label">أيام</span>
+                          <div class="timer-block" id="timer-days">00</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- حاوية الصورة الجديدة المعتمدة من طرفك -->
+                    <div class="timer-image-wrapper my-3">
+                      <img
+                        src="{% static 'images/Engineer/Order/hour.jpg' %}"
+                        alt="timer hour"
+                        class="w-100 mx-auto"
+                      />
+                    </div>
+
+
+                    {% if context.start %}
+                         <div class="ticket-footer">
+                      <a href="{% url 'operations:visit_detail' context.id %}" class="view-order orderNow fs-3">متابعة</a>
+                    </div>
+
+                    {% else %}
+                     <form method="POST" class="w-100 mt-auto">
+                      {% csrf_token %}
+                      <div class="d-flex flex-wrap gap-2">
+                        <button
+                          name="action"
+                          value="start"
+                          type="submit"
+                          class="btn bg-success text-white btn-lg px-4 py-2 border-0 rounded-3 flex-fill fw-bold"
+                        >
+                          <span>بدء</span>
+                        </button>
+
+                        <button
+                          name="action"
+                          value="cancel"
+                          type="submit"
+                          class="btn bg-danger text-white btn-lg px-4 py-2 border-0 rounded-3 flex-fill fw-bold"
+                        >
+                          <span>إلغاء</span>
+                        </button>
+                      </div>
+                    </form>
+                    {% endif %}
+                  </div>
+                  {% elif order.status  == "completed"%}
+                    <div class="text-center w-100">
+
+
+                    <!-- حاوية الصورة الجديدة المعتمدة من طرفك -->
+                    <div class="timer-image-wrapper my-3">
+                      <img
+                        src="{% static 'images/Engineer/Order/completed.webp' %}"
+                        alt="timer hour"
+                        class="w-100 mx-auto"
+                      />
+                    </div>
+
+
+
+
+
+
+                  </div>
+                  {% endif %}
+                {% elif order.order.order_type == 'consultation' %}
+                {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="{% static 'Style/js/staff/Orders/order_progress.js' %}"></script>
+
+{% endblock %}

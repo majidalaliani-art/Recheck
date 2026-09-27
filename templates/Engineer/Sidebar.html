@@ -1,0 +1,115 @@
+{% load static %}
+
+<div class="staff-navigation">
+  <div class="user-identity">
+    <div class="avatar-box">
+      <img src="{{ engineer.avatar }}" class="avatar-img" />
+    </div>
+    <div class="info-box">
+      <h2 class="role-name">{{ engineer.first_name|default:engineer.username }}</h2>
+
+      <span class="role-tag">{% if is_engineer %}مهندس معتمد{% else %}مسؤول النظام{% endif %}</span>
+    </div>
+  </div>
+
+  <ul>
+    <li class="{% if request.resolver_match.url_name == 'home_url' %}hovered{% endif %}">
+      <a href="#">
+        <span class="icon">
+          <i class="fa-solid fa-chart-bar"></i>
+          <!-- تعديل الأيقونة هنا -->
+        </span>
+        <span class="title">الرئيسية</span>
+      </a>
+    </li>
+
+
+
+    {% if request.resolver_match.url_name == 'available_orders' %}
+      <li class="{% if request.resolver_match.url_name == 'available_orders' %}hovered{% endif %}">
+        <a href="{% url 'Staff:available_orders' %}">
+          <span class="icon">
+            <i class="fa-brands fa-opencart"></i>
+          </span>
+          <span class="title">طلباتي</span>
+        </a>
+      </li>
+    {% elif request.resolver_match.url_name == 'in_progress_orders' %}
+      <li class="{% if request.resolver_match.url_name == 'in_progress_orders' %}hovered{% endif %}">
+        <a href="{% url 'Staff:available_orders' %}">
+          <span class="icon">
+            <i class="fa-brands fa-opencart"></i>
+          </span>
+          <span class="title">طلباتي</span>
+        </a>
+      </li>
+    {% elif request.resolver_match.url_name == 'completed_orders' %}
+      <li class="{% if request.resolver_match.url_name == 'completed_orders' %}hovered{% endif %}">
+        <a href="{% url 'Staff:available_orders' %}">
+          <span class="icon">
+            <i class="fa-brands fa-opencart"></i>
+          </span>
+          <span class="title">طلباتي</span>
+        </a>
+      </li>
+    {% elif request.resolver_match.url_name == 'under_review_orders' %}
+      <li class="{% if request.resolver_match.url_name == 'under_review_orders' %}hovered{% endif %}">
+        <a href="{% url 'Staff:available_orders' %}">
+          <span class="icon">
+            <i class="fa-brands fa-opencart"></i>
+          </span>
+          <span class="title">طلباتي</span>
+        </a>
+      </li>
+    {% else %}
+     <li class="{% if request.resolver_match.url_name == 'available_orders' %}hovered{% endif %}">
+        <a href="{% url 'Staff:available_orders' %}">
+          <span class="icon">
+            <i class="fa-brands fa-opencart"></i>
+          </span>
+          <span class="title">طلباتي</span>
+        </a>
+      </li>
+    {% endif %}
+
+    <li class="{% if request.resolver_match.url_name == 'wallet' %}hovered{% endif %}">
+      <a href="{% url 'Staff:wallet' %}">
+        <span class="icon">
+          <i class="fa-regular fa-folder"></i>
+        </span>
+        <span class="title">رصيدي</span>
+      </a>
+    </li>
+
+
+    <li class="{% if request.resolver_match.url_name == 'staff_data' %}hovered{% endif %}">
+      <a href="{% url 'Staff:staff_data' %}">
+
+        <span class="icon">
+          <i class="fa-solid fa-wallet"></i>
+          <!-- تعديل الأيقونة هنا -->
+        </span>
+        <span class="title">بياناتي</span>
+      </a>
+    </li>
+
+    <li class="{% if request.resolver_match.url_name == 'settings' %}hovered{% endif %}">
+      <a href="{% url 'Staff:settings' %}">
+        <span class="icon">
+          <i class="fa-solid fa-sliders"></i>
+        </span>
+        <span class="title">إعدادات</span>
+      </a>
+    </li>
+  </ul>
+
+  <div class="logout">
+    <form action="{% url 'Base:logout' %}" method="post" class="logout-btn">
+      {% csrf_token %}
+      <button class="btn btn-danger" type="submit">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span>تسجيل الخروج</span>
+      </button>
+    </form>
+  </div>
+</div>

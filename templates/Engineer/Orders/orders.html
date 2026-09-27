@@ -1,0 +1,28 @@
+{% extends 'Engineer/EngineerBase.html' %} {% block staff_content %}
+
+<div class="engineer-dashboard">
+  <nav class="top-navbar">
+    <div class="navbar-actions">
+      <a href="{% url 'Staff:available_orders' %}" class="nav-btn {% if request.resolver_match.url_name == 'available_orders' %}active{% endif %}">
+        <span  class="btn-text">متاح</span>
+      </a>
+      <a href="{% url 'Staff:in_progress_orders' %}" class="nav-btn {% if request.resolver_match.url_name == 'in_progress_orders' %}active{% endif %}">
+        <span  class="btn-text">التنفيذ</span>
+      </a>
+
+      <a href="{% url 'Staff:under_review_orders' %}" class="nav-btn {% if request.resolver_match.url_name == 'under_review_orders' %}active{% endif %} ">
+        <span class="btn-text">المراجعه</span>
+      </a>
+      <a href="{% url 'Staff:completed_orders' %}" class="nav-btn {% if request.resolver_match.url_name == 'completed_orders' %}active{% endif %} ">
+        <span class="btn-text">مكتمل</span>
+      </a>
+    </div>
+  </nav>
+
+  <main class="dashboard-content">
+    {% block staff_orders_content %}
+    {% endblock %}
+  </main>
+</div>
+
+{% endblock %}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل رقم الجوال</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f0f0f0;
+        }
+        .container {
+            background: #fff;
+            padding: 2em;
+            border-radius: 1em;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 300px;
+            text-align: center;
+        }
+        input {
+            width: 100%;
+            padding: 0.8em;
+            margin-bottom: 1em;
+            border-radius: 0.5em;
+            border: 1px solid #ccc;
+        }
+        button {
+            width: 100%;
+            padding: 0.8em;
+            border: none;
+            border-radius: 0.5em;
+            background: #0077ff;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #005fcc;
+        }
+
+
+        input.error {
+    border: 2px solid red;
+    box-shadow: 0 0 5px rgba(255, 59, 59, 0.5);
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>تسجيل رقم الجوال</h2>
+
+
+
+
+
+
+
+
+<form method="POST" >
+    {% csrf_token %}
+    <input type="tel" name="phone_number" placeholder="أدخل رقم جوالك" pattern="05\d{8}"
+        title="الرقم يجب أن يبدأ بـ 05 ويتكون من 10 أرقام" inputmode="numeric" required>
+    <input type="hidden" name="action" value="otp">
+    <button type="submit" >إرسال كود التحقق</button>
+</form>
+
+
+
+    </div>
+</body>
+</html>

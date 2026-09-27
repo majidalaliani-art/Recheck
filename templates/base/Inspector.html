@@ -1,0 +1,169 @@
+{% extends 'base/Colonelbase.html' %} {% load static %} {% block client_content %}
+
+<section class="inspector-wrapper">
+  <div class="inspector-form-card">
+    <!-- Header Section -->
+    <div class="inspector-header">
+      <div class="inspector-title">
+        <i class="fa-solid fa-star star-icon"></i>
+        <span class="title-text">الفاحصون</span>
+        <i class="fa-solid fa-star star-icon"></i>
+      </div>
+
+      <h2 class="inspector-subtitle">زد دخلك وحقق عائد إضافي بإنجاز الفحوصات</h2>
+
+      <p class="inspector-description">
+        منصة تأكد تتيح لك فرصة استثمار وقتك بتحويله لمصدر دخل إضافي وأنت بكامل أناقتك المهنية واحصل
+        على الفرصة لاستثمار وقتك وخبراتك والوصول إلى عملائك وخدمتهم بشكل مميز وزيادة دخلك. أكمل
+        إجراءات التسجيل كفاحص وابدأ في استقبال طلبات فحص العقار
+      </p>
+
+      <div class="inspector-image">
+        <img
+          src="{% static 'images/General/income.jpg' %}"
+          alt="دخل إضافي من فحص العقارات"
+          loading="lazy"
+        />
+      </div>
+    </div>
+
+    <!-- Tabs System -->
+    <div class="tk__tabs">
+      <!-- Radio Inputs -->
+      <input type="radio" id="tab1" name="tk__tabs__control" checked />
+      <input type="radio" id="tab2" name="tk__tabs__control" />
+      <input type="radio" id="tab3" name="tk__tabs__control" />
+
+      <!-- Tab Navigation -->
+      <div class="tabs-nav">
+        <label for="tab1" class="tab-label">
+          <i class="fa-solid fa-award tab-icon"></i>
+          <span class="tab-text">المزايا</span>
+        </label>
+
+        <label for="tab2" class="tab-label">
+          <i class="fa-solid fa-list-ol tab-icon"></i>
+          <span class="tab-text">الخطوات</span>
+        </label>
+
+        <label for="tab3" class="tab-label">
+          <i class="fa-solid fa-user-gear tab-icon"></i>
+          <span class="tab-text">بوابة الفاحصين</span>
+        </label>
+      </div>
+
+      <!-- Tab Content -->
+      <div class="tabs-content">
+        <!-- Tab 1: المزايا -->
+        <div class="tab-panel">
+          <ul class="features-list">
+            <li class="feature-item">
+              <span class="item-counter">01</span>
+              <div class="item-content">
+                <span class="item-title">دخل إضافي وعائد كبير</span>
+                <p class="item-description">
+                  فرصة استثمار وقتك بتحويله لمصدر دخل إضافي وأنت بكامل أناقتك المهنية.
+                </p>
+              </div>
+            </li>
+            <li class="feature-item">
+              <span class="item-counter">02</span>
+              <div class="item-content">
+                <span class="item-title">طلبات تناسب وقتك وموقعك</span>
+                <p class="item-description">
+                  رتّب جدولك واستقبل الطلبات اللي توافق تخصصك وموقعك بالوقت الذي تحدده أنت.
+                </p>
+              </div>
+            </li>
+            <li class="feature-item">
+              <span class="item-counter">03</span>
+              <div class="item-content">
+                <span class="item-title">تطوير خبراتك وتعزيز قدراتك</span>
+                <p class="item-description">
+                  كل يوم تمارس فيه عملك تصقل خبراتك وتعزّز مهاراتك. مع تأكد فرص التطور المهني ما لها
+                  حدود.
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Tab 2: الخطوات -->
+        <div class="tab-panel">
+          <ul class="steps-list">
+            <li class="step-item">
+              <span class="item-counter">01</span>
+              <div class="item-content">
+                <span class="item-title">التسجيل في المنصة</span>
+                <p class="item-description">
+                  لا تتطلب عملية التسجيل مزيد من الوقت، بل أنه تم تبسيط عملية التسجيل حتى تتمكن من
+                  الوصول إلى حسابك بخطوات قليلة.
+                </p>
+              </div>
+            </li>
+            <li class="step-item">
+              <span class="item-counter">02</span>
+              <div class="item-content">
+                <span class="item-title">الخضوع لإختبار</span>
+                <p class="item-description">
+                  تقديم مستنداتك والخضوع لإختبار تجريبي للتأكد من صحة المستندات وإستيفاء جميع
+                  المعايير الخاصة بالمنصة.
+                </p>
+              </div>
+            </li>
+            <li class="step-item">
+              <span class="item-counter">03</span>
+              <div class="item-content">
+                <span class="item-title">تفعيل الحساب وإستلام طلبات الفحص</span>
+                <p class="item-description">
+                  بعد مراجعة حسابك والموافقة عليه يتم تفعيل الحساب والبدء في استقبال طلبات الفحص من
+                  خلال حسابك.
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="tab-panel">
+          <!-- Tab 3: دخول (Empty) -->
+
+
+
+          {% if user.is_authenticated %}
+
+          <div class="login-placeholder">
+            <i class="fa-solid fa-user-check placeholder-icon" style="color: #0284c7"></i>
+            <h2>أهلاً بك، أنت مسجل دخول حالياً</h2>
+            <p class="description-text">
+              حسابك نشط وجاهز. إذا كنت ترغب في الخروج من الحساب أو التبديل، يمكنك الضغط على الزر
+              أدناه.
+            </p>
+
+
+
+
+
+            <a href="{% url 'Base:logout' %}?app={{ request.resolver_match.app_name }}&next={{ request.path }}" class="orderNow btn-join" style="background-color: #dc2626"
+              >تسجيل الخروج</a>
+          </div>
+
+          {% else %}
+
+          <div class="login-placeholder">
+            <i class="fa-solid fa-right-to-bracket placeholder-icon"></i>
+
+            <h2>انضم إلينا كمهندس فاحص مميز</h2>
+            <p class="description-text">
+              هذه الصفحة مخصصة للمهندسين الراغبين في الانضمام إلى شبكتنا لتقديم خدمات فحص العقارات
+              المعتمدة. يمكنك تقديم طلبك الآن ومشاركة خبراتك معنا.
+            </p>
+            <a href="{% url 'Staff:apply' %}" class="orderNow btn-join">تقديم طلب انضمام</a>
+          </div>
+
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

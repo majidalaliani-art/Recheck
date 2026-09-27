@@ -1,0 +1,226 @@
+{% extends 'Client/CientBase.html' %} {% block client_content %} {% load static %}
+<div class="orders-wrapper row mx-auto py-3 py-lg-4 w-100 w-lg-75">
+  <div class="orders-container col-lg-10 mx-auto">
+    <div class="orders-header d-flex justify-content-between align-items-center mb-4">
+      <p class="section-header m-0">طلباتي</p>
+      <div class="orders-tabs">
+        <button class="btn btn-outline-dark active" id="show-visits">الزيارات</button>
+        <button class="btn btn-outline-dark" id="show-consultations">الاستشارات</button>
+      </div>
+    </div>
+
+    <!-- Order Card -->
+    <div id="visits-container" class="orders-body row g-3">
+      {% for order in orders %} {% if order.order_type == 'visit' %}
+      <div class="col-12 col-lg-6">
+        <div id="order-card-{{order.order_id}}" class="order-card visit-order">
+          <!-- Header -->
+
+          <div class="ticket-header">
+            <span class="order-id">
+              OR-<span class="order-number">{{ order.order_id }}</span>
+            </span>
+            {% if order.payment.status == 'success' %}
+            <p class="status-orders status-orders-{{ order.visitdetails.status }}">
+              {{ order.visitdetails.get_status_display }}
+            </p>
+
+            {% else %}
+            <p class="status-orders status-orders-{{ order.payment.status }}">
+              {{ order.payment.get_status_display }}
+            </p>
+
+            {% endif %}
+          </div>
+
+          <div class="ticket-body">
+            <div class="body-content body-1">
+              <div class="section-location">
+                <p class="city">
+                  <i class="fa-solid fa-location-dot"></i>
+                  <span class="city-neighborhood"
+                    >{{order.visitdetails.neighborhood}}, {{ order.visitdetails.city }}</span
+                  >
+                </p>
+
+                <p class="area">
+                  <i class="fa-regular fa-chart-bar"></i>
+                  <span class="area-size">{{ order.visitdetails.property_size }}</span>
+                  <span class="m">م</span>
+                </p>
+              </div>
+
+              <div class="section-info">
+                <p class="property-type">{{order.visitdetails.property_type.property_name}}</p>
+
+                <span class="detail-tag"> {{order.visitdetails.inspection_type.name}} </span>
+              </div>
+
+              <div class="section-price">
+                <p class="label">التكلفة</p>
+
+                <p class="value">
+                  <span class="icon-saudi_riyal"></span>
+                  {{ order.payment.amount|floatformat:0 }}
+                </p>
+              </div>
+            </div>
+            <div class="body-content body-2">
+              <div class="day">
+                <i class="far fa-search-location pe-2"></i>
+                <span class="day-date">{{order.visitdetails.day|date:"Y-m-d"}}</span>
+              </div>
+
+              <span class="time">{{order.visitdetails.get_time_slot_display}}</span>
+            </div>
+          </div>
+          <div class="ticket-footer">
+            <a href="{% url 'Client:order' order.order_id %}" class="view-order">عرض</a>
+          </div>
+        </div>
+      </div>
+      {% endif %} {% endfor %}
+    </div>
+    <!-- Order Card -->
+    <div id="consultation-container" class="orders-body row g-3 d-none">
+      {% for order in orders %} {% if order.order_type == 'consultation' %}
+      <div class="col-12 col-lg-6">
+        <div id="order-card-{{order.order_id}}" class="order-card consultation-order">
+          <div class="ticket-header">
+            <span class="order-id">
+              OR-<span class="order-number">{{ order.order_id }}</span>
+            </span>
+            {% if order.payment.status == 'success' %}
+
+            <p class="status-orders status-orders-{{ order.consultations.status }}">
+              {{ order.consultations.get_status_display }}
+            </p>
+
+            {% else %}
+
+            <p class="status-orders status-orders-{{ order.payment.status }}">
+              {{ order.payment.get_status_display }}
+            </p>
+
+            {% endif %}
+          </div>
+
+          <div class="ticket-body">
+            <div class="body-content body-consultation">
+              <div class="day">
+                <i class="far fa-search-location pe-2"></i>
+                <span class="day-date">{{order.consultations.work_history|date:"Y-m-d"}}</span>
+              </div>
+
+              <span class="time">{{order.consultations.work_time}}</span>
+
+              <span class="value">
+                <span class="icon-saudi_riyal"></span>
+                <span class="amount">{{ order.payment.amount|floatformat:0 }}</span>
+              </span>
+            </div>
+          </div>
+          <div class="ticket-footer">
+            <a href="{% url 'Client:order' order.order_id %}" class="view-order">عرض</a>
+          </div>
+        </div>
+      </div>
+      {% endif %} {% endfor %}
+    </div>
+  </div>
+
+  <template id="visit-card-template">
+    <div class="order-card visit-order">
+      <!-- Header -->
+      <div class="ticket-header">
+        <span class="order-id">OR-<span class="order-number"></span></span>
+        <p class="status-orders"></p>
+      </div>
+
+      <!-- Body -->
+      <div class="ticket-body">
+        <div class="body-content body-1">
+          <!-- Location + Size -->
+          <div class="section-location">
+            <p class="city">
+              <i class="fa-solid fa-location-dot"></i>
+              <span class="city-neighborhood"></span>
+            </p>
+
+            <p class="area">
+              <i class="fa-regular fa-chart-bar"></i>
+              <span class="area-size"></span>
+              <span class="m">م</span>
+            </p>
+          </div>
+
+          <!-- Info -->
+          <div class="section-info">
+            <p class="property-type"></p>
+            <span class="detail-tag"></span>
+          </div>
+
+          <!-- Price -->
+          <div class="section-price">
+            <p class="label">التكلفة</p>
+
+            <p class="value">
+              <span class="icon-saudi_riyal"></span>
+              <span class="amount"></span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Bottom -->
+        <div class="body-content body-2">
+          <div class="day">
+            <i class="far fa-search-location pe-2"></i>
+            <span class="day-date"></span>
+          </div>
+
+          <span class="time"></span>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="ticket-footer">
+        <a class="view-order">عرض</a>
+      </div>
+    </div>
+  </template>
+
+  <template id="consultation-card-template">
+    <div class="order-card consultation-order">
+      <!-- Header -->
+      <div class="ticket-header">
+        <span class="order-id">OR-<span class="order-number"></span></span>
+        <p class="status-orders"></p>
+      </div>
+
+      <!-- Body -->
+      <div class="ticket-body">
+        <div class="body-content body-consultation">
+          <div class="day">
+            <i class="far fa-search-location pe-2"></i>
+            <span class="day-date"></span>
+          </div>
+
+          <span class="time"></span>
+
+          <span class="value">
+            <span class="icon-saudi_riyal"></span>
+            <span class="amount"></span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="ticket-footer">
+        <a class="view-order">عرض</a>
+      </div>
+    </div>
+  </template>
+  <script src="{% static 'Style/js/client/status.js' %}"></script>
+  <script src="{% static 'Style/js/client/order.js' %}"></script>
+</div>
+{% endblock %}

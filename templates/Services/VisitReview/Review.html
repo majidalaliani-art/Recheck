@@ -1,0 +1,126 @@
+{% extends 'Services/ServicesBase.html' %} {% load static %} {% block operations_content %}
+<!--  -->
+{% if not is_pdf %}
+<input type="hidden" id="visit-id" value="{{visit_id}}" />
+{% endif %}
+
+<div class="report_content review container">
+  <div class="header">
+    <!-- 1. الشعار على اليمين -->
+    <a href="{% url 'Client:homepage' %}" class="logo-wrapper">
+      <img src="{% static 'images/favicon.ico' %}" class="img-fluid logo" alt="Logo" />
+    </a>
+
+    <!-- 2. بيانات التقرير والـ QR على اليسار -->
+
+    <div class="report-info">
+      <div class="report-meta">
+        <div class="order-badge">
+          <span>OR-{{Order_id}}</span>
+        </div>
+        <h3 class="report-id mb-0">REP-{{visit_id}}</h3>
+        <p class="report-date mb-0">2025-10-23</p>
+      </div>
+
+      {% if is_pdf %}
+      <div class="showPrint qrcode text-center ms-3 user-select-none">
+        <img src="" alt="" id="qrcode" class="qr-img" />
+        <div class="qr-label">تحقق موثوقية التقرير</div>
+      </div>
+      {% endif %}
+    </div>
+
+  </div>
+{% if request.user.is_superuser and Visit.Request.status == "under_review" %}
+<form method="POST" action="{% url 'operations:update_status_by_supervisor' visit_id %}" class="supervisor-actions">
+  {% csrf_token %}
+
+  <!-- 1. رابط المعاينة (يطلع برا الفورم عشان ما يرسل بيانات بالغلط) -->
+  <a href="{% url 'operations:visit_review' visit_id %}" class="btn btn-outline-secondary">
+    <span>بنموذج المهندس</span>
+    <i class="fa-solid fa-eye"></i>
+  </a>
+
+  <!-- 2. زر الإرجاع (نرسل معه قيمة تميزه) -->
+  <button type="submit" name="action" value="reject" class="btn btn-outline-danger">
+    <span>إرجاع التقرير</span>
+    <i class="fa-solid fa-rotate-left"></i>
+  </button>
+
+  <!-- 3. زر القبول (نرسل معه قيمة تميزه) -->
+  <button type="submit" name="action" value="accept" class="btn btn-warning">
+    <span>قبول التقرير</span>
+    <i class="fa-solid fa-check"></i>
+  </button>
+
+</form>
+{% endif %}
+
+
+  {% if not is_pdf %}
+  <div class="report-tabs-nav">
+    <!-- Tab 1: تفاصيل الطلب -->
+    <div class="tab-item report-tab active" data-step="1">
+      <div>
+        <span class="tab-text d-desktop">تفاصيل</span>
+        <span class="tab-text d-mobile">الطلب</span>
+      </div>
+      <span class="tab-line"></span>
+    </div>
+
+    <!-- Tab 2: تفاصيل العقار -->
+    <div class="tab-item report-tab" data-step="2">
+      <div>
+        <span class="tab-text d-desktop">تفاصيل</span>
+        <span class="tab-text d-mobile">العقار</span>
+      </div>
+      <span class="tab-line"></span>
+    </div>
+
+    <!-- Tab 3: ملخص التقرير -->
+    <div class="tab-item report-tab" data-step="3">
+      <div>
+        <span class="tab-text d-desktop">ملخص</span>
+        <span class="tab-text d-mobile">التقرير</span>
+      </div>
+      <span class="tab-line"></span>
+    </div>
+
+
+        <!-- Tab 4: ملخص الملاحظات -->
+    <div class="tab-item report-tab" data-step="4">
+      <div>
+        <span class="tab-text d-desktop">ملخص</span>
+        <span class="tab-text d-mobile">الملاحظات</span>
+      </div>
+      <span class="tab-line"></span>
+    </div>
+
+
+    <!-- Tab 5: ملاحظات التقرير -->
+    <div class="tab-item report-tab" data-step="5">
+      <div>
+        <span class="tab-text d-desktop">ملاحظات</span>
+        <span class="tab-text d-mobile">التقرير</span>
+      </div>
+      <span class="tab-line"></span>
+    </div>
+
+  </div>
+  {% endif %}
+
+
+  <div class="tab-content-wrapper">
+    <div class="tab-panel {% if not is_pdf %} active {% endif %}" id="panel-1">
+      {% include 'Services/VisitReview/panel-1.html' %}
+    </div>
+    <div class="tab-panel" id="panel-2">{% include 'Services/VisitReview/panel-2.html' %}</div>
+    <div class="tab-panel" id="panel-3">{% include 'Services/VisitReview/panel-3.html' %}</div>
+
+    <div class="tab-panel" id="panel-4">{% include 'Services/VisitReview/panel-4.html' %}</div>
+    <div class="tab-panel" id="panel-5">{% include 'Services/VisitReview/panel-5.html' %}</div>
+  </div>
+</div>
+{% if not is_pdf %}
+<script src="{% static 'Style/js/Services/VisitReview/review.js' %}"></script>
+{% endif %} {% endblock %}

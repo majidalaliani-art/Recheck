@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+   
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+
+<style>
+    #map {
+        height: 450px;
+        width: 100%;
+        border-radius: 12px;
+        border: 2px solid #ddd;
+    }
+</style>
+
+<div id="map"></div>
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+    let map, marker;
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+        map = L.map('map').setView([24.7136, 46.6753], 6);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(pos) {
+                const lat = pos.coords.latitude;
+                const lng = pos.coords.longitude;
+                map.setView([lat, lng], 17);
+                updatePos(lat, lng);
+            }, null, { enableHighAccuracy: true });
+        }
+        map.on('click', function(e) {
+            updatePos(e.latlng.lat, e.latlng.lng);
+        });
+    });
+    function updatePos(lat, lng) {
+        document.getElementById('id_latitude').value = lat;
+        document.getElementById('id_longitude').value = lng;
+        if (marker) {
+            marker.setLatLng([lat, lng]);
+        } else {
+            marker = L.marker([lat, lng], { draggable: true }).addTo(map);
+            marker.on('dragend', function(e) {
+                const p = marker.getLatLng();
+                updatePos(p.lat, p.lng);
+            });
+        }
+    }
+</script>

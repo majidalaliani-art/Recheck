@@ -1,0 +1,99 @@
+<div id="recommendation-wrapper">
+  {% if status == "in_progress" %}
+  <p class="alert">
+    يمكنك إضافة توصيات عامة بخصوص حالة العقار بناءً على ملاحظات الفحص التي قمت بإدخالها . ا في
+    التقرير.
+  </p>
+  {% endif %}
+
+  <div id="recommendationsContainer">
+    {% for rec in Order.recommendations.all %}
+    <div class="recommendation-card" id="rec-card-{{ rec.id }}">
+      <!-- الرقم داخل دائرة -->
+      <span class="rec-number">{{ rec.number }}</span>
+      <textarea class="rec-text" id="rec-text-{{ rec.id }}" placeholder="اكتب نص التوصية هنا...">
+{{ rec.text|default_if_none:"" }}</textarea
+      >
+      {% if status == "in_progress" %}
+      <!-- أزرار الأيقونات: الحفظ أولاً ثم الحذف -->
+      <div class="card-actions">
+        <button
+          type="button"
+          class="btn-action btn-save-rec"
+          data-id="{{ rec.id }}"
+          title="حفظ التعديل"
+        >
+          <i class="fa-solid fa-floppy-disk"></i>
+        </button>
+
+        <button type="button" class="btn-action btn-delete-rec" data-id="{{ rec.id }}" title="حذف">
+          <i class="fa-solid fa-trash-can"></i>
+        </button>
+      </div>
+      {% endif %}
+    </div>
+
+    {% endfor %}
+  </div>
+  {% if status == "in_progress" %}
+  <button type="button" id="addRecommendationBtn" class="orderNow btn-add">
+    <samp class="text fs-5 fw-bold">توصية</samp>
+    <span class="icon-left">
+      <i class="fa-solid fa-plus"></i>
+    </span>
+  </button>
+  {% endif %}
+  <!-- قسم التوصيات العامة والثابتة -->
+  <div class="report-card">
+    <h3 class="section-title">التوصيات العامة</h3>
+    <div class="recommendations-list">
+      <p class="rec-item">
+        الحصول على شهادة عن الكشف الهندسي تفيد وجودة والسلامة للمبنى الإنشائي والمناسب، حسب فئة من
+        الهيئة الإنشائية
+      </p>
+      <p class="rec-item">يجب مطابقة شبكات المياه مع المياه والطبيعة من قبل طالب عكسي الاختبار</p>
+      <p class="rec-item">الحصول على أصل عقود السلام ضد الحريق لجميع المباني</p>
+      <p class="rec-item">
+        الحصول على ضمان لمدة 10 سنوات على عزله المائي، الصادر من المقاول المعتمد من الهيئة المركزية
+      </p>
+      <p class="rec-item">الحصول على شهادة ضمان لمدة سنتين لأعمال التشطيبات من المقاول</p>
+      <p class="rec-item">
+        الحصول على ضمان لمدة 10 سنوات لأعمال العزل المائي للأسطح ودورات المياه ودورات المياه، من
+        مقاول العزل له العقد
+      </p>
+      <p class="rec-item">
+        الحصول على أشكال العزل وقواطع الحركة بالدولة حسب الكود السعودي والمحفوظة
+      </p>
+      <p class="rec-item">
+        في حال وجود أي أتاحة أخرى، يجب توفير صيانة لها من قبل المشتري بجهات مثل باب الكراج باستخدام
+        الرفيق ومعالج التشغيل ذاته
+      </p>
+      <p class="rec-item">
+        أصل المخططات المعمارية والإنشائية والميكانيكية والكهربائية ومخططات السيولة كاملة طبقا
+        للمحافظات في صورة واحدة اليد
+      </p>
+    </div>
+  </div>
+</div>
+{% if status == "in_progress" %}
+<!-- التمبلت المخفي لاستنسخ منه بطاقات جديدة -->
+<template id="recommendationCardTemplate">
+  <div class="recommendation-card" id="rec-card-__ID__" data-id="__ID__">
+    <!-- الرقم داخل دائرة -->
+    <span class="rec-number">__NUMBER__</span>
+
+    <textarea class="rec-text" id="rec-text-__ID__" placeholder="اكتب نص التوصية هنا..."></textarea>
+
+    <!-- أزرار الأيقونات -->
+    <div class="card-actions">
+      <button type="button" class="btn-action btn-save-rec" data-id="__ID__" title="حفظ التعديل">
+        <i class="fa-solid fa-floppy-disk"></i>
+      </button>
+
+      <button type="button" class="btn-action btn-delete-rec" data-id="__ID__" title="حذف">
+        <i class="fa-solid fa-trash-can"></i>
+      </button>
+    </div>
+  </div>
+</template>
+{% endif %}

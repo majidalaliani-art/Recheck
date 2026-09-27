@@ -1,0 +1,142 @@
+{% extends 'Engineer/EngineerBase.html' %} {% block staff_content %}
+
+<div class="wallet p-4">
+
+<!-- الجزء الأول: بطاقتان متوسّطتا النصوص -->
+<div class="row g-3 mb-4">
+  <!-- بطاقة إجمالي الربح -->
+  <div class="col-md-6">
+    <div class="stat-card card-earnings">
+      <span class="stat-title">إجمالي الربح</span>
+      <h2 class="stat-value" >
+        <samp id="total-earnings">{{ wallet.total_earnings|default:0 }}</samp>
+        <small class="icon-saudi_riyal_bold"></small>
+      </h2>
+    </div>
+  </div>
+
+  <!-- بطاقة الرصيد المعلق -->
+  <div class="col-md-6">
+    <div class="stat-card card-pending">
+      <span class="stat-title">الرصيد المعلق</span>
+      <h2 class="stat-value">
+        <samp  id="pending-balance">{{ wallet.pending_balance|default:0 }}</samp>
+        <small class="icon-saudi_riyal_bold"></small>
+      </h2>
+    </div>
+  </div>
+</div>
+
+
+<!-- الجزء الثاني: شريط الرصيد القابل للسحب + زر السحب مخصص -->
+<div class="action-bar-card mb-4">
+
+  <!-- جهة اليمين: عنوان الجزء وتفاصيل الرصيد -->
+  <div class="action-info">
+    <span class="action-subtitle">عمليات السحب النقدي</span>
+    <div class="balance-display">
+      <span class="balance-label">الرصيد القابل للسحب:</span>
+      <div class="balance-value">
+        <samp id="available-balance">{{ wallet.available_balance|default:0 }}</samp>
+
+        <small class="icon-saudi_riyal_bold_new"></small>
+      </div>
+    </div>
+  </div>
+
+  <!-- جهة اليسار: زر طلب السحب -->
+  <div class="action-btn-wrapper">
+    <form method="POST" class="m-0">
+      {% csrf_token %}
+      <button type="submit" name="action" value="withdraw" class="btn-withdraw">
+        طلب سحب
+      </button>
+    </form>
+  </div>
+
+</div>
+
+
+
+<!-- سجل السحوبات -->
+<div class="withdrawals-card">
+
+  <!-- الهيدر: العنوان + الشارة الذهبية -->
+  <div class="withdrawals-header">
+    <h3 class="title">سجل السحوبات</h3>
+    <span class="count-badge">{{ withdrawals.count }} عمليات</span>
+  </div>
+
+  <!-- القائمة مع السكرول الداخلي -->
+  <div class="withdrawals-list scrollable-container">
+    {% for withdrawal in withdrawals %}
+
+    <div class="withdrawal-item {{ withdrawal.status }}">
+
+      <!-- 1. الرقم المرجعي والتاريخ -->
+      <div class="info-group">
+        <span class="ref-number">{{ withdrawal.reference_number }}</span>
+        <span class="date-text">{{ withdrawal.created_at|date:"Y-m-d h:i A" }}</span>
+      </div>
+
+      <!-- 2. المبلغ -->
+      <div class="amount-group">
+        <span class="amount">{{ withdrawal.amount }}</span>
+        <span class="currency icon-saudi_riyal"></span>
+      </div>
+
+      <!-- 3. شارة الحالة -->
+      <div class="status-group">
+        <span class="status-badge {{ withdrawal.status }}">
+          {{ withdrawal.get_status_display }}
+        </span>
+      </div>
+
+    </div>
+
+    {% empty %}
+    <div class="empty-state">
+      لا توجد عمليات سحب مسجلة حتى الآن.
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
+
+
+</div>
+
+
+{% endblock %}
+ <!-- <div class="bg-white rounded-3 shadow-sm p-3">
+    <h6 class="fw-bold mb-3 border-bottom pb-2">سجل السحوبات السابقة</h6>
+
+    <div class="withdrawals-list">
+      {% for withdrawal in withdrawals %}
+      <div class="d-flex justify-content-between align-items-center p-3 mb-2 bg-light rounded-2">
+        <div>
+          <span class="fw-bold text-secondary d-block">#{{ withdrawal.reference_number }}</span>
+          <small class="text-muted">{{ withdrawal.created_at|date:"Y-m-d h:i A" }}</small>
+        </div>
+
+        <div class="fw-bold fs-5">
+          {{ withdrawal.amount }} <small class="fs-6">ر.س</small>
+        </div>
+
+        <div>
+          {% if withdrawal.status == 'SUCCESS' %}
+            <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill"> ✅ مكتمل </span>
+          {% elif withdrawal.status == 'PENDING' %}
+            <span class="badge bg-warning-subtle text-warning px-3 py-2 rounded-pill"> ⏳ قيد المعالجة </span>
+          {% else %}
+            <span class="badge bg-danger-subtle text-danger px-3 py-2 rounded-pill"> ❌ مرفوض </span>
+          {% endif %}
+        </div>
+      </div>
+      {% empty %}
+      <div class="text-center py-4 text-muted">
+        لا توجد عمليات سحب مسجلة حتى الآن.
+      </div>
+      {% endfor %}
+    </div>
+  </div> -->

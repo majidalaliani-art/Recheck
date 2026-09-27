@@ -1,0 +1,31 @@
+<div class="container py-5">
+    <div class="row g-4 justify-content-center">
+
+        <div class="col-md-5">
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="type" value="std">
+                <button type="submit" class="card h-100 w-100 border-primary shadow-sm text-center p-5" style="background: none; cursor: pointer;">
+                    <i class="fas fa-search fa-3x mb-3 text-primary"></i>
+                    <h3 class="fw-bold text-dark">فحص عادي</h3>
+                    <p class="text-muted small">إنشائي ومعماري أساسي</p>
+                    <span class="badge bg-primary fs-5">{{ std }} ريال</span>
+                </button>
+            </form>
+        </div>
+
+        <div class="col-md-5">
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="type" value="comp">
+                <button type="submit" class="card h-100 w-100 border-success shadow-sm text-center p-5" style="background: none; cursor: pointer;">
+                    <i class="fas fa-microscope fa-3x mb-3 text-success"></i>
+                    <h3 class="fw-bold text-dark">فحص شامل</h3>
+                    <p class="text-muted small">سباكة، كهرباء، وعوازل</p>
+                    <span class="badge bg-success fs-5">{{ comp }} ريال</span>
+                </button>
+            </form>
+        </div>
+
+    </div>
+</div>

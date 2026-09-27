@@ -1,0 +1,60 @@
+ <div class="container mt-4">
+    <h3 class="mb-4">الطلبات المتاحة للزيارة</h3>
+
+    <div class="row">
+
+        {% for visit in available_visits %}
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-primary">
+                <div class="card-header bg-primary text-white d-flex justify-content-between">
+                    <h2 class="text-white">رقم الطلب: <strong>{{ visit.order.pk }}</strong></h2>
+                </div>
+                <div>
+                    <div class="card-body">
+                    <div class="card-title">
+                        <p>📞 رقم العميل:</p>
+                        <span>{{ visit.order.phone }}</span>
+                    </div>
+                    <div class="card-title">
+                        <p>📍 العنوان:</p>
+                        <span> {{ visit.order.location_url }}</span>
+                    </div>
+                    <div class="card-title">
+                        <p>💰 مستحقاتك:</p>
+                        <span>  {{ visit.engineer_amount }}</span>
+                    </div>
+                          <div class="card-title">
+                        <p>📅 تاريخ الطلب:</p>
+                        <span>  {{ visit.created_at|date:"Y-m-d" }}</span>
+                    </div>
+                </div>
+                <div>
+
+                  <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="visit_id" value="{{ visit.pk }}">
+                        <button type="submit" name="Reservation" value="Reservation" class="btn btn-success w-100">
+                            استلام المهمة ✅
+                        </button>
+                  </form>
+
+                </div>
+
+
+                    {% comment %} <a href="{% url 'claim_visit' visit.pk %}" class="btn btn-success w-100">
+                         استلام المهمة ✅
+                    </a> {% endcomment %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center">
+            <div class="alert alert-info">
+                لا توجد طلبات متاحة حالياً.. شيك مرة ثانية بعدين! ☕
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    
+</div>

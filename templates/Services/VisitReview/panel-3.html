@@ -1,0 +1,75 @@
+<div class="row g-3 align-items-center">
+  <!-- المؤشر العام: يأخذ col-12 في الجوال و col-lg-3 في الشاشات الكبيرة -->
+  <div class="col-12 col-lg-3">
+    <div
+      class="overall-score-sidebar {% if overall_score >= 90 %}progress-excellent{% elif overall_score >= 80 %}progress-good{% elif overall_score >= 70 %}progress-medium{% else %}progress-weak{% endif %}"
+      style="--score: {{ overall_score|floatformat:0 }}%;"
+    >
+      <div class="overall-score-sidebar__inner">
+        <div class="overall-score-sidebar__title">المؤشر العام لجودة العقار</div>
+        <div class="overall-score-sidebar__number">{{ overall_score|floatformat:0 }}%</div>
+
+        {% if overall_score >= 90 %}
+        <div class="overall-score-sidebar__status status-excellent">ممتاز</div>
+        {% elif overall_score >= 80 %}
+        <div class="overall-score-sidebar__status status-good">جيد جدا</div>
+        {% elif overall_score >= 70 %}
+        <div class="overall-score-sidebar__status status-medium">جيد</div>
+        {% else %}
+        <div class="overall-score-sidebar__status status-weak">ضعيف</div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- قسم البطاقات: يأخذ col-12 في الجوال و col-lg-9 في الشاشات الكبيرة -->
+  <div class="col-12 col-lg-9">
+    <div class="row g-3">
+      {% for key, result in results.items %}
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="inspection-score-card">
+          <div class="inspection-score-card__top">
+            <!-- اسم البند والحالة -->
+            <div class="inspection-score-card__info">
+              <div class="inspection-score-card__name">{{ result.name }}</div>
+
+              {% if result.score >= 90 %}
+              <div class="inspection-score-card__status status-excellent">
+                <span></span>
+                ممتاز
+              </div>
+              {% elif result.score >= 80 %}
+              <div class="inspection-score-card__status status-good">
+                <span></span>
+                جيد جدا
+              </div>
+              {% elif result.score >= 70 %}
+              <div class="inspection-score-card__status status-medium">
+                <span></span>
+                جيد
+              </div>
+              {% else %}
+              <div class="inspection-score-card__status status-weak">
+                <span></span>
+                ضعيف
+              </div>
+              {% endif %}
+            </div>
+
+            <!-- النسبة -->
+            <div class="inspection-score-card__score">{{ result.score|floatformat:2 }}%</div>
+          </div>
+
+          <!-- شريط النسبة -->
+          <div class="inspection-score-card__progress">
+            <div
+              class="inspection-score-card__progress-bar {% if result.score >= 90 %} progress-excellent {% elif result.score >= 80 %} progress-good {% elif result.score >= 70 %} progress-medium {% else %} progress-weak {% endif %}"
+              style="width: {{ result.width }}%;"
+            ></div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>

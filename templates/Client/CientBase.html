@@ -1,0 +1,9 @@
+{% extends 'base/base.html' %} {% load static %} {% block content %}
+<div>
+  {% include 'social_media/WhatsApp.html' %} {% block navbar %}
+  {% include 'Client/partials/navbar.html' %} {% endblock %}
+
+
+  <div class="container_client_base">{% block client_content %} {% endblock %}</div>
+</div>
+{% endblock %}

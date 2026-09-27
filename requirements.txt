@@ -1,0 +1,60 @@
+# Web Framework
+Django==6.0.4
+asgiref==3.11.1
+
+# ASGI / WebSocket
+daphne==4.2.3
+channels==4.3.2
+Twisted==26.4.0
+
+# Database
+psycopg2-binary==2.9.10
+dj-database-url==2.3.0
+
+# Django Extensions & UI
+django-jazzmin==3.0.5
+django-extensions==4.1
+django-browser-reload==1.21.0
+django-filter==26.1
+django-crispy-forms==2.7
+crispy-bootstrap5==2026.9
+
+# Storage — Cloudflare R2
+django-storages==1.14.6
+boto3==1.43.101
+botocore==1.43.101
+
+# Task Queue
+celery==5.6.3
+kombu==5.6.2
+billiard==4.3.0
+amqp==5.4.0
+
+# Environment
+python-dotenv==1.2.3
+
+# Security & Files
+bleach==6.4.0
+pillow==12.3.0
+whitenoise==6.9.0
+
+# PDF Generation
+weasyprint==70.0
+reportlab==5.0.1
+pypdf==6.19.0
+pdfplumber==0.11.10
+
+# Payment
+stripe==15.6.1
+
+# Geo
+geopy==2.5.0
+
+# QR Code
+qrcode==8.2
+
+# Utilities
+schwifty==2026.7.3
+requests==2.34.2
+sqlparse==0.5.5
+gunicorn==23.0.0

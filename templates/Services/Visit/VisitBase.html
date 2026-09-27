@@ -1,0 +1,216 @@
+{% extends 'Services/ServicesBase.html' %} {% load static %} {% block operations_content %}
+
+<input type="hidden" id="visit-id" value="{{Order.id}}" />
+
+<div class="report_content container">
+  <div class="report-header">
+    <h2 class="report-title">إعداد تقرير الفحص</h2>
+
+    <span class="report-badge">
+      <strong class="badge-number">OR-{{id}}</strong>
+    </span>
+  </div>
+
+{% if request.user.is_superuser and status == "under_review" %}
+<form method="POST" action="{% url 'operations:update_status_by_supervisor' id %}" class="supervisor-actions">
+  {% csrf_token %}
+
+  <!-- 1. رابط المعاينة (يطلع برا الفورم عشان ما يرسل بيانات بالغلط) -->
+  <a href="{% url 'operations:supervisor_visit_review' id %}" class="btn btn-outline-secondary">
+    <span>بنموذج العميل</span>
+    <i class="fa-solid fa-eye"></i>
+  </a>
+
+  <!-- 2. زر الإرجاع (نرسل معه قيمة تميزه) -->
+  <button type="submit" name="action" value="reject" class="btn btn-outline-danger">
+    <span>إرجاع التقرير</span>
+    <i class="fa-solid fa-rotate-left"></i>
+  </button>
+
+  <!-- 3. زر القبول (نرسل معه قيمة تميزه) -->
+  <button type="submit" name="action" value="accept" class="btn btn-warning">
+    <span>قبول التقرير</span>
+    <i class="fa-solid fa-check"></i>
+  </button>
+
+</form>
+{% endif %}
+
+
+  <div class="report-tabs-bar">
+    <div class="tab-item active" data-step="1">
+      <span class="tab-number">1</span>
+      <span class="tab-text">بيانات العقار</span>
+      <span class="tab-line"></span>
+    </div>
+
+    <div class="tab-item" data-step="2">
+      <span class="tab-number">2</span>
+      <span class="tab-text">مواصفات ومستندات العقار</span>
+      <span class="tab-line"></span>
+    </div>
+
+    <div class="tab-item" data-step="3">
+      <span class="tab-number">3</span>
+      <span class="tab-text">ملاحظات الفحص</span>
+      <span class="tab-line"></span>
+    </div>
+
+    <div class="tab-item" data-step="4">
+      <span class="tab-number">4</span>
+      <span class="tab-text">التوصيات النهائية</span>
+      <span class="tab-line"></span>
+    </div>
+   {% if status == "in_progress" %}
+    <div id="inspectVisitBtn" class="tab-item" data-step="5">
+      <span class="tab-number">5</span>
+      <span class="tab-text">تقديم التقرير</span>
+      <span class="tab-line"></span>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="tab-content-wrapper">
+    <form class="tab-panel active" id="panel-1" method="post" enctype="multipart/form-data">
+      {% csrf_token %} {% include 'Services/Visit/panel-1.html' %}
+    </form>
+
+    <form class="tab-panel" id="panel-2">
+      {% csrf_token %} {% include 'Services/Visit/panel-2.html' %}
+    </form>
+
+    <div class="tab-panel" id="panel-3">{% include 'Services/Visit/panel-3.html' %}</div>
+
+    <div class="tab-panel" id="panel-4">{% include 'Services/Visit/panel-4.html' %}</div>
+    {% if status == "in_progress" %}
+    <form method="POST", class="tab-panel" id="panel-5">
+       {% csrf_token %}
+      {% include 'Services/Visit/panel-5.html' %}
+    </form>
+     {% endif %}
+
+  </div>
+</div>
+
+
+
+{% if status == "in_progress" %}
+<script>
+  const SAVE_VISIT_URL = "{% url 'operations:save_report' id %}";
+  const SAVE_INSPECTION_URL = "{% url 'operations:save_inspection_items' id %}";
+</script>
+
+
+{% else %}
+<script>
+  const SAVE_VISIT_URL = "url";
+  const SAVE_INSPECTION_URL = "url";
+</script>
+{% endif %}
+
+<div class="modal fade modal-fullscreen" id="addAreaModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- هذه الواجهة اللي بتطلع في كامل الشاشة -->
+      <div class="full-screen-overlay">
+        <h5 class="fw-bold mb-4">اختر منطقة الفحص</h5>
+
+        <div class="d-grid gap-3" style="width: 80%; max-width: 400px; max-height: 70vh; overflow-y: auto; padding-right: 5px;">
+
+          <button type="button" class="btn btn-outline-primary py-3 add-area-btn force-close-modal" data-key="general">
+            <i class="fa-solid fa-file-lines me-2"></i> تقرير عام
+          </button>
+
+          <button type="button" class="btn btn-outline-primary py-3 add-area-btn force-close-modal" data-key="bedroom">
+            <i class="fa-solid fa-bed me-2"></i> غرفة نوم
+          </button>
+
+          <button type="button" class="btn btn-outline-primary py-3 add-area-btn force-close-modal" data-key="lounge">
+            <i class="fa-solid fa-couch me-2"></i> صالة
+          </button>
+
+          <button type="button" class="btn btn-outline-primary py-3 add-area-btn force-close-modal" data-key="majlis">
+            <i class="fa-solid fa-people-roof me-2"></i> مجلس
+          </button>
+
+          <button type="button" class="btn btn-outline-primary py-3 add-area-btn force-close-modal" data-key="bathroom">
+            <i class="fa-solid fa-restroom me-2"></i> دورة مياه
+          </button>
+
+          <button type="button" class="btn btn-outline-primary py-3 add-area-btn force-close-modal" data-key="kitchen">
+            <i class="fa-solid fa-kitchen-set me-2"></i> مطبخ
+          </button>
+
+          <button type="button" class="btn btn-outline-primary py-3 add-area-btn force-close-modal" data-key="corridor">
+            <i class="fa-solid fa-arrows-split-up-and-left me-2"></i> ممر
+          </button>
+
+          <button type="button" class="btn btn-outline-primary py-3 add-area-btn force-close-modal" data-key="entrance">
+            <i class="fa-solid fa-door-open me-2"></i> مدخل
+          </button>
+
+          <button type="button" class="btn btn-outline-primary py-3 add-area-btn force-close-modal" data-key="warehouse">
+            <i class="fa-solid fa-warehouse me-2"></i> مستودع
+          </button>
+
+          <button type="button" class="btn btn-outline-primary py-3 add-area-btn force-close-modal" data-key="laundry_room">
+            <i class="fa-solid fa-shirt me-2"></i> غرفة الغسيل
+          </button>
+
+          <button type="button" class="btn btn-outline-primary py-3 add-area-btn force-close-modal" data-key="balcony">
+            <i class="fa-solid fa-building-columns me-2"></i> بلكونة
+          </button>
+
+          <button type="button" class="btn btn-outline-primary py-3 add-area-btn force-close-modal" data-key="roof">
+            <i class="fa-solid fa-house me-2"></i> سطح
+          </button>
+
+          <button type="button" class="btn btn-outline-primary py-3 add-area-btn force-close-modal" data-key="outdoor_areas">
+            <i class="fa-solid fa-trees me-2"></i> المناطق الخارجية
+          </button>
+
+          <button type="button" class="btn btn-outline-primary py-3 add-area-btn force-close-modal" data-key="underground_water_tank">
+            <i class="fa-solid fa-water me-2"></i> الخزان الارضي
+          </button>
+
+          <button type="button" class="btn btn-outline-danger py-3 mt-3 force-close-modal" data-bs-dismiss="modal">
+            <i class="fa-solid fa-xmark me-2"></i> إلغاء
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<template id="confirm-modal-template">
+  <div class="custom-modal-overlay">
+    <div class="confirm-card">
+      <!-- أيقونة تحذيرية ناعمة -->
+      <div class="modal-icon-wrapper">
+        <i class="fa-solid fa-trash-can"></i>
+      </div>
+
+      <!-- نص التأكيد -->
+      <p class="modal-message">
+        <span class="modal-text"></span>
+        <span class="item-name"></span>
+        ؟
+      </p>
+
+      <!-- أزرار الإجراءات -->
+      <div class="modal-actions">
+        <button type="button" class="orderNow btn-cancel">
+          إلغاء
+        </button>
+        <button type="button" class="orderNow btn-confirm">
+          نعم، احذف
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+
+<script type="module" src="{% static 'Style/js/Services/Visit/VisitBase.js' %}"></script>
+
+{% endblock %}

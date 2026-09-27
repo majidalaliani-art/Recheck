@@ -1,0 +1,18 @@
+
+<form method="POST">
+    {% csrf_token %}
+
+
+
+    {{ form.as_p }}
+
+<div class="days-group">
+  <h3>اليوم</h3>
+
+
+
+   <button type="submit" name="consultation" value="consultation">
+    استشارة
+    </button>
+
+</form>

@@ -1,0 +1,121 @@
+{% extends 'Engineer/Orders/orders.html' %} {% block staff_orders_content %}
+
+<div class="order-content ">
+
+  <!-- Order Card -->
+  <h4 class="orders-section-title mb-3">الزيارة</h4>
+  <div class="orders-body row g-3">
+    {% for order in Visit %} {% if order.order.order_type == 'visit' %}
+
+    <div class="col-12 col-lg-6">
+      <div id="order-card-{{order.visit_id}}" class="order-card visit-order">
+        <!-- Header -->
+
+        <div class="ticket-header">
+          <span class="order-id"> OR-<span class="order-number">{{ order.visit_id }}</span> </span>
+          <p class="status-orders status-orders-{{ order.status }}">
+            {{ order.get_status_display }}
+          </p>
+        </div>
+
+
+        <div class="ticket-body">
+          <div class="body-content body-1">
+            <div class="section-location">
+              <p class="city">
+                <i class="fa-solid fa-location-dot"></i>
+                <span class="city-neighborhood">{{order.neighborhood}}, {{ order.city }}</span>
+              </p>
+
+              <p class="area">
+                <i class="fa-regular fa-chart-bar"></i>
+                <span class="area-size">{{ order.property_size }}</span>
+                <span class="m">م</span>
+              </p>
+            </div>
+
+            <div class="section-info">
+              <p class="property-type">{{order.property_type.property_name}}</p>
+              <span class="detail-tag"> {{order.inspection_type.name}} </span>
+            </div>
+
+            <div class="section-price">
+              <p class="label">التكلفة</p>
+
+              <p class="value">
+                <span class="icon-saudi_riyal"></span>
+                {{ order.order.payment.engineer_amount|floatformat:0 }}
+              </p>
+            </div>
+          </div>
+          <div class="body-content body-2">
+            <div class="day">
+              <i class="far fa-search-location pe-2"></i>
+              <span class="day-date">{{order.day|date:"Y-m-d"}}</span>
+            </div>
+
+            <span class="time">{{order.get_time_slot_display}}</span>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+
+    {% endif %}
+
+{% empty %}
+ <p class="empty-orders-message">لا توجد طلبات <span class="empty-orders-message-visit">زيارة</span>
+ متاحة حالياً.</p>
+{% endfor %}
+
+  </div>
+  {% if consultation_group %}
+
+  <!-- Order Card -->
+  <h4 class="orders-section-title my-4 ">الاستشارة</h4>
+  <div class="orders-body row g-3 ">
+    {% for order in Consultation %} {% if order.order.order_type == 'consultation' %}
+
+    <div class="col-12 col-lg-6">
+      <div id="order-card-{{order.consultation_id}}" class="order-card consultation-order">
+        <div class="ticket-header">
+          <span class="order-id">
+            OR-<span class="order-number">{{ order.consultation_id }}</span>
+          </span>
+           <p class="status-orders status-orders-{{ order.status }}">
+            {{ order.get_status_display }}
+          </p>
+        </div>
+
+        <div class="ticket-body">
+          <div class="body-content body-consultation">
+            <div class="day">
+              <i class="far fa-search-location pe-2"></i>
+              <span class="day-date">{{order.work_history|date:"Y-m-d"}}</span>
+            </div>
+
+            <span class="time">{{order.work_time}}</span>
+
+            <span class="value">
+              <span class="icon-saudi_riyal"></span>
+              <span class="amount">{{ order.order.payment.engineer_amount|floatformat:0 }}</span>
+            </span>
+          </div>
+        </div>
+           <div class="ticket-footer">
+            <a href="{% url 'Staff:order_progress' 'consultation' order.consultation_id %}" class="view-order">عرض</a>
+          </div>
+      </div>
+    </div>
+    {% endif %}
+    {% empty %}
+ <p class="empty-orders-message">لا توجد طلبات <span class="empty-orders-message-consultation">استشارة</span>
+ متاحة حالياً.</p>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+
+{% endblock %}

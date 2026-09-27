@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Django
+*.log
+logfile
+db.sqlite3
+db_old.sqlite3
+/static/collected/
+/staticfiles/
+/media/
+*.pot
+
+# Environment variables — لا ترفعها أبداً!
+.env
+Storage/.env
+
+# IDE
+.cursor/
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# Temp files
+*.tmp
+*.bak
+*.orig
+
+# Large Storage folders — not needed in repo
+Storage/
+!Storage/.env.example
+

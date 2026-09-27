@@ -1,0 +1,935 @@
+{% load static %}
+
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <link rel="stylesheet" type="text/css" href="{% static 'Visits/css/visits.css' %}" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/cloudflare/2.11.4/css/lightbox.min.css"
+    />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}" />
+
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}" />
+  </head>
+  <input type="hidden" id="visit-id" value="{{ visit.pk }}">
+  <section id="main-wrapper">
+    <div class="my-main-box col-11 col-lg-10 col-xxl-9 bg-white shadow-lg rounded-4 overflow-hidden">
+      <div class="row">
+      <div class="report-header-wrapper">
+        <h2 class="report-main-title">إعداد تقرير الفحص</h2>
+        <div class="visit-id-badge px-3 py-2 rounded-3">
+          <span class="id-number">OR-{{ visit.visit_id }}</span>
+        </div>
+      </div>
+
+      <div id="progress-track">
+
+        <button type="button" id="tab1" onclick="goToStep(1)">
+          <i class="fa-solid fa-chart-pie"></i>
+
+          <span class="bottom-text">بيانات العقار</span>
+          <span class="bottom-line"></span>
+        </button>
+        <button type="button" id="tab2" onclick="goToStep(2)">
+          <i class="fa-solid fa-pen-to-square"></i>
+          <span class="bottom-text">مواصفات ومستندات العقار</span>
+          <span class="bottom-line"></span>
+        </button>
+        <button type="button" id="tab3" onclick="goToStep(3)">
+          <i class="fa-solid fa-comment-medical"></i>
+          <span>ملاحظات الفحص</span>
+          <span class="bottom-line"></span>
+        </button>
+        <button type="button" id="tab4" onclick="goToStep(4)">
+          <i class="fa-brands fa-yelp"></i>
+          <span>التوصيات النهائية</span>
+          <span class="bottom-line"></span>
+        </button>
+
+        <button type="button" id="tab5" onclick="goToStep(5)">
+          <i class="fa-solid fa-flag"></i>
+          <span>تقديم التقرير</span>
+          <span class="bottom-line"></span>
+        </button>
+      </div>
+
+      <div id="step1" class="step container-fluid">
+
+        <form  class="step-form row g-3" method="POST" action="{% url 'start_visit' visit.pk %}" enctype="multipart/form-data" >
+          {% csrf_token %}
+          <input type="hidden" name="table" value="order">
+          <div class="col-md-3 col-6">
+            {{form1.inspection_type.label}} {{form1.inspection_type}}
+          </div>
+          <div class="col-md-3 col-6">{{form1.property_type.label}} {{form1.property_type}}</div>
+          <div class="col-md-3 col-6">
+            {{form1.inspection_date_only.label}} {{form1.inspection_date_only}}
+          </div>
+          <div class="col-md-3 col-6">
+            {{ form1.inspection_time_only.label }} {{ form1.inspection_time_only}}
+          </div>
+
+          <div class="col-md-3 col-6">{{ form1.city.label }} {{ form1.city }}</div>
+          <div class="col-md-6 col-6">{{ form1.neighborhood.label }} {{ form1.neighborhood}}</div>
+          <div class="col-md-3 col-6">{{ form1.unit_number.label }} {{ form1.unit_number}}</div>
+
+          <div class="col-md-6 col-6">
+            {{ form1.detailed_title.label }} {{ form1.detailed_title}}
+          </div>
+
+          <div class="col-md-6 col-12">
+            <label class="form-label custom-label text-center w-100 custom-label-text"
+              >إحداثيات الموقع <span class="required-star star">*</span></label
+            >
+            <div class="row g-2">
+              <div class="col-6">{{form1.latitude}}</div>
+              <div class="col-6">{{form1.longitude}}</div>
+            </div>
+          </div>
+        </form>
+
+
+
+
+        <div class="col-12 mt-3">
+            <div class="row g-3">
+                <div class="col-md-6">
+                  <span class="my-custom-file-input">{{ form1.entrance_image }}</span>
+
+                  <input type="hidden" name="order_id" id="order_id" value="{{visit.order.order_id}}" />
+
+                  <label for="{{form1.entrance_image.id_for_label}}" id="upload-container" class="survey-box">
+                    {% if visit.order.entrance_image %}
+                      <div class="image-preview-wrapper">
+                        <img id="image-preview" src="{{ visit.order.entrance_image.url }}" alt="معاينة الصورة"/>
+                      </div>
+                    {% else %}
+                      <div class="image-preview-wrapper" style="display: none">
+                        <img id="image-preview" src="#" alt="معاينة الصورة" style="max-width: 100%" />
+                      </div>
+                      <div id="empty-image-text" class="text-muted text-center">
+                        <i class="fa fa-camera fa-2x mb-2"></i>
+                        <p>اضغط هنا لرفع الصورة الأساسية</p>
+                      </div>
+                    {% endif %}
+                  </label>
+                </div>
+
+                <div class="col-md-6">
+                  <div id="map_container" class="survey-box">
+                    <div class="text-muted text-center">
+                      <i class="fa fa-map-marked-alt fa-2x mb-2"></i>
+                      <p>جاري تحميل الخريطة...</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="mt-5 mb-2 text-end">
+          <form method="post" id="step1-form" class="row g-3">  </form>
+          <form method="post" id="step2-form" class="row g-3">  </form>
+
+
+           <button type="button" class="btn btn-step btn-next" onclick="goToStep(3)">
+            حفظ ومتابعة <i class="fas fa-chevron-left ms-2"></i>
+          </button>
+
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <div id="step2" class="step container-fluid " style="display: none">
+        <form id="step2-form" class="row g-3">
+          <div class="col-md-3 col-6">
+            {{ form2.building_activity.label }} {{ form2.building_activity }}
+          </div>
+
+          <div class="col-md-3 col-6">
+            {{ form2.property_condition.label }} {{ form2.property_condition }}
+          </div>
+
+          <div class="col-md-6 col-12">
+            {{ form2.property_owner.label }} {{ form2.property_owner }}
+          </div>
+
+          <div class="col-md-3 col-6">
+            {{ form2.building_license_number.label }} {{ form2.building_license_number }}
+          </div>
+
+          <div class="col-md-3 col-6">
+            {{ form2.property_developer.label }} {{ form2.property_developer }}
+          </div>
+
+          <div class="col-md-3 col-6">
+            {{ form2.design_office.label }} {{ form2.design_office }}
+          </div>
+
+          <div class="col-md-3 col-6">
+            {{ form2.engineering_supervisor.label }} {{ form2.engineering_supervisor }}
+          </div>
+
+          <div class="col-12"><hr class="my-1" /></div>
+
+          <div class="col-md-3 col-6">
+            {{ form2.electricity_meter_number.label }} {{ form2.electricity_meter_number }}
+          </div>
+
+          <div class="col-md-3 col-6">
+            {{ form2.electricity_meter_reading.label }} {{ form2.electricity_meter_reading }}
+          </div>
+
+          <div class="col-md-3 col-6">
+            {{ form2.water_meter_number.label }} {{ form2.water_meter_number }}
+          </div>
+
+          <div class="col-md-3 col-6">
+            {{ form2.water_meter_reading.label }} {{ form2.water_meter_reading }}
+          </div>
+
+          <div class="col-md-3 col-6">
+            {{ form2.property_age_years.label }} {{ form2.property_age_years }}
+          </div>
+
+          <div class="col-md-3 col-6">
+            {{ form2.building_area_sqm.label }} {{ form2.building_area_sqm }}
+          </div>
+
+          <div class="col-md-6 col-12">
+            {{ form2.number_of_floors.label }} {{ form2.number_of_floors }}
+          </div>
+          <div class="col-12"><hr class="my-2" /></div>
+        </form>
+
+        <div class="col-12">
+          <div class="row g-4">
+            <div class="col-12 col-md-6">
+              <p class="fw-bold mb-3">شوارع مجاورة</p>
+              <div class="row g-2">
+
+                <div class="col-xl-3 col-sm-6 col-6 d-flex align-items-center gap-2">
+                  {{ form2.street_north }} {{ form2.street_north.label }}
+                </div>
+
+                <div class="col-xl-3 col-sm-6 col-6 d-flex align-items-center gap-2">
+                  {{ form2.street_south }} {{ form2.street_south.label }}
+                </div>
+
+                <div class="col-xl-3 col-sm-6 col-6 d-flex align-items-center gap-2">
+                  {{ form2.street_east }} {{ form2.street_east.label }}
+                </div>
+
+                <div class="col-xl-3 col-sm-6 col-6 d-flex align-items-center gap-2">
+                  {{ form2.street_west }} {{ form2.street_west.label }}
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <p class="fw-bold mb-3">بنايات مجاورة</p>
+
+              <div class="row g-3">
+                <div class="col-xl-3 col-sm-6 col-6 d-flex align-items-center gap-2">
+                  {{ form2.building_north }} {{ form2.building_north.label }}
+                </div>
+
+                <div class="col-xl-3 col-sm-6 col-6 d-flex align-items-center gap-2">
+                  {{ form2.building_south }} {{ form2.building_south.label }}
+                </div>
+
+                <div class="col-xl-3 col-sm-6 col-6 d-flex align-items-center gap-2">
+                  {{ form2.building_east }} {{ form2.building_east.label }}
+                </div>
+
+                <div class="col-xl-3 col-sm-6 col-6 d-flex align-items-center gap-2">
+                  {{ form2.building_west }} {{ form2.building_west.label }}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr class="my-4" />
+
+          <div class="row g-1">
+            <p class="fw-bold mb-3">البنى التحتية للعقار</p>
+            <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center">
+              {{ form2.infra_electricity }} {{ form2.infra_electricity.label }}
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center">
+              {{ form2.infra_water }} {{ form2.infra_water.label }}
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center">
+              {{ form2.infra_sewage }} {{ form2.infra_sewage.label }}
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center">
+              {{ form2.infra_asphalt }} {{ form2.infra_asphalt.label }}
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center">
+              {{ form2.infra_lighting }} {{ form2.infra_lighting.label }}
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center">
+              {{ form2.infra_network }} {{ form2.infra_network.label }}
+            </div>
+          </div>
+
+          <hr class="my-4"/>
+
+          <div class="row g-1">
+            <p class="fw-bold mb-3">المرافق العامة للعقار</p>
+            <div class="col-md-3 col-6 d-flex align-items-center">
+              {{ form2.feat_disabled_friendly }} {{ form2.feat_disabled_friendly.label }}
+            </div>
+
+            <div class="col-md-3 col-6 d-flex align-items-center">
+              {{ form2.feat_fire_system }} {{ form2.feat_fire_system.label }}
+            </div>
+
+            <div class="col-md-3 col-6 d-flex align-items-center">
+              {{ form2.feat_garden }} {{ form2.feat_garden.label }}
+            </div>
+
+            <div class="col-md-3 col-6 d-flex align-items-center">
+              {{ form2.feat_parking }} {{ form2.feat_parking.label }}
+            </div>
+
+            <div class="col-md-3 col-6 d-flex align-items-center">
+              {{ form2.feat_skylight }} {{ form2.feat_skylight.label }}
+            </div>
+
+            <div class="col-md-3 col-6 d-flex align-items-center">
+              {{ form2.feat_elevator }} {{ form2.feat_elevator.label }}
+            </div>
+
+            <div class="col-md-3 col-6 d-flex align-items-center">
+              {{ form2.feat_cameras }} {{ form2.feat_cameras.label }}
+            </div>
+
+            <div class="col-md-3 col-6 d-flex align-items-center">
+              {{ form2.feat_central_ac }} {{ form2.feat_central_ac.label }}
+            </div>
+
+            <div class="col-md-3 col-6 d-flex align-items-center">
+              {{ form2.feat_water_tanks }} {{ form2.feat_water_tanks.label }}
+            </div>
+
+            <div class="col-md-3 col-6 d-flex align-items-center">
+              {{ form2.feat_outdoor_seating }} {{ form2.feat_outdoor_seating.label }}
+            </div>
+          </div>
+
+          <hr class="my-4" />
+
+          <div class="row g-1">
+            <p class="fw-bold mb-3">مستندات العقار</p>
+            <div class="col-md-3 col-6 d-flex align-items-center">
+              {{ form2.doc_building_license }} {{ form2.doc_building_license.label }}
+            </div>
+
+            <div class="col-md-3 col-6 d-flex align-items-center">
+              {{ form2.doc_soil_test }} {{ form2.doc_soil_test.label }}
+            </div>
+
+            <div class="col-md-3 col-6 d-flex align-items-center">
+              {{ form2.doc_structural_warranty }} {{ form2.doc_structural_warranty.label }}
+            </div>
+
+            <div class="col-md-3 col-6 d-flex align-items-center">
+              {{ form2.doc_architectural_plans }} {{ form2.doc_architectural_plans.label }}
+            </div>
+
+            <div class="col-md-3 col-6 d-flex align-items-center">
+              {{ form2.doc_structural_plans }} {{ form2.doc_structural_plans.label }}
+            </div>
+
+            <div class="col-md-3 col-6 d-flex align-items-center">
+              {{ form2.doc_electrical_plans }} {{ form2.doc_electrical_plans.label }}
+            </div>
+
+            <div class="col-md-3 col-6 d-flex align-items-center">
+              {{ form2.doc_mechanical_plans }} {{ form2.doc_mechanical_plans.label }}
+            </div>
+
+            <div class="col-md-3 col-6 d-flex align-items-center">
+              {{ form2.doc_survey_form }} {{ form2.doc_survey_form.label }}
+            </div>
+
+            <div class="col-md-3 col-6 d-flex align-items-center">
+              {{ form2.doc_eng_supervision }} {{ form2.doc_eng_supervision.label }}
+            </div>
+
+            <div class="col-md-3 col-6 d-flex align-items-center">
+              {{ form2.doc_finishes_warranty }} {{ form2.doc_finishes_warranty.label }}
+            </div>
+
+            <div class="col-md-3 col-6 d-flex align-items-center">
+              {{ form2.doc_rebar_report }} {{ form2.doc_rebar_report.label }}
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-5 mb-2 d-flex justify-content-between">
+          <button type="button" class="btn btn-step btn-back" onclick="goToStep(1)">
+            <i class="fas fa-arrow-right me-2"></i> العودة
+          </button>
+
+          <button type="button" class="btn btn-step btn-next" onclick="goToStep(3)">
+            حفظ ومتابعة <i class="fas fa-chevron-left ms-2"></i>
+          </button>
+        </div>
+      </div>
+
+      <div id="step3" style="display: back">
+        <div id="units-container" class="units-container"></div>
+
+        <div class="units-container">
+          {% for unit in existing_units %}
+          <div class="unit-card" data-card-index="{{ unit.unit_id }}">
+            <span>كرت رقم: <span class="card-number">{{ unit.unit_id }}</span></span>
+            <button
+              type="button"
+              class="remove-card-btn remove-unit-btn"
+              onclick="manageCard('remove', '.unit-card', this)"
+            >
+              <i class="fa-regular fa-trash-can"></i>
+            </button>
+          </div>
+          {% endfor %}
+        </div>
+
+        <div class="add-item-bar">
+          <div class="add-label-text">إضافة عنصر فحص</div>
+
+          <div class="item-center-box">تقييم عام</div>
+
+          <button type="button" id="add-unit-btn" class="btn btn-add-square">
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
+
+        <template id="unit-template">
+          <div class="unit-card" data-card-index="{cardIndex}">
+            <span>كرت رقم: <span class="card-number">{cardIndex}</span></span>
+
+            <button
+              type="button"
+              class="remove-card-btn remove-unit-btn"
+              onclick="manageCard('remove', '.unit-card', this)"
+            >
+              <i class="fa-regular fa-trash-can"></i>
+            </button>
+
+            <div class="card-genera">
+              <div class="general-comment">
+                <h5>تقييم عام</h5>
+                {{ form3.general_comment }}
+              </div>
+            </div>
+
+            <div class="card-images">
+              <div class="image-item">{{form3_image.image}}</div>
+            </div>
+          </div>
+        </template>
+      </div>
+
+
+
+
+
+      {% comment %} {% if visit.order.inspection_type == 'standard' %}
+      <div class="apartment-card standard-card" data-card-index="{cardIndex}">
+        <h3>رقم الشقة : {cardIndex}</h3>
+        <div style="display: flex; justify-content: space-between">
+          <h4>🏢 كرت شقة جديد</h4>
+          <button
+            type="button"
+            onclick="removeElement(this, '.apartment-card')"
+            style="color: red; border: none; background: none"
+          >
+            ❌
+          </button>
+        </div>
+
+        <button onclick="toggleCardView({ cardIndex }, 'details')">📋 التقرير</button>
+        <button onclick="toggleCardView({ cardIndex }, 'reviews')">⭐ التقييم</button>
+
+        <div id="details-view-{cardIndex}" style="display: block">
+          <h4>📝 التقرير</h4>
+          <div class="items-container"></div>
+        </div>
+
+        <div id="reviews-view-{cardIndex}" style="display: none">
+          <h4>⭐ التقييم</h4>
+          <div class="items-container"></div>
+        </div>
+
+        <button type="button" class="burger-btn" onclick="toggleItemMenu({ cardIndex })">
+          ☰ بنود
+        </button>
+
+        <div
+          id="item-menu-{cardIndex}"
+          class="item-menu"
+          style="display: none; border: 1px solid #ccc; padding: 5px"
+        ></div>
+      </div>
+
+      {% elif visit.order.inspection_type == 'comprehensive' %}
+      <div
+        class="apartment-card comprehensive-card"
+        data-card-index="{cardIndex}"
+        style="
+          border: 2px solid #333;
+          padding: 15px;
+          margin-bottom: 20px;
+          background-color: #ffffffff;
+        "
+      ></div>
+      {% endif %} {% endcomment %}
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cloudflare/2.11.4/js/lightbox-plus-jquery.min.js"></script>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+
+  <template id="item-template">
+    <div class="item-box" data-item-id="{itemUniqueId}" data-item-type="{itemType}">
+      <span class="item-name">{itemName}</span>
+      <button onclick="removeItem('{itemUniqueId}')">❌</button>
+      <input type="hidden" class="item-type" value="{itemType}" />
+      <div class="item-report-content">
+        <div class="notes-container" data-item-id="{itemUniqueId}" style="margin-top: 10px"></div>
+        <button type="button" class="add-note-btn" data-item-id="{itemUniqueId}">
+          ➕ إضافة ملاحظة (نص + صورة)
+        </button>
+      </div>
+
+      <div class="item-evaluation-content" style="display: none">
+        <input type="range" class="rating-slider" min="0" max="100" value="0" style="width: 100%" />
+        <span class="rating-value">0%</span>
+      </div>
+    </div>
+  </template>
+
+  <template id="note-template">
+    <div class="note-item" style="border: 1px solid #ddd; padding: 10px; margin-bottom: 10px">
+      <textarea
+        class="note-text"
+        placeholder="نص الملاحظة..."
+        style="width: 100%; margin-bottom: 5px"
+      ></textarea>
+      <div style="display: flex; align-items: center; gap: 5px">
+        <input type="file" class="note-image" accept="image/*" style="display: none" />
+        <button type="button" class="upload-image-btn">📷 إضافة صورة</button>
+        <div class="image-preview" style="margin-left: 10px"></div>
+        <button
+          type="button"
+          onclick="removeElement(this, '.note-item')"
+          style="color: red; border: none; background: none"
+        >
+          ❌
+        </button>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    const dataUrl = "{% static 'Visits/json/Data.json' %}";
+    const visitId = "{{ form1.instance.visit_id|default:'new_visit' }}";
+    const inspectionType = "{{ visit.order.inspection_type }}";
+  </script>
+  <script src="{% static 'Visits/js/ajax.js' %}"></script>
+  {% comment %} <script src="{% static 'Visits/js/visits.js' %}"></script> {% endcomment %}
+
+  <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  {% comment %}
+
+  <script>
+    function bindAllRatingSliders() {
+      document.querySelectorAll(".rating-slider").forEach((slider) => {
+        if (slider.hasAttribute("data-bound")) return;
+        const span = slider.closest(".item-evaluation-content")?.querySelector(".rating-value");
+        if (span) {
+          slider.oninput = function () {
+            span.textContent = this.value + "%";
+            if (typeof saveFormData === "function") saveFormData();
+          };
+          span.textContent = slider.value + "%";
+          slider.setAttribute("data-bound", "true");
+        }
+      });
+    }
+
+    const observer = new MutationObserver(function (mutations) {
+      mutations.forEach(function (mutation) {
+        if (mutation.addedNodes.length) {
+          bindAllRatingSliders();
+        }
+      });
+    });
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+
+  <script>
+    function isImageDuplicate(src) {
+      const existingImages = document.querySelectorAll(
+        "#general-images-container .glass-frame img",
+      );
+      for (let img of existingImages) {
+        if (img.src === src) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    const container = document.getElementById("general-images-container");
+    const addBtn = document.getElementById("add-general-image-btn");
+    const fileInput = document.getElementById("general-image-input");
+
+    function addImageToContainer(src) {
+      // منع إضافة الصورة إذا كانت موجودة بالفعل
+      if (isImageDuplicate(src)) {
+        console.log("هذه الصورة موجودة بالفعل");
+        return;
+      }
+
+      const glassFrame = document.createElement("div");
+      glassFrame.className = "glass-frame";
+
+      const link = document.createElement("a");
+      link.href = src;
+      link.setAttribute("data-lightbox", "general-gallery");
+      link.setAttribute("data-title", "صورة عامة");
+
+      const img = document.createElement("img");
+      img.src = src;
+
+      const removeBtn = document.createElement("button");
+      removeBtn.className = "glass-remove-btn";
+      removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+      removeBtn.onclick = () => glassFrame.remove();
+
+      link.appendChild(img);
+      glassFrame.appendChild(link);
+      glassFrame.appendChild(removeBtn);
+
+      // إضافة الصورة بعد زر الإضافة
+      if (addBtn.nextSibling) {
+        container.insertBefore(glassFrame, addBtn.nextSibling);
+      } else {
+        container.appendChild(glassFrame);
+      }
+    }
+
+    addBtn.onclick = () => fileInput.click();
+
+    fileInput.onchange = function (e) {
+      const files = Array.from(e.target.files);
+      files.forEach((file) => {
+        const reader = new FileReader();
+        reader.onload = function (ev) {
+          addImageToContainer(ev.target.result);
+        };
+        reader.readAsDataURL(file);
+      });
+      fileInput.value = "";
+    };
+
+    function loadSavedImages() {
+      const saved = JSON.parse(localStorage.getItem("general_images_" + visitId) || "[]");
+      saved.forEach((src) => addImageToContainer(src));
+    }
+    function saveImages() {
+      const images = [];
+      document.querySelectorAll("#general-images-container .glass-frame img").forEach((img) => {
+        images.push(img.src);
+      });
+      localStorage.setItem("general_images_" + visitId, JSON.stringify(images));
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+      loadSavedImages();
+      const observer = new MutationObserver(() => saveImages());
+      observer.observe(container, { childList: true, subtree: true });
+    });
+  </script>
+
+  <script>
+    const mainInput = document.getElementById("main-site-input");
+    const imagePreview = document.getElementById("image-preview");
+    const emptyText = document.getElementById("empty-image-text");
+    const wrapper = document.querySelector(".image-preview-wrapper");
+
+    // 1. هذي الدالة اللي كانت ناقصة عندك (هي اللي تسوي الشغل كله)
+    function displayAndSaveImage(imageSrc) {
+      imagePreview.src = imageSrc;
+      if (wrapper) wrapper.style.display = "block";
+      if (emptyText) emptyText.style.display = "none";
+
+      // حفظ في الذاكرة عشان الريفرش
+      localStorage.setItem("saved_main_image", imageSrc);
+    }
+
+    // 2. لما المهندس يختار صورة جديدة
+    mainInput.onchange = function (e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          // ننادي الدالة عشان تعرض وتحفظ
+          displayAndSaveImage(event.target.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+
+    // 3. لما تسوي ريفرش (استعادة الصورة)
+    document.addEventListener("DOMContentLoaded", function () {
+      const savedImage = localStorage.getItem("saved_main_image");
+      if (savedImage) {
+        // نستخدم نفس الدالة لعرض الصورة المحفوظة
+        displayAndSaveImage(savedImage);
+      }
+    });
+  </script>
+  {% endcomment %} {% comment %}
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const fileInput = document.getElementById("{{ form2.property_image.id_for_label }}");
+      const previewImg = document.getElementById("image-preview");
+      const wrapper = document.querySelector(".image-preview-wrapper");
+      const emptyText = document.getElementById("empty-image-text");
+      const statusText = document.getElementById("upload-status");
+
+      if (fileInput) {
+        fileInput.addEventListener("change", function (e) {
+          const file = e.target.files[0];
+          if (!file) return;
+
+          const reader = new FileReader();
+          reader.onload = (ev) => {
+            if (previewImg) {
+              previewImg.src = ev.target.result;
+              if (wrapper) wrapper.style.display = "block";
+              if (emptyText) emptyText.style.display = "none";
+            }
+          };
+          reader.readAsDataURL(file);
+
+          const formData = new FormData();
+          formData.append("property_image", file);
+          formData.append("csrfmiddlewaretoken", "{{ csrf_token }}");
+          formData.append("image_type", "property");
+
+          const parentIdElement = document.getElementById("parent_id");
+          if (parentIdElement) {
+            formData.append("parent_id", parentIdElement.value);
+          }
+
+          fetch("/upload_image_ajax/", {
+            method: "POST",
+            body: formData,
+          })
+            .then((res) => {
+              if (!res.ok) return { status: "silent_fail" };
+              return res.json();
+            })
+            .then((data) => {
+              if (data.status === "success") {
+                console.log("تمت المزامنة بنجاح.");
+
+                if (data.url && previewImg) {
+                  previewImg.src = data.url;
+                }
+              }
+            })
+            .catch((err) => {
+              console.log("فشل الرفع بصمت (غالباً مشكلة اتصال أو صورة مكررة)");
+            });
+        });
+      }
+    });
+  </script>
+  {% endcomment %}
+</html>
+
+
+
+
+
+
+<script>
+function submitMultipleForms(submitBtn) {
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = "جاري الحفظ... ⏳";
+    submitBtn.disabled = true;
+
+    let formData = new FormData();
+    const formIds = ['step1-form', 'step2-form']; // الفورمات اللي تبي تدمجها
+
+    formIds.forEach(id => {
+        const formElement = document.getElementById(id);
+        if (formElement) {
+            const stepData = new FormData(formElement);
+            for (let [key, value] of stepData.entries()) {
+                formData.append(key, value);
+            }
+        }
+    });
+
+    // 🟢 السر هنا: نضيف قيمة table عشان دجانجو يفهم إننا نبي نحفظ "الكل"
+    formData.append('save', 'all_steps');
+
+    // 🟢 نرسل الطلب لنفس رابط الصفحة الحالية
+    fetch(window.location.href, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        }
+    })
+    .then(response => response.json().then(data => ({ status: response.status, body: data })))
+    .then(res => {
+        if (res.status === 200 || res.body.status === 'success') {
+            submitBtn.innerHTML = "تم الحفظ بنجاح ✅";
+            submitBtn.classList.replace('btn-primary', 'btn-success');
+
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.classList.replace('btn-success', 'btn-primary');
+                submitBtn.disabled = false;
+            }, 1500);
+
+        } else {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+            alert("تأكد من البيانات يا مهندس! فيه شيء غلط أو ناقص.");
+        }
+    })
+    .catch(error => {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+        console.error('حدث خطأ:', error);
+    });
+}
+
+
+</script>
+
+
+
+
+
+{% comment %} <button type="button" class="btn btn-primary" onclick="submitMultipleForms(this)">
+    حفظ ومتابعة <i class="fas fa-chevron-left ms-2"></i>
+</button>
+
+
+<div class="image-upload-section">
+    <label>صورة مدخل العقار:</label>
+    <input class="upload-single-file" type="file" accept="image/*" data-file="{{ visit.order.pk }}" data-table="order" data-type="entrance_image" data-category="image" img-id="entrance_image">
+    <img id="entrance_image" src="#" style="width: 100px; display: block;">
+</div>
+ {% endcomment %}
+
+
+
+<hr>
+
+<div id="container-rooms" class="row"></div>
+
+<template id="card-template-rooms">
+  <div class="card">
+        <h5>{{ room.name }}</h5>
+    <div class="card-body">
+      <h5 class="card-title">عنوانggggggggggg </h5>
+
+      <button class="btn btn-danger delete-btn">حذف الكرت</button>
+
+      <h5></h5>
+      <div id="room-name-buttons" style="display: back;">
+        <button class="room-item-btn" data-name="B1">بند 1</button>
+        <button class="room-item-btn" data-name="B2">بند 2</button>
+        <button class="room-item-btn" data-name="B3">بند 3</button>
+        <button class="room-item-btn" data-name="B4">بند 4</button>
+      </div>
+
+     <div id="container-room-items" class="row"></div>
+
+
+
+  </div>
+</template>
+
+{% comment %}
+
+<template id="card-template-room-items"> {% endcomment %}
+  <div class="card p-3 m-2">
+
+    <!-- الصورة -->
+    <img class="card-img preview-img" src="" style="width:100%; height:150px; object-fit:cover; display:none;" />
+
+    <!-- إدخال نص -->
+    <input type="text" class="form-control mt-2 title-input" placeholder="اكتب النص هنا" />
+
+    <!-- زر رفع صورة -->
+    <input type="file" class="form-control mt-2 image-input" accept="image/*" />
+
+    <!-- عرض النص -->
+    <h5 class="mt-2 title-preview"></h5>
+
+  </div>
+{% comment %} </template> {% endcomment %}

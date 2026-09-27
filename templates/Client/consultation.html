@@ -1,0 +1,85 @@
+{% extends 'Client/CientBase.html' %} {% block client_content %} {% load static %}
+<div class="consultation-wrapper">
+  <div class="consultation-form-card container">
+    <div class="tk__header_center">
+      <h3 class="tk__title">طلب استشارة جديدة</h3>
+      <p>
+        نوفر لكم من خلال الاستشارة الهندسية عن بعد التواصل مع مهندسين متخصصين يمتلكون خبرات كبيرة
+        وتكون الاستشارة عبر برنامج zoom ويمكنك توجيه الكاميرا على الموقع الذي تريد الاستفسار عنه
+        ويجيب المهندس على جميع استفساراتكم
+      </p>
+
+      <p class="note">
+        <i class="note__icon fa-solid fa-square"></i>
+        يتم تسجيل جلسة الاستشارة ويمكنكم الرجوع لها في اي وقت
+        <i class="note__icon fa-solid fa-square"></i>
+      </p>
+    </div>
+
+    <form method="POST" class="needs-validation">
+      {% csrf_token %}
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="form-field">
+            <label for="{{ form.name.id_for_label }}" class="form-label">الاسم<span class="text-danger"> *</span></label>
+            {{ form.name }}
+
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-field">
+            <label for="id_phone" class="form-label" >رقم الجوال<span class="text-danger"> *</span></label>
+            {{ form.phone }}
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-field">
+            <label for="{{ form.work_history.id_for_label }}" class="form-label">تاريخ الاستشارة<span class="text-danger"> *</span></label>
+            {{ form.work_history }}
+            <div id="calendar_error" class="text-center"></div>
+          </div>
+        </div>
+        <div id="details_card" class="col-md-3">
+          <div class="form-field">
+            <label for="{{ form.work_time.id_for_label }}" class="form-label">حدد وقت الاستشارة<span class="text-danger"> *</span></label>
+            {{ form.work_time }}
+            <div id="time_error" class="text-center"></div>
+
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-field">
+            <span class="form-label">اليوم</span>
+            <p class="form-control text-center" id="name_val">...</p>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-field">
+            <span class="form-label">السعر</span>
+            <p class="form-control text-center" id="price_val">...</p>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="form-field">
+            <label for="{{ form.summary.id_for_label }}" class="form-label">وصف الاستشارة<span class="text-danger"> *</span></label>
+            {{ form.summary }}
+          </div>
+        </div>
+        <div class="col-md-4 col-12 mx-auto ">
+          {% if request.session.user is not None %}
+          <button type="submit" class="orderNow fs-3">إرسال الاستشارة</button>
+          {% else %}
+          <a href="{% url 'Client:login' %}" class="orderNow fs-3">تسجيل الدخول</a>
+          {% endif %}
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script type="module" src="{% static 'Style/js/client/consultation.js' %}"></script>
+</div>
+{% endblock %}

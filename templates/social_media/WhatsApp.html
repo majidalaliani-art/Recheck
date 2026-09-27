@@ -1,0 +1,8 @@
+  {% for item in contacts %}
+  {% if item.key == "WhatsApp" %}
+
+    <a href="{{ item.link }}" target="_blank" class="contact-WhatsApp-Link whatsapp-fixed-btn">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+  {% endif %}
+  {% endfor %}

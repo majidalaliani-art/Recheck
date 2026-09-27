@@ -1,0 +1,16 @@
+{% extends 'Client/CientBase.html' %} {% block client_content %}
+
+<div class="homepage-wrapper">
+  <a href="{% url 'booking_with_data' property.key 'std' %}"> دفع عادي </a>
+  <br />
+  <br />
+  <br />
+
+  <a href="{% url 'booking_with_data' property.key 'comp' %}"> دفع شامل </a>
+</div>
+{% endblock %}
+
+
+
+
+

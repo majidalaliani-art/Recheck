@@ -1,0 +1,35 @@
+{% load static %}
+<div class="tk__navbar__full">
+  <div class="tk__logo">
+    <a href="/">
+      <img src="{% static 'images/favicon.ico' %}" class="nav-logo-small" alt="لوجو" />
+    </a>
+  </div>
+
+  <div class="nav-menu-container">
+
+    <ul class="tk__nav__items">
+      <li><a href="#services">الخدمات</a></li>
+      <li><a href="#inspection">الفحص</a></li>
+      <li><a href="#report">التقـــرير</a></li>
+      <li><a href="#coverage">التغطية</a></li>
+      <li><a href="#contact">اتصل بنا</a></li>
+    </ul>
+
+    <div class="auth-action">
+      {% if request.session.user %}
+        <a href="{% url 'Base:logout' %}?app={{ request.resolver_match.app_name }}&next={{ request.path }}" class="btn-logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> تسجيل الخروج</a>
+      {% else %}
+
+        <a href="{% url 'Client:login' %}?app={{ request.resolver_match.app_name }}&next={{ request.path }}" class="btn-login"><i class="fa-solid fa-user-clock"></i> تسجيل الدخول</a>
+      {% endif %}
+    </div>
+
+  </div>
+
+  <div class="menu-toggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>

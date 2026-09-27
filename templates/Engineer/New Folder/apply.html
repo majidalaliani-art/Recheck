@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بياناتي ومستنداتي | تأكد</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --main-blue: #2b63d9; --bg-gray: #f4f7f9; --input-bg: #eef2f8; }
+        body { background-color: var(--bg-gray); font-family: 'Segoe UI', Tahoma, sans-serif; padding: 40px 0; }
+
+        /* البطاقة الرئيسية */
+        .profile-card { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 30px; border: none; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .section-header h2 { color: #1a2b4c; font-weight: bold; font-size: 24px; }
+
+        /* التنسيق الخاص بالمدخلات */
+        .form-label { font-size: 14px; font-weight: 600; color: #444; margin-bottom: 8px; }
+        .form-control-static { background-color: var(--input-bg); border: none; border-radius: 10px; padding: 12px 20px; color: #333; font-weight: 500; }
+
+        .btn-save { background-color: var(--main-blue); color: white; border: none; border-radius: 10px; padding: 10px 0; width: 100%; font-weight: bold; margin-top: 15px; }
+        .btn-change-pass { color: var(--main-blue); border: 1px solid var(--main-blue); border-radius: 8px; padding: 5px 15px; font-size: 13px; text-decoration: none; }
+
+        /* المستندات */
+        .doc-item { border: 1px solid #e0e6ed; border-radius: 12px; padding: 15px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; transition: 0.3s; }
+        .doc-item:hover { border-color: var(--main-blue); }
+        .doc-info { display: flex; align-items: center; gap: 10px; color: #444; font-size: 14px; }
+        .status-check { color: #198754; font-size: 20px; } /* لون أخضر للمقبول */
+        .upload-icon { color: #888; cursor: pointer; }
+
+        /* دليل الحالات (Legend) */
+        .status-legend { display: flex; gap: 15px; font-size: 12px; margin-bottom: 20px; justify-content: flex-end; }
+        .status-tag { display: flex; align-items: center; gap: 5px; }
+        .write {
+
+
+
+    background-color: #eef2f8; /* المربع الأزرق الهادي */
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+.hidden-file-input {
+
+    {% comment %} position: absolute;   /* يطلعه من ترتيب العناصر عشان ما يخرب المربعات */ {% endcomment %}
+    opacity: 0;           /* يخليه شفاف تماماً (0%) */
+    width: 0;             /* يصغر عرضه للصفر */
+    height: 0;            /* يصغر طوله للصفر */
+    {% comment %} overflow: hidden;     /* يضمن إنه ما يطلع أي طرف منه */ {% endcomment %}
+    {% comment %} pointer-events: none; /* يخلي الضغط يمر من خلاله للديف اللي تحته */ {% endcomment %}
+}
+
+
+.error {
+    border: 1px solid #dc3545 !important; /* إطار أحمر */
+    background-color: #fff8f8 !important; /* خلفية محمرة خفيفة */
+    </style>
+
+
+
+</head>
+<body>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+
+            <div class="profile-card">
+                <div class="section-header">
+                    <a href="#" class="btn-change-pass">تغيير كلمة مرور الحساب</a>
+                    <h2>بياناتي</h2>
+                </div>
+
+                <form method="POST" enctype="multipart/form-data">
+                   {% csrf_token %}
+                    <div class="row g-4 text-end">
+                          <div class="col-md-6 text-end">
+                            <label class="form-label">الايبان *</label>
+                            
+                        </div>
+
+                        <div class="col-md-6 text-end">
+                            <label class="form-label">المدينة *</label>
+                            {{form.city}}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">الجوال *</label>
+                            {{form.phone}}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">الاسم *</label>
+                            {{form.full_name_ar}}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"> الاسم بالانجليزية *</label>
+                            {{form.name_en}}
+                        </div>
+
+
+                        <div class="col-md-6 text-end">
+                            <label class="form-label">الايبان *</label>
+                            {{form.iban_number}}
+                        </div>
+
+
+
+
+
+                        <div class="col-md-6 d-flex align-items-end">
+
+                            <button type="submit" class="btn btn-save shadow-sm">حفظ</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="profile-card text-end">
+                <div class="section-header justify-content-end">
+                    <h2>مستنداتي</h2>
+                </div>
+
+                <div class="status-legend">
+                    <div class="status-tag"><i class="fas fa-circle text-warning"></i> مطلوب</div>
+                    <div class="status-tag"><i class="fas fa-circle text-secondary"></i> قيد المراجعة</div>
+                    <div class="status-tag"><i class="fas fa-circle text-success"></i> مقبول</div>
+                    <div class="status-tag"><i class="fas fa-circle text-danger"></i> مرفوض</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="doc-item">
+                            <i class="fas fa-check-circle status-check"></i>
+                            <div class="doc-info">
+                                <span>صورة للشهادة الجامعية *</span>
+                                {{form.iban_proof}}
+                                <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="doc-item">
+                            <i class="fas fa-check-circle status-check"></i>
+                            <div class="doc-info">
+                                <span>صورة لعضوية الهيئة السعودية للمهندسين *</span>
+                                <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="doc-item">
+                            <i class="fas fa-check-circle status-check"></i>
+                            <div class="doc-info">
+                                <span>صورة لشهادة إجتياز فحص المباني الجاهزة *</span>
+                                <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="doc-item">
+                            <i class="fas fa-check-circle status-check"></i>
+                            <div class="doc-info">
+                                <span>ملف السيرة الذاتية *</span>
+                                <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="application-status">
+
+    {% if application.is_active_for_registration %}
+        <div class="registration-action">
+            <p>تهانينا، يمكنك الآن إكمال التسجيل:</p>
+            <a href="{% url 'signup' %}?uid={{ application.uid }}" class="btn-register">
+                قم بإنشاء حساب
+            </a>
+        </div>
+    {% endif %}
+</div>
+
+
+</div>
+
+
+</body>
+</html>

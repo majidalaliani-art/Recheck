@@ -1,0 +1,47 @@
+{% load static %}
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Moon System</title>
+    <link rel="stylesheet" href="{% static 'Style/bootstrap/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'Style/fontawesome/css/all.min.css' %}" />
+
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@emran-alhaddad/saudi-riyal-font/index.css"
+    />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <link rel="stylesheet" href="{% static 'Style/css/swiper-bundle.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'Style/css/flatpickr.min.css' %}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
+
+
+
+    <link rel="stylesheet" href="{% static 'Style/css/style.css' %}" />
+
+  </head>
+
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+
+    <main>{% block content %} {% endblock %}</main>
+
+    {% block footer %} {% include 'base/footer.html' %} {% endblock %}
+
+
+    <script src="{% static 'Style/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'Style/js/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'Style/js/flatpickr.js' %}"></script>
+
+
+
+
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="{% static 'Style/js/global.js' %}"></script>
+  </body>
+</html>

@@ -1,0 +1,715 @@
+
+[
+  {
+    "model": "Admin.WorkDay",
+    "pk": 1,
+    "fields": {
+      "name_en": "sunday",
+      "name_ar": "الأحد",
+      "start_time": "10:00:00",
+      "end_time": "23:00:00",
+      "total_price": "0.00",
+      "is_working": false
+    }
+  },
+  {
+    "model": "Admin.WorkDay",
+    "pk": 2,
+    "fields": {
+      "name_en": "monday",
+      "name_ar": "الاثنين",
+      "start_time": "10:00:00",
+      "end_time": "23:00:00",
+      "total_price": "0.00",
+      "is_working": false
+    }
+  },
+  {
+    "model": "Admin.WorkDay",
+    "pk": 3,
+    "fields": {
+      "name_en": "tuesday",
+      "name_ar": "الثلاثاء",
+      "start_time": "10:00:00",
+      "end_time": "23:00:00",
+      "total_price": "0.00",
+      "is_working": false
+    }
+  },
+  {
+    "model": "Admin.WorkDay",
+    "pk": 4,
+    "fields": {
+      "name_en": "wednesday",
+      "name_ar": "الأربعاء",
+      "start_time": "10:00:00",
+      "end_time": "23:00:00",
+      "total_price": "0.00",
+      "is_working": false
+    }
+  },
+  {
+    "model": "Admin.WorkDay",
+    "pk": 5,
+    "fields": {
+      "name_en": "thursday",
+      "name_ar": "الخميس",
+      "start_time": "10:00:00",
+      "end_time": "23:00:00",
+      "total_price": "0.00",
+      "is_working": false
+    }
+  },
+  {
+    "model": "Admin.WorkDay",
+    "pk": 6,
+    "fields": {
+      "name_en": "friday",
+      "name_ar": "الجمعة",
+      "start_time": "15:00:00",
+      "end_time": "23:00:00",
+      "total_price": "0.00",
+      "is_working": false
+    }
+  },
+  {
+    "model": "Admin.WorkDay",
+    "pk": 7,
+    "fields": {
+      "name_en": "saturday",
+      "name_ar": "السبت",
+      "start_time": "10:00:00",
+      "end_time": "23:00:00",
+      "total_price": "0.00",
+      "is_working": false
+    }
+  },
+
+  {
+    "model": "Admin.propertypricing",
+    "pk": 1,
+    "fields": {
+      "key": "apartment",
+      "property_name": "شقة",
+      "std_price": "0.00",
+      "comp_price": "0.00",
+      "meter_rate": "3.00",
+      "allowed_duration": "2 00:00:00"
+    }
+  },
+
+  {
+    "model": "Admin.propertypricing",
+    "pk": 2,
+    "fields": {
+      "key": "villa",
+      "property_name": "فيلا",
+      "std_price": "0.00",
+      "comp_price": "0.00",
+      "meter_rate": "2.00",
+      "allowed_duration": "2 00:00:00"
+    }
+  },
+
+  {
+    "model": "Admin.inspectiontype",
+    "pk": 1,
+    "fields": {
+      "key": "complete",
+      "name": "فحص شامل"
+    }
+  },
+  {
+    "model": "Admin.inspectiontype",
+    "pk": 2,
+    "fields": {
+      "key": "standard",
+      "name": "فحص أساسي"
+    }
+  },
+
+  {
+    "model": "Admin.contactmethod",
+    "fields": {
+      "key": "TikTok",
+      "name": "تيك توك",
+      "user": "",
+      "link": "https://www.tiktok.com/",
+      "icon": "fab fa-tiktok",
+      "is_active": false
+    }
+  },
+  {
+    "model": "Admin.contactmethod",
+    "fields": {
+      "key": "X",
+      "name": "إكس (تويتر سابقاً)",
+      "user": "",
+      "link": "https://x.com/",
+      "icon": "fab fa-x",
+      "is_active": false
+    }
+  },
+  {
+    "model": "Admin.contactmethod",
+    "fields": {
+      "key": "Instagram",
+      "name": "إنستغرام",
+      "user": "",
+      "link": "https://www.instagram.com/",
+      "icon": "fab fa-instagram",
+      "is_active": false
+    }
+  },
+
+  {
+    "model": "Admin.contactmethod",
+    "fields": {
+      "key": "WhatsApp",
+      "name": "واتساب",
+      "user": "",
+      "link": "https://wa.me/",
+      "icon": "fab fa-whatsapp",
+      "is_active": false
+    }
+  },
+
+  {
+    "model": "Admin.contactmethod",
+    "fields": {
+      "key": "contact_number",
+      "name": "رقم الاتصال",
+      "user": "0",
+      "link": "tel:0",
+      "icon": "fa-solid fa-square-phone",
+      "is_active": false
+    }
+  },
+
+  {
+    "model": "Admin.contactmethod",
+    "fields": {
+      "key": "contact_email",
+      "name": "البريد الإلكتروني للتواصل",
+      "user": "email@email.com",
+      "link": "mailto:email@email.com",
+      "icon": "fa-solid fa-square-envelope",
+      "is_active": false
+    }
+  },
+
+  {
+    "model": "Admin.paymentmethod",
+    "fields": {
+      "key": "Mada",
+      "name": "مدى",
+      "is_active": false
+    }
+  },
+  {
+    "model": "Admin.paymentmethod",
+    "fields": {
+      "key": "Visa",
+      "name": "فيزا",
+      "is_active": false
+    }
+  },
+  {
+    "model": "Admin.paymentmethod",
+    "fields": {
+      "key": "Mastercard",
+      "name": "ماستركارد",
+      "is_active": false
+    }
+  },
+  {
+    "model": "Admin.paymentmethod",
+    "fields": {
+      "key": "Applepay",
+      "name": "آبل باي",
+      "is_active": false
+    }
+  },
+  {
+    "model": "Admin.paymentmethod",
+    "fields": {
+      "key": "Tamara",
+      "name": "تمارا",
+      "is_active": false
+    }
+  },
+  {
+    "model": "Admin.paymentmethod",
+    "fields": {
+      "key": "Tabby",
+      "name": "تابي",
+      "is_active": false
+    }
+  },
+
+  {
+    "model": "Admin.Region",
+    "pk": "riyadh",
+    "fields": { "code": "riyadh", "name": "الرياض" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "diriyah",
+    "fields": { "code": "diriyah", "name": "الدرعية" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "alkharj",
+    "fields": { "code": "alkharj", "name": "الخرج" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "dawadmi",
+    "fields": { "code": "dawadmi", "name": "الدوادمي" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "majmaah",
+    "fields": { "code": "majmaah", "name": "المجمعة" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "quwayiyah",
+    "fields": { "code": "quwayiyah", "name": "القويعية" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "wadi_addawasir",
+    "fields": { "code": "wadi_addawasir", "name": "وادي الدواسر" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "aflaj",
+    "fields": { "code": "aflaj", "name": "الأفلاج" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "zulfi",
+    "fields": { "code": "zulfi", "name": "الزلفي" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "shaqra",
+    "fields": { "code": "shaqra", "name": "شقراء" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "hotat_bani_tamim",
+    "fields": { "code": "hotat_bani_tamim", "name": "حوطة بني تميم" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "afif",
+    "fields": { "code": "afif", "name": "عفيف" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "muzahimiyah",
+    "fields": { "code": "muzahimiyah", "name": "المزاحمية" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "makkah",
+    "fields": { "code": "makkah", "name": "مكة المكرمة" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "jeddah",
+    "fields": { "code": "jeddah", "name": "جدة" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "taif",
+    "fields": { "code": "taif", "name": "الطائف" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "qunfudhah",
+    "fields": { "code": "qunfudhah", "name": "القنفذة" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "lith",
+    "fields": { "code": "lith", "name": "الليث" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "rabigh",
+    "fields": { "code": "rabigh", "name": "رابغ" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "khulais",
+    "fields": { "code": "khulais", "name": "خليص" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "ranyah",
+    "fields": { "code": "ranyah", "name": "رنية" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "turabah",
+    "fields": { "code": "turabah", "name": "تربة" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "khurmah",
+    "fields": { "code": "khurmah", "name": "الخرمة" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "jumum",
+    "fields": { "code": "jumum", "name": "الجموم" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "dammam",
+    "fields": { "code": "dammam", "name": "الدمام" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "khobar",
+    "fields": { "code": "khobar", "name": "الخبر" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "dhahran",
+    "fields": { "code": "dhahran", "name": "الظهران" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "ahsa",
+    "fields": { "code": "ahsa", "name": "الأحساء" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "qatif",
+    "fields": { "code": "qatif", "name": "القطيف" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "jubail",
+    "fields": { "code": "jubail", "name": "الجبيل" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "hafr_albatin",
+    "fields": { "code": "hafr_albatin", "name": "حفر الباطن" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "khafji",
+    "fields": { "code": "khafji", "name": "الخفجي" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "ras_tanura",
+    "fields": { "code": "ras_tanura", "name": "رأس تنورة" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "abqaiq",
+    "fields": { "code": "abqaiq", "name": "بقيق" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "nuayriyah",
+    "fields": { "code": "nuayriyah", "name": "النعيرية" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "qaryat_aluya",
+    "fields": { "code": "qaryat_aluya", "name": "قرية العليا" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "abha",
+    "fields": { "code": "abha", "name": "أبها" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "khamis_mushait",
+    "fields": { "code": "khamis_mushait", "name": "خميس مشيط" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "bisha",
+    "fields": { "code": "bisha", "name": "بيشة" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "namas",
+    "fields": { "code": "namas", "name": "النماص" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "muhayil_aseer",
+    "fields": { "code": "muhayil_aseer", "name": "محايل عسير" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "majardah",
+    "fields": { "code": "majardah", "name": "المجاردة" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "tathlith",
+    "fields": { "code": "tathlith", "name": "تثليث" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "sarat_abidah",
+    "fields": { "code": "sarat_abidah", "name": "سراة عبيدة" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "balqarn",
+    "fields": { "code": "balqarn", "name": "بلقرن" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "rijal_almaa",
+    "fields": { "code": "rijal_almaa", "name": "رجال ألمع" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "dhahran_aljanub",
+    "fields": { "code": "dhahran_aljanub", "name": "ظهران الجنوب" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "madinah",
+    "fields": { "code": "madinah", "name": "المدينة المنورة" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "yanbu",
+    "fields": { "code": "yanbu", "name": "ينبع" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "alula",
+    "fields": { "code": "alula", "name": "العلا" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "mahd_adhahab",
+    "fields": { "code": "mahd_adhahab", "name": "المهد" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "badr",
+    "fields": { "code": "badr", "name": "بدر" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "khaibar",
+    "fields": { "code": "khaibar", "name": "خيبر" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "hunakiyah",
+    "fields": { "code": "hunakiyah", "name": "الحناكية" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "buraidah",
+    "fields": { "code": "buraidah", "name": "بريدة" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "unaizah",
+    "fields": { "code": "unaizah", "name": "عنيزة" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "rass",
+    "fields": { "code": "rass", "name": "الرس" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "midhnab",
+    "fields": { "code": "midhnab", "name": "المذنب" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "bukairiyah",
+    "fields": { "code": "bukairiyah", "name": "البكيرية" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "badaya",
+    "fields": { "code": "badaya", "name": "البدائع" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "asyah",
+    "fields": { "code": "asyah", "name": "الأسياح" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "tabuk",
+    "fields": { "code": "tabuk", "name": "تبوك" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "wajh",
+    "fields": { "code": "wajh", "name": "الوجه" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "duba",
+    "fields": { "code": "duba", "name": "ضباء" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "tayma",
+    "fields": { "code": "tayma", "name": "تيماء" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "umluj",
+    "fields": { "code": "umluj", "name": "أملج" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "haql",
+    "fields": { "code": "haql", "name": "حقل" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "hail",
+    "fields": { "code": "hail", "name": "حائل" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "baqaa",
+    "fields": { "code": "baqaa", "name": "بقعاء" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "ghazalah",
+    "fields": { "code": "ghazalah", "name": "الغزالة" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "shanan",
+    "fields": { "code": "shanan", "name": "الشنان" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "shamli",
+    "fields": { "code": "shamli", "name": "الشملي" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "jazan",
+    "fields": { "code": "jazan", "name": "جازان" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "sabya",
+    "fields": { "code": "sabya", "name": "صبيا" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "abu_arish",
+    "fields": { "code": "abu_arish", "name": "أبو عريش" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "samitah",
+    "fields": { "code": "samitah", "name": "صامطة" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "baish",
+    "fields": { "code": "baish", "name": "بيش" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "darb",
+    "fields": { "code": "darb", "name": "الدرب" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "najran",
+    "fields": { "code": "najran", "name": "نجران" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "sharurah",
+    "fields": { "code": "sharurah", "name": "شرورة" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "hubuna",
+    "fields": { "code": "hubuna", "name": "حبونا" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "al_baha",
+    "fields": { "code": "al_baha", "name": "الباحة" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "baljurashi",
+    "fields": { "code": "baljurashi", "name": "بلجرشي" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "mikhwah",
+    "fields": { "code": "mikhwah", "name": "المخواة" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "mandaq",
+    "fields": { "code": "mandaq", "name": "المندق" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "al_jouf",
+    "fields": { "code": "al_jouf", "name": "الجوف (سكاكا)" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "qurayyat",
+    "fields": { "code": "qurayyat", "name": "القريات" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "dumat_aljandal",
+    "fields": { "code": "dumat_aljandal", "name": "دومة الجندل" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "arar",
+    "fields": { "code": "arar", "name": "عرعر" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "rafha",
+    "fields": { "code": "rafha", "name": "رفحاء" }
+  },
+  {
+    "model": "Admin.Region",
+    "pk": "turaif",
+    "fields": { "code": "turaif", "name": "طريف" }
+  },
+
+  {
+    "model": "Admin.FinancialSettings",
+    "pk": 1,
+    "fields": {
+      "tax_rate": "15.00",
+      "company_profit_percent": "20.00",
+      "engineer_profit_percent": "80.00"
+    }
+  }
+]

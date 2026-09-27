@@ -1,0 +1,219 @@
+{% extends 'Engineer/EngineerBase.html' %} {% block staff_content %}
+<div class="eng-profile-container py-4">
+  <!-- 1. البيانات الشخصية والأساسية -->
+  <div class="eng-card mb-4">
+    <div class="eng-card-header">
+      <h5 class="eng-card-title mb-0">
+        <i class="fa-solid fa-address-card eng-gold-icon me-2"></i>البيانات الشخصية والأساسية
+      </h5>
+    </div>
+
+    <div class="eng-card-body">
+      <div class="row g-3">
+        <div class="col-md-6 col-lg-4">
+          <div class="eng-field-box">
+            <span class="eng-field-label"><i class="fa-solid fa-user me-2"></i>الاسم بالعربي</span>
+            <span class="eng-field-value">{{ full_name_ar|default:"غير محدد" }}</span>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="eng-field-box">
+            <span class="eng-field-label"
+              ><i class="fa-solid fa-user me-2"></i>الاسم بالإنجليزي</span
+            >
+            <span class="eng-field-value">{{ full_name_en|default:"غير محدد" }}</span>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="eng-field-box">
+            <span class="eng-field-label"><i class="fa-solid fa-phone me-2"></i>رقم الجوال</span>
+            <span class="eng-field-value" dir="ltr">{{ phone|default:"غير محدد" }}</span>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="eng-field-box">
+            <span class="eng-field-label"
+              ><i class="fa-solid fa-phone-flip me-2"></i>الجوال إضافي</span
+            >
+            <span class="eng-field-value" dir="ltr">{{ secondary_phone|default:"غير محدد" }}</span>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="eng-field-box">
+            <span class="eng-field-label"
+              ><i class="fa-solid fa-at me-2"></i>البريد الإلكتروني</span
+            >
+            <span class="eng-field-value">{{ email|default:"غير محدد" }}</span>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="eng-field-box">
+            <span class="eng-field-label"
+              ><i class="fa-solid fa-location-dot me-2"></i>المدينة</span
+            >
+            <span class="eng-field-value">{{ city.name|default:"غير محددة" }}</span>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="eng-field-box">
+            <span class="eng-field-label"
+              ><i class="fa-solid fa-briefcase me-2"></i>سنوات الخبرة</span
+            >
+            {% if years_of_experience %}
+            <span class="eng-field-value">{{ years_of_experience }} سنة</span>
+            {% else %}
+            <span class="eng-field-value">غير محددة</span>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="eng-field-box">
+            <span class="eng-field-label"
+              ><i class="fa-solid fa-id-badge me-2"></i>رقم عضوية الهيئة</span
+            >
+            <span class="eng-field-value">{{ sce_number|default:"غير محدد" }}</span>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="eng-field-box">
+            <span class="eng-field-label"
+              ><i class="fa-solid fa-calendar-days me-2"></i>تاريخ انتهاء العضوية</span
+            >
+            <span class="eng-field-value"
+              >{{ sce_expiration_date|date:"Y-m-d"|default:"غير محدد" }}</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. الوثائق والمستندات المرفوعة -->
+  <div class="eng-card scrollable-container">
+    <div class="eng-card-header">
+      <h5 class="eng-card-title mb-0">
+        <i class="fa-solid fa-file-shield eng-gold-icon me-2"></i>الوثائق والمستندات المرفوعة
+      </h5>
+    </div>
+
+    <div class="eng-card-body">
+      <div class="row g-4">
+        <!-- الشهادة الجامعية -->
+        <div class="col-xl-6">
+          <div class="eng-doc-box h-100">
+            <div class="mb-3">
+              <span class="eng-doc-title"
+                ><i class="fa-solid fa-graduation-cap me-2"></i>الشهادة الجامعية</span
+              >
+            </div>
+            <div class="eng-doc-preview text-center py-3">
+              {% if university_degree %}
+              <i class="fa-solid fa-file-pdf eng-pdf-icon mb-2 d-block"></i>
+              <a href="{{ university_degree.url }}" target="_blank" class="btn eng-btn-gold">
+                <i class="fa-solid fa-eye me-1"></i> معاينة الملف المرفوع
+              </a>
+              {% else %}
+              <span class="text-muted small">لم يتم رفع هذا الملف بعد</span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <!-- عضوية هيئة المهندسين -->
+        <div class="col-xl-6">
+          <div class="eng-doc-box h-100">
+            <div class="mb-3">
+              <span class="eng-doc-title"
+                ><i class="fa-solid fa-id-card me-2"></i>عضوية هيئة المهندسين</span
+              >
+            </div>
+            <div class="eng-doc-preview text-center py-3">
+              {% if sce_membership %}
+              <i class="fa-solid fa-file-pdf eng-pdf-icon mb-2 d-block"></i>
+              <a href="{{ sce_membership.url }}" target="_blank" class="btn eng-btn-gold">
+                <i class="fa-solid fa-eye me-1"></i> معاينة الملف المرفوع
+              </a>
+              {% else %}
+              <span class="text-muted small">لم يتم رفع هذا الملف بعد</span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <!-- السيرة الذاتية -->
+        <div class="col-xl-6">
+          <div class="eng-doc-box h-100">
+            <div class="mb-3">
+              <span class="eng-doc-title"
+                ><i class="fa-solid fa-file-lines me-2"></i>السيرة الذاتية (CV)</span
+              >
+            </div>
+            <div class="eng-doc-preview text-center py-3">
+              {% if cv_file %}
+              <i class="fa-solid fa-file-pdf eng-pdf-icon mb-2 d-block"></i>
+              <a href="{{ cv_file.url }}" target="_blank" class="btn eng-btn-gold">
+                <i class="fa-solid fa-eye me-1"></i> معاينة الملف المرفوع
+              </a>
+              {% else %}
+              <span class="text-muted small">لم يتم رفع هذا الملف بعد</span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <!-- صور وجاهزية المعدات -->
+        <div class="col-xl-6">
+          <div class="eng-doc-box h-100">
+            <div class="mb-3">
+              <span class="eng-doc-title"
+                ><i class="fa-solid fa-screwdriver-wrench me-2"></i>صور وجاهزية المعدات</span
+              >
+            </div>
+            <div class="eng-doc-preview text-center py-3">
+              {% if equipment_photos %}
+              <i class="fa-solid fa-file-pdf eng-pdf-icon mb-2 d-block"></i>
+              <a href="{{ equipment_photos.url }}" target="_blank" class="btn eng-btn-gold">
+                <i class="fa-solid fa-eye me-1"></i> معاينة الملف المرفوع
+              </a>
+              {% else %}
+              <span class="text-muted small">لم يتم رفع هذا الملف بعد</span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <!-- إثبات الآيبان / الحساب البنكي -->
+        <div class="col-xl-12">
+          <div class="eng-doc-box h-100">
+            <div class="mb-3">
+              <span class="eng-doc-title"
+                ><i class="fa-solid fa-building-columns me-2"></i>إثبات الحساب البنكي
+                (الآيبان)</span
+              >
+            </div>
+            <div class="eng-doc-preview text-center py-3">
+              {% if iban_proof %}
+              <i class="fa-solid fa-file-pdf eng-pdf-icon mb-2 d-block"></i>
+              <a href="{{ iban_proof.url }}" target="_blank" class="btn eng-btn-gold">
+                <i class="fa-solid fa-eye me-1"></i> معاينة الملف المرفوع
+              </a>
+              {% else %}
+              <span class="text-muted small">لم يتم رفع هذا الملف بعد</span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

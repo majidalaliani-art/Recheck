@@ -1,0 +1,68 @@
+<div class="general-cards-container">
+  {% for category in categories_list %}
+    <div class="general-card">
+
+      <!-- هيدر التصنيف -->
+      <div class="general-card__header" data-bs-toggle="collapse" data-bs-target="#card-body-{{ category.key }}" aria-expanded="true">
+        <div class="general-card__title">
+          <span class="general-card__bullet">◆</span>
+          <h3>{{ category.name }}</h3>
+        </div>
+        <div class="general-card__icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+      </div>
+
+      <!-- بطن الكرت -->
+      <div id="card-body-{{ category.key }}" class="collapse show">
+        <div class="general-card__body">
+
+          <!-- عناوين الأعمدة بالتساوي -->
+          <div class="card-list-header">
+            <div class="col-loc">الموقع</div>
+            <div class="col-img">الصورة</div>
+            <div class="col-txt">النص (التعليق)</div>
+          </div>
+
+          <!-- الصفوف مفصولة بأسوار وخطوط -->
+          <div class="card-list-body">
+            {% for img in images %}
+              {% if img.item.key == category.key %}
+                <div class="card-list-row">
+
+                  <!-- 1. الموقع -->
+                  <div class="col-loc">
+                    <span class="loc-title">
+                      {{ img.item.area.name|default:img.item.area.get_key_display }}
+                    </span>
+                  </div>
+
+                  <!-- 2. الصورة -->
+                  <div class="col-img">
+                    <a href="{{ img.image.url }}" data-fancybox="{{img.item.key}}" target="_blank" class="img-wrapper">
+                      <img src="{{ img.image.url }}" alt="{{ category.name }}">
+                    </a>
+                  </div>
+
+                  <!-- 3. النص -->
+                  <div class="col-txt">
+                    {% if img.comment %}
+                      <span class="comment-text">{{ img.comment }}</span>
+                    {% else %}
+                      <span class="no-comment">-</span>
+                    {% endif %}
+                  </div>
+
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  {% endfor %}
+</div>

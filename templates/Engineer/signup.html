@@ -1,0 +1,92 @@
+{% extends 'base/html/base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <div class="engineer-dashboard">
+        <h1>لوحة تحكم المهندس</h1>
+        <p>كل شيء هنا وارث الخط والألوان الأساسية، وبياخذ  ملفك الخاص.</p>
+    </div>
+{% endblock %}
+
+
+{% comment %}
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>تجربة اللغات</title>
+    <link rel="stylesheet" href="{% static 'Engineer/css/style.css' %}" />
+  </head>
+
+  <body>
+    <header>
+      <div class="aaa">
+        <i class="fa-solid fa-comment-medical"></i>
+        <h2>محمد عبدااله عبدااله</h2>
+      </div>
+
+      <div id="progress-content">
+        <button type="button" id="tab3" onclick="goToStep(3)">
+          <i class="fa-solid fa-table-list"></i>
+          <span> الفحص</span>
+          <span class="bottom-line"></span>
+        </button>
+
+        <button type="button" id="tab4" onclick="goToStep(4)">
+          <i class="fa-solid fa-cart-arrow-down"></i>
+          <span> النهائية</span>
+          <span class="bottom-line"></span>
+        </button>
+
+        <button type="button" id="tab5" onclick="goToStep(5)">
+          <i class="fa-regular fa-credit-card"></i>
+          <span>تقديم </span>
+          <span class="bottom-line"></span>
+        </button>
+
+        <button type="button" id="tab5" onclick="goToStep(5)">
+          <i class="fa-regular fa-bell"></i>
+          <span>تقديم </span>
+          <span class="bottom-line"></span>
+        </button>
+
+        <button type="button" id="tab5" onclick="goToStep(5)">
+          <i class="fa-regular fa-envelope"></i>
+          <span>تقديم </span>
+          <span class="bottom-line"></span>
+        </button>
+
+        <button type="button" id="tab5" onclick="goToStep(5)">
+          <i class="fa-solid fa-microscope"></i>
+          <span>تقديم </span>
+          <span class="bottom-line"></span>
+        </button>
+      </div>
+
+      <div class="logout">
+        <button type="button">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span>تسجيل الخروج</span>
+        </button>
+      </div>
+    </header>
+  </body>
+
+  <script src="../bootstrap/js/bootstrap.min.js"></script>
+</html>
+{% endcomment %}
+
+{% comment %}
+
+<div id="step1" class="step" style="display: none">
+  <h1 class="step_title">أدخل البريد الإلكتروني</h1>
+  <input type="text" id="emailInput" placeholder="أدخل البريد الإلكتروني" />
+
+  <div class="step-next">
+    <button type="button" onclick="goToStep(2)">التالي</button>
+    <i class="fa-solid fa-caret-left"></i>
+  </div>
+</div>
+
+ {% endcomment %}

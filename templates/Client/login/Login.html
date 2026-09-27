@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-language Website</title>
+    <link rel="stylesheet" href="{% static 'CSS/login/style.css' %}">
+    <!-- <link rel="stylesheet" href="../../static/CSS/login/style.css"> -->
+
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <section id="login">
+        <div class="card">
+            <h1 class="card_title">تسجيل دخول</h1>
+
+            <form class="card_content" method="POST">
+                {% csrf_token %}
+                <input class="title" type="tel" name="phone_number" placeholder="05XXXXXXXX" pattern="05\d{8}"
+                    title="The number must start with 05 and be exactly 10 digits" inputmode="numeric" required value="">
+                <input  type="hidden" name="action" value="otp">
+                <button type="submit">Send OTP</button>
+            </form>
+        </div>
+
+
+    </section>
+</body>

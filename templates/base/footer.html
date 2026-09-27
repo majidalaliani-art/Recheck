@@ -1,0 +1,206 @@
+<!-- FOOTER -->
+{% load static %}
+<footer class="footer tk__footer position-relative">
+  <div class="container">
+    <div class="tk__footer__cta pt-4 pb-0">
+      <ul class="row align-items-center">
+        {% for item in contacts %} {% if item.key == "WhatsApp" and item.is_active == True %}
+        <li class="animate__animated animate__fadeIn contact-WhatsApp-is_active">
+          <a
+            class="contact-WhatsApp-Link"
+            target="_blank"
+            href="{{ item.link }}"
+            title=""
+            rel="nofollow external noopener noreferrer"
+          >
+            <i class="fab fa-whatsapp"></i>
+            <div class="ms-4">
+              <p class="tk__contact_title">تواصل عبر واتساب</p>
+              <span class="ltr d-inline-block text-start contact-WhatsApp-User"
+                >{{ item.user }}</span
+              >
+            </div>
+          </a>
+        </li>
+        {% endif %} {% endfor %} {% for item in contacts %} {% if item.key == "contact_number" and item.is_active == True %}
+        <li class="animate__animated animate__fadeIn contact-contact_number-is_active">
+          <a
+            target="_blank"
+            href="{{ item.link }}"
+            title=""
+            class="contact-contact_number-Link"
+            rel="nofollow noopener noreferrer"
+          >
+            <i class="far fa-phone"></i>
+            <div class="ms-4">
+              <p class="tk__contact_title">رقم التواصل</p>
+              <span class="ltr d-inline-block text-start contact-contact_number-User"
+                >{{ item.user }}</span
+              >
+            </div>
+          </a>
+        </li>
+        {% endif %} {% endfor %}
+
+        {% for item in contacts %} {% if item.key == "contact_email" and item.is_active == True %}
+        <li class="animate__animated animate__fadeIn contact-contact_email-is_active">
+
+          <a target="_blank" class="contact-contact_email-Link" href="{{ item.link }}" title="">
+            <i class="far fa-envelope-open"></i>
+            <div class="ms-4">
+              <p class="tk__contact_title">فريق الدعم</p>
+
+              <span class="ltr contact-contact_email-User d-inline-block text-start"
+                >{{ item.user }}</span
+              >
+            </div>
+          </a>
+
+        </li>
+        {% endif %} {% endfor %}
+      </ul>
+    </div>
+
+    <div class="tk__footer__content pt-5 pb-2">
+      <div class="row">
+        <div class="col-lg-4 mb-3 animate__animated animate__fadeIn">
+          <div class="tk__footer__logo">
+            <a href="{% url 'Client:homepage' %}">
+              <img src="{% static 'images/favicon.ico' %}" class="img-fluid" alt="" />
+            </a>
+          </div>
+          <div class="tk__footer__text">
+            <p class="px-3">
+              منصة إلكترونية على مستوى المملكة العربية السعودية تربط العملاء الراغبين بإجراء فحص
+              للتحقق من جودة وسلامة أي عقار بمجموعة من المهندسين السعوديين المعتمدين والمؤهلين
+              لإجراء فحص المباني الجاهزة
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="tk__footer__content__links col-lg-4 mt-4 mt-lg-0 mb-3 px-4 animate__animated animate__fadeIn"
+        >
+          <div class="tk__footer__heading">
+            <h3>منصة ENGINEER</h3>
+          </div>
+          <ul>
+            <li><a href="{% url 'Client:homepage' %}">الرئيسية</a></li>
+            <!-- <li><a href="https://takkd.com/ar/dashboard">إدارة حسابي</a></li> -->
+
+            <li><a href="{% url 'Base:inspector' %}">الفاحصون</a></li>
+
+            <li><a href="{% url 'Client:orders' %}">طلباتي</a></li>
+            <li class="w-100">
+              <div class="d-flex mt-3 justify-content-center">
+                {% for item in contacts %}
+               
+                {% if not item.is_active %}
+                  <!-- -->
+                {% elif item.key == "TikTok" %}
+                <a
+                  href="{{item.link}}"
+                  class="btn bg-warning contact-TikTok-is_active contact-TikTok-Link text-dark rounded-3 me-3 p-2"
+                >
+                  <i class="fab fa-tiktok px-2"></i>
+                </a>
+                {% elif item.key == "X" %}
+                <a
+                  href="{{item.link}}"
+                  class="btn bg-warning contact-X-is_active contact-X-Link text-dark rounded-3 me-3 p-2"
+                >
+                  <i class="fab fa-x px-2"></i>
+                </a>
+                {% elif item.key == "Instagram" %}
+                <a
+                  href="{{item.link}}"
+                  class="btn bg-warning contact-Instagram-is_active contact-Instagram-Link text-dark rounded-3 me-3 p-2"
+                >
+                  <i class="fab fa-instagram px-2"></i>
+                </a>
+                {% elif item.key == "WhatsApp" %}
+
+
+                <a
+                  href="{{ item.link }}"
+                  class="contact-WhatsApp-Link contact-WhatsApp-is_active btn bg-warning text-dark rounded-3 p-2"
+                >
+                  <i class="fab fa-whatsapp px-2"></i>
+                </a>
+                {% endif %}
+                {% endfor %}
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="col-lg-4 mt-4 mt-lg-0 px-4 animate__animated animate__fadeIn">
+          <div class="tk__footer__heading">
+            <h3>وسائل الدفع</h3>
+          </div>
+          <div class="tk__footer__text">
+            <p>
+              نوفر عدة وسائل معتمدة وآمنة كلياً عند إجراء عمليات الدفع وذلك لتسهيل وتأمين عمليات
+              الدفع لجميع عملائنا.
+            </p>
+          </div>
+          <br />
+
+          <ul class="tk__payment__methods d-flex flex-wrap row align-items-center">
+            {% for pay in payment %}
+            {% if not pay.is_active %}
+              <!-- -->
+            {% elif pay.key == "Mada" %}
+            <li class="pay-Mada-is_active">
+              <img src="{% static 'images/Payment/mada.svg' %}" alt="mada" />
+            </li>
+            {% elif pay.key == "Visa" %}
+
+            <li class="pay-Visa-is_active">
+              <img src="{% static 'images/Payment/visa.svg' %}" alt="visa" />
+            </li>
+            {% elif pay.key == "Mastercard" %}
+
+            <li class="pay-Mastercard-is_active">
+              <img src="{% static 'images/Payment/mastercard.svg' %}" alt="mastercard" />
+            </li>
+
+            {% elif pay.key == "Applepay" %}
+
+            <li class="pay-Applepay-is_active">
+              <img src="{% static 'images/Payment/applepay.svg' %}" alt="applepay" />
+            </li>
+            {% elif pay.key == "Tamara" %}
+
+            <li class="pay-Tamara-is_active">
+              <img src="{% static 'images/Payment/tamara.svg' %}" alt="tamara" />
+            </li>
+            {% elif pay.key == "Tabby" %}
+
+            <li class="pay-Tabby-is_active">
+              <img src="{% static 'images/Payment/tabby.svg' %}" alt="tabby" />
+            </li>
+            {% endif %}
+          {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tk__copyright">
+    <div
+      class="container d-flex align-items-center justify-content-between text-center animate__animated animate__fadeIn"
+    >
+      <div class="d-flex align-items-center">
+        <a href="{% url 'Base:terms' %}" class="text-white small">شروط الخدمةإستخدام</a>
+        <span class="mx-2 text-white">|</span>
+        <a href="{% url 'Base:privacy' %}" class="text-white small">سياسة الخصوصية</a>
+        <span class="mx-2 text-white">|</span>
+        <a href="{% url 'Base:cancelation' %}" class="text-white small">سياسة الإلغاء</a>
+      </div>
+      <p>
+        جميع الحقوق محفوظة <a href="{% url 'Client:homepage' %}">منصة مجهر هندسي</a> © {% now "Y" %}
+      </p>
+    </div>
+  </div>
+</footer>

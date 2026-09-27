@@ -1,0 +1,57 @@
+{% extends 'Client/CientBase.html' %} {% block footer %}{% endblock %} {% block navbar %}{% endblock%} {% block client_content %} {% load static %}
+
+<div class="login-wrapper">
+  <a href="/" class="glass-back-btn">رجوع</a>
+
+  <div class="login-box-glass">
+    <div class="title">تسجيل الدخول برقم الجوال</div>
+    <div id="error-msg" class="d-none error"></div>
+
+    {% if step == "send" %}
+    <div class="step-text">أدخل رقم الجوال للمتابعة</div>
+    <form method="post">
+      {% csrf_token %} {{form.phone}}
+      <button class="btn-glass btn-primary-glass" name="send" value="send_otp">
+        إرسال رمز التحقق
+      </button>
+    </form>
+
+
+
+    {% elif step == "verify" %}
+    <div class="step-text">أدخل رمز التحقق المرسل لك</div>
+    <form method="post">
+      {% csrf_token %}
+      <input type="hidden" name="phone" value="{{ phone }}" />
+      {{form.otp}}
+      <button class="btn-glass btn-primary-glass" name="send" value="verify_otp">تحقق</button>
+    </form>
+
+        <form method="post" id="reset-form">
+      {% csrf_token %}
+      <input type="hidden" name="phone" value="{{ phone }}" />
+
+
+      <button type="submit" class="btn-glass btn-secondary-glass" id="reset-btn" name="send" value="reset">
+
+        إعادة إرسال الكود <span id="time-countdown">(<span id="countdown">60</span>ث) </span>
+      </button>
+    </form>
+    {% endif %}
+  </div>
+
+
+
+  <script type="module" src="{% static 'Style/js/client/login.js' %}"></script>
+</div>
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

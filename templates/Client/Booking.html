@@ -1,0 +1,139 @@
+{% extends 'Client/CientBase.html' %} {% block client_content %} {% load static %}
+
+<form id="booking-form " class="container-fluid container_booking" method="POST">
+ 
+  {% csrf_token %}
+  <div id="step-1" class="container Request_service form-step">
+    <div class="top-controls">
+      <div class="area-card tk__card">
+        <div class="tk__card_top">
+          <span class="tk__title">مساحة العقار</span>
+          <span class="tk__icon">
+            <i class="fa-solid fa-ruler-combined"></i>
+          </span>
+        </div>
+
+        <div class="area-input-box">
+          {{form.property_size}}
+          <span class="unit">م²</span>
+        </div>
+      </div>
+
+      <div class="property-card tk__card">
+        <div class="tk__card_top">
+          <span class="tk__title">نوع العقار</span>
+          <span class="tk__icon">
+            <i class="fa-solid fa-ruler-combined"></i>
+          </span>
+        </div>
+
+        {{ form.property_type }}
+
+        <div id="property_type_error" class="text-center"></div>
+        {% if form.property_type.errors %}
+        <div class="alert alert-danger py-2 mt-2" style="font-size: 0.85rem">
+          {% for error in form.property_type.errors %}
+          <i class="fas fa-exclamation-circle me-1"></i> {{ error }} {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    {{form.inspection_type}}
+    <div id="inspection_type_error" class="text-center"></div>
+    {% if form.inspection_type.errors %}
+    <div class="alert alert-danger py-2 mt-2" style="font-size: 0.85rem">
+      {% for error in form.inspection_type.errors %}
+      <i class="fas fa-exclamation-circle me-1"></i> {{ error }} {% endfor %}
+    </div>
+    {% endif %}
+    <div class="col-6 col-md-3">
+      {% if request.session.user %}
+
+      <button type="button" class="orderNow" data-step="2">
+        <span class="text fs-3">التالي</span>
+      </button>
+      {% else %}
+      <a href="/login/" class="orderNow fs-2"> تسجيل الدخول </a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div id="step-2" class="container Request_service form-step d-none">
+    <div class="row w-100">
+      <div class="col-12 col-md-6">
+        <div class="form-field">
+          <label for="{{ form.name.id_for_label }}" class="form-label"
+            >الاسم <samp class="text-danger">*</samp></label
+          >
+          {{form.name}}
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="form-field">
+          <label for="{{ form.phone.id_for_label }}" class="form-label"
+            >رقم الجوال <samp class="text-danger">*</samp></label
+          >
+          {{form.phone}}
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <div class="form-field">
+          <label for="{{ form.day.id_for_label }}" class="form-label"
+            >المدينة <samp class="text-danger">*</samp></label
+          >
+          {{form.city}}
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <div class="form-field">
+          <label for="{{ form.neighborhood.id_for_label }}" class="form-label"
+            >الحي <samp class="text-danger">*</samp></label
+          >
+          {{form.neighborhood}}
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <div class="form-field">
+          <label for="{{ form.day.id_for_label }}" class="form-label"
+            >التاريخ <samp class="text-danger">*</samp></label
+          >
+          <div class="position-relative">
+            {{ form.day }}
+            <i class="fa-solid fa-calendar calendar-icon"></i>
+          </div>
+          <div id="day-error" class="text-danger"></div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <div class="form-field">
+          <label for="{{ form.time_slot.id_for_label }}" class="form-label"
+            >الوقت <samp class="text-danger">*</samp></label
+          >
+          {{form.time_slot}}
+          <div id="time-error"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-100 step-footer mt-4 text-center d-flex justify-content-center gap-3">
+      <button type="button" class="w-50 btn-secondary orderNow fs-4" data-step="1">
+        <span class="icon-right">
+          <i class="fa-solid fa-arrow-right"></i>
+        </span>
+        <span class="text">السابق</span>
+      </button>
+      <button type="submit" class="orderNow w-50 fs-4" id="submitBtn" data-step="2">
+        إرسال الطلب
+      </button>
+    </div>
+  </div>
+</form>
+
+<script type="module" src="{% static 'Style/js/client/Booking.js' %}"></script>
+
+{% endblock %}

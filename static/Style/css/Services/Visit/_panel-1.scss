@@ -1,0 +1,102 @@
+.gold-upload-card {
+  position: relative;
+  width: 100%;
+  height: 400px; // مثبتين الارتفاع عشان يطابق الخريطة بالملي
+  background: #ffffff;
+  border: 2px dashed #d4af37;
+  border-radius: 16px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; // مهم جداً عشان أي صورة تطلع برا الإطار تنقص وتختفي
+  transition: all 0.3s ease;
+
+  .upload-box {
+    cursor: pointer;
+    width: 100%;
+    height: 100%; // يملأ الكرت بالكامل
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+  }
+
+  .upload-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    // شلنا البادنج الثابت عشان يتوسط في كل الحالات
+    height: 100%;
+
+    .upload-icon {
+      font-size: 3.5rem;
+      color: #d4af37;
+    }
+    .upload-text {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #d4af37;
+    }
+  }
+
+  .preview-image {
+    width: 100%;
+    height: 100%; // الصورة تأخذ كامل مساحة الكرت
+    object-fit: cover; // تقص الصورة عشان تملأ المساحة بدون ما تتشوه
+    border-radius: 11px;
+  }
+
+  .view-image-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #e2e8f0;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #475569;
+    z-index: 10;
+  }
+}
+
+
+
+.gold-map-card {
+  width: 100%;
+  min-height: 400px; // نفس الارتفاع المبدئي الموحد بالملي عشان التوازن البصري
+  background: #ffffff;
+  border: 2px dashed #d4af37; // نفس الإطار الذهبي المنقط
+  border-radius: 16px;
+  padding: 5px; // 💡 بادنج 5 بيكسل بالضبط عشان تقعد الخريطة الحقيقية بالمسطرة داخل الإطار
+  display: flex;
+  align-items: stretch; // يجبر حاوية الخريطة تمدد بكامل الارتفاع المتاح
+  transition: all 0.3s ease;
+
+  // حاوية الـ JS الخريطة الحقيقية
+  .real-map-container {
+    width: 100%;
+    min-height: 266px; // الحسبة: الارتفاع الكامل ناقص الـ 10px حقت البادنج والإطار
+    border-radius: 11px; // زاوية ناعمة متناسقة هندسياً مع الكرت الخارجي مثل الصورة
+    background-color: #f8fafc; // خلفية رمادية خفيفة تظهر كمؤشر مريح لين تترقّع الخريطة بالـ JS
+
+    // يضمن إن أي عناصر خريطة (Leaflet أو Google) تحترم حواف الزوايا الدائرية
+    overflow: hidden;
+  }
+}
+
+.gold-map-card {
+  height: 400px; /* جرب تثبيت الارتفاع نهائياً بدلاً من min-height */
+  .real-map-container {
+    height: 100%;
+  }
+}
+
+

@@ -1,0 +1,152 @@
+// متغيرات الألوان للهوية
+$gold-primary: #c5a059;
+$gold-hover: #b08d46;
+$gold-light: #fdfaf3;
+$dark-green: #2c3e35;
+
+.eng-profile-container {
+  max-width: 1400px;
+  margin: auto;
+  padding: 0 0.75rem;
+
+  @media (max-width: 991.98px) {
+    max-width: 100%;
+  }
+
+  // البطاقات الكبيرة
+  .eng-card {
+    background: #ffffff;
+    border: none;
+    border-radius: 1.25rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+
+
+
+    .eng-card-header {
+      padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+      background: transparent;
+      text-align: center;
+
+      .eng-card-title {
+        font-weight: 700;
+        color: $dark-green;
+        font-size: 1.15rem;
+
+        .eng-gold-icon {
+          color: $gold-primary;
+        }
+      }
+    }
+
+    .eng-card-body {
+      padding: 1.5rem;
+    }
+  }
+
+
+  // مربعات الحقول النصية
+  .eng-field-box {
+    background-color: #f8f9fa;
+    border: 1px solid #edf0f2;
+    padding: 0.85rem 1rem;
+    border-radius: 0.85rem;
+
+    .eng-field-label {
+      display: block;
+      font-size: 0.78rem;
+      color: #6c757d;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+
+
+      i {
+        color: $gold-primary;
+      }
+    }
+
+    .eng-field-value {
+      display: block;
+      text-align: center;
+      font-size: 0.95rem;
+      color: #212529;
+      font-weight: 700;
+    }
+  }
+
+  // بطاقات عرض الوثائق
+  .eng-doc-box {
+
+    border: 1px solid #edf0f2;
+    border-radius: 1rem;
+    padding: 1.25rem;
+    background-color: #ffffff;
+
+    .eng-doc-title {
+      font-weight: 700;
+      color: #333;
+      font-size: 0.95rem;
+
+      i {
+        color: $gold-primary;
+      }
+    }
+
+    .eng-doc-preview {
+      background-color: #f9fafb;
+      border: 1px dashed #e2e8f0;
+      border-radius: 0.75rem;
+
+      .eng-pdf-icon {
+        font-size: 2rem;
+        color: #e63946;
+      }
+    }
+
+    // زر المعاينة الذهبي
+    .eng-btn-gold {
+      background-color: $gold-primary;
+      color: #ffffff;
+      border-radius: 50rem;
+      font-size: 0.825rem;
+      font-weight: 600;
+      padding: 0.4rem 1.25rem;
+      border: none;
+
+      &:hover {
+        background-color: $gold-hover;
+        color: #ffffff;
+      }
+    }
+
+    // شارات الحالات
+    .badge {
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.4em 0.8em;
+      border-radius: 50rem;
+
+      &.status-accepted {
+        background-color: #d1e7dd;
+        color: #0f5132;
+      }
+
+      &.status-pending {
+        background-color: #fff3cd;
+        color: #664d03;
+      }
+
+      &.status-rejected {
+        background-color: #f8d7da;
+        color: #842029;
+      }
+    }
+
+    .eng-note-alert {
+      font-size: 0.8rem;
+      color: #842029;
+      background-color: #f8d7da;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.5rem;
+    }
+  }
+}

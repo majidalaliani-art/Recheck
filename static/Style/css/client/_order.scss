@@ -1,0 +1,101 @@
+@use "../config" as *;
+@use "sass:map";
+
+.status-order {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 50rem;
+  cursor: pointer;
+}
+
+$order-states: (
+  "pending": (
+    bg: #fbe2e2,
+    text: #ff0000,
+  ),
+  "waiting": (
+    bg: #d1e7dd,
+    text: #0f5132,
+  ),
+  "failed": (
+    bg: #f8d7da,
+    text: #b02a37,
+  ),
+  "cancel": (
+    bg: #f8d7da,
+    text: #b02a37,
+  ),
+  "in_progress": (
+    bg: #d1e7dd,
+    text: #0f5132,
+  ),
+
+  "completed": (
+    bg: #e7e3d1,
+    text: #51440f,
+  ),
+);
+
+@each $state, $colors in $order-states {
+  .status-order-#{$state} {
+    //background-color: map-get($colors, bg);
+    background-color: map.get($colors, bg);
+    // color: map-get($colors, text);
+    color: map.get($colors, text);
+    font-weight: bold;
+  }
+}
+
+.customer-summary-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+  background-color: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+
+  .summary-item {
+    flex: 1 1 110px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0.5rem 1.5rem;
+
+    &:not(:last-child) {
+      border-inline-end: 1px solid #dee2e6;
+    }
+
+    @media (max-width: 576px) {
+      padding: 0.5rem;
+    }
+
+    .summary-label {
+      color: #6c757d;
+      font-size: 1rem;
+      font-weight: bold;
+      font-family: $font-heading;
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+    }
+
+    .summary-value {
+      color: #212529;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+  }
+}
+
+.customer-data-box {
+  padding: 0;
+}

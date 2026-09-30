@@ -1,0 +1,152 @@
+@use "../../config" as *;
+@use "./panel-1" as *;
+@use "./panel-2" as *;
+@use "./panel-3" as *;
+@use "./panel-4" as *;
+@use "./panel-5" as *;
+.review {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 2rem 2.5rem;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: goldenrod solid 4px;
+
+    .report-info {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      gap: 10px;
+      .showPrint {
+        .qr-img {
+          max-height: 100px;
+          width: auto;
+          object-fit: contain;
+        }
+        .qr-label {
+          margin-top: 5px;
+          font-size: x-small;
+        }
+      }
+      .report-meta {
+        text-align: left;
+
+        .order-badge {
+          background-color: #f6f4e8;
+          color: #85744a;
+          font-size: 0.85rem;
+          font-weight: 700;
+          padding: 4px 10px;
+          border-radius: 6px;
+          display: inline-block;
+          margin-bottom: 6px;
+        }
+
+        .report-id {
+          color: #0f172a;
+          font-size: 1.75rem; // تكبير رقم التقرير بشكل بارز ومناسب
+          font-weight: 800; // خط عريض جداً
+          line-height: 1.2;
+        }
+
+        .report-date {
+          color: #8b8464;
+          font-size: 0.95rem;
+          font-weight: 500;
+          margin-top: 4px;
+        }
+      }
+    }
+    .logo {
+      max-height: 150px; // تكبير اللوجو ليتناسب مع الحجم الجديد للأرقام
+      width: auto;
+      object-fit: contain;
+    }
+  }
+  .report-tabs-nav {
+    margin-top: 1rem;
+  }
+
+  .tab-content-wrapper {
+    padding: 0;
+  }
+
+  .report-tab {
+    @media (max-width: 767.98px) {
+      .d-desktop {
+        display: none !important;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .d-desktop {
+        display: inline-block; // إظهار الكلمة الأولى على الكمبيوتر
+      }
+    }
+  }
+}
+.showPrintBlock {
+  text-align: center;
+  color: white;
+  font-size: x-large;
+  background-color: #ba9947;
+}
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  html,
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100%;
+    height: auto !important;
+    min-height: 100%;
+  }
+
+  .operations_content {
+    background-color: #0f172a !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100%;
+    border-radius: 0;
+    height: auto !important;
+    min-height: 100vh;
+    box-sizing: border-box;
+  }
+
+  .review {
+    /* تحويل من table إلى block لإلغاء قيود جداول الـ CSS على الصفحات */
+    display: block;
+    width: 100%;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 0.5rem !important;
+    box-sizing: border-box;
+  }
+
+  .tab-content-wrapper {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+    .tab-panel {
+      display: block;
+      /* يمنع انقسام الكرت أو المربع الواحد في منتصف الورقة */
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    .showPrintBlock {
+      text-align: center;
+      color: white;
+      background-color: #85744a;
+    }
+  }
+}

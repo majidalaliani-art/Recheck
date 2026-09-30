@@ -1,0 +1,154 @@
+@use "../config" as *;
+
+
+
+.login-wrapper {
+  background-image: url($client-login-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 80px 20px 20px 20px;
+  box-sizing: border-box;
+  z-index: 9999;
+  overflow-y: auto;
+}
+
+
+
+.glass-back-btn {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  text-decoration: none;
+  padding: 10px 24px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.glass-back-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+
+.login-box-glass {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 50px 40px;
+  border-radius: 24px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 440px;
+  text-align: center;
+  color: #ffffff;
+}
+
+
+.login-box-glass .title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+
+.login-box-glass .step-text {
+  font-size: 15px;
+  color: #e0e0e0;
+  margin-bottom: 30px;
+}
+
+.login-box-glass .error {
+  background-color: rgba(239, 68, 68, 0.25);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #ffffff;
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.form-control-glass {
+  width: 100%;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 14px;
+  font-size: 16px;
+  color: #ffffff;
+  outline: none;
+  text-align: center;
+  direction: ltr;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.form-control-glass::placeholder {
+  color: #cccccc;
+  //text-align: center;
+}
+
+.form-control-glass:focus {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+
+}
+
+
+.btn-glass {
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  box-sizing: border-box;
+}
+
+
+.btn-primary-glass {
+  background-color: #ffffff;
+  color: #1a1a1a;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+}
+
+.btn-primary-glass:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-2px);
+}
+
+
+.btn-secondary-glass {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  margin-top: 12px;
+  background-color: #cd3b3b;
+}
+
+.btn-secondary-glass:hover {
+  background: rgba(241, 0, 0, 0.2);
+}

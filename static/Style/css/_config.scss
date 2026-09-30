@@ -1,0 +1,18 @@
+@use 'sass:color';
+
+$font-main: "Tajawal", sans-serif;
+$font-heading: "Cairo", sans-serif;
+$client-login-image: "https://i.pinimg.com/1200x/df/03/d9/df03d9830700c678db97c56988978830.jpg";
+$staff-login-image: "../images/Logan_staff.webp";
+
+$body-color: #d8e2e2;
+
+$moon-main: #3d5656;
+$moon-white: #ffffff;
+$gold: #d4af37;
+$olive-dark: #4a4526;
+
+
+$moon-main-dark: color.adjust($moon-main, $lightness: -10%);
+$moon-main-light: color.adjust($moon-main, $lightness: 20%);
+$moon-main-lighter: color.adjust($moon-main, $lightness: 30%);

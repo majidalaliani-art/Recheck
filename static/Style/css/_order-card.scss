@@ -1,0 +1,162 @@
+@use "config" as *;
+
+.visit-order {
+  background: #fff;
+  .ticket-header {
+    background: #fdfcf0;
+  }
+  .ticket-body {
+    background: #fdfcf0;
+  }
+  //.ticket-footer{background: #ffffff;}
+}
+.consultation-order {
+  background: #fff;
+  .ticket-header {
+    background: #fdfcf0;
+  }
+  .ticket-body {
+    background: #fdfcf0;
+  }
+  //.ticket-footer{background: #ffffff;}
+}
+
+.order-card {
+  font-family: $font-heading;
+  font-size: 1.4rem;
+  box-sizing: border-box;
+  border: 1px solid #eee;
+
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: 0.3s;
+
+  .ticket-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 12px 12px 0 0;
+    padding: 12px 15px;
+
+    .order-id {
+      font-weight: bold;
+      color: #cda34a;
+      font-size: 1.5rem;
+      cursor: none;
+    }
+
+    .status-orders {
+      padding: 8px 14px;
+      border-left: 3px solid #cda34a;
+      background: transparent;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: none;
+      font-weight: 900;
+    }
+  }
+
+  .ticket-body {
+    cursor: pointer;
+    .body-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+      .area{
+        font-family: $font-main;
+      }
+
+      .section-location {
+        border-right: 2px dashed #eee;
+        padding-right: 10px;
+
+        .city {
+          color: #cda34a;
+          font-weight: 600;
+        }
+      }
+
+      .section-info {
+        text-align: center;
+        .property-type {
+          font-weight: 700;
+        }
+
+        .detail-tag {
+          font-weight: bold !important;
+          border: 1px solid #eee;
+          padding: 3px 8px;
+          border-radius: 5px;
+        }
+      }
+
+      .section-price {
+        text-align: end;
+        font-weight: bold;
+
+        .value {
+          font-size: 1.1rem;
+        }
+      }
+    }
+
+    .body-2 {
+      font-family: $font-main;
+      .day {
+        display: flex;
+        gap: 10px;
+      }
+    }
+  }
+
+  .ticket-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 20px;
+    width: 100%;
+    border-top: 2px dotted #eee;
+
+    .view-order {
+      padding: 10px 28px;
+      background: #cda34a;
+      font-size: 1.3rem;
+
+      text-decoration: none;
+      font-weight: 800;
+      color: #fff !important;
+      border-radius: 12px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(205, 163, 74, 0.35);
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -75%;
+        width: 50%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.3);
+        transform: skewX(-25deg);
+      }
+
+      &:hover::before {
+        animation: shine 0.7s ease;
+      }
+    }
+
+    @keyframes shine {
+      100% {
+        left: 130%;
+      }
+    }
+  }
+}

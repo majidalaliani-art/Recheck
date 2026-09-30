@@ -1,0 +1,838 @@
+// ============================================
+// Takkd Footer - SCSS (Updated with Brand Colors)
+// فوتر منصة تأكد - النسخة بالهوية الجديدة
+// ============================================
+
+// --------------------------------------------
+// 1. Variables - المتغيرات
+// --------------------------------------------
+
+// Body Background (موجود في الموقع)
+$tk-body-bg: #d8e2e2;
+
+// Brand Identity - هوية المنصة الجديدة
+$olive-dark: #4a4526;                       // زيتي داكن
+$moon-main: #3d5656;                         // رمادي-أخضر (الرئيسي)
+$olive-light: #6b6540;                       // زيتي فاتح (للتدرجات)
+$moon-light: #5a7a7a;                        // رمادي-أخضر فاتح
+
+// Footer Colors - ألوان الفوتر
+$tk-footer-bg: rgba($moon-main, 0.92);       // رمادي-أخضر شفاف
+$tk-footer-bg-solid: $moon-main;             // نسخة صلبة للـ fallback
+$tk-footer-border: rgba(255, 255, 255, 0.12);
+$tk-footer-glow: rgba(255, 255, 255, 0.06);
+
+// Accent Colors - ألوان التمييز
+$tk-gold: #c9a84c;                           // ذهبي مطفي (يتناسق مع الزيتي)
+$tk-gold-light: #d4b76a;                     // ذهبي فاتح
+$tk-olive-accent: #8b8350;                   // زيتي مميز
+
+// Text Colors
+$tk-text-white: #ffffff;
+$tk-text-muted: rgba(255, 255, 255, 0.78);
+$tk-text-dim: rgba(255, 255, 255, 0.55);
+
+// Glass Effect
+$tk-glass-bg: rgba(255, 255, 255, 0.07);
+$tk-glass-border: rgba(255, 255, 255, 0.15);
+$tk-glass-blur: 20px;
+
+// Typography
+$tk-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+$tk-fs-sm: 0.8125rem;    // 13px
+$tk-fs-base: 0.9375rem;  // 15px
+$tk-fs-lg: 1.0625rem;    // 17px
+$tk-fs-xl: 1.25rem;      // 20px
+$tk-fs-2xl: 1.5rem;      // 24px
+
+$tk-fw-normal: 400;
+$tk-fw-medium: 500;
+$tk-fw-semibold: 600;
+$tk-fw-bold: 700;
+
+// Spacing
+$tk-spacer: 1rem;
+$tk-s-1: $tk-spacer * 0.25;
+$tk-s-2: $tk-spacer * 0.5;
+$tk-s-3: $tk-spacer;
+$tk-s-4: $tk-spacer * 1.5;
+$tk-s-5: $tk-spacer * 2.5;
+$tk-s-6: $tk-spacer * 4;
+
+// Border Radius
+$tk-r-sm: 0.5rem;
+$tk-r: 0.75rem;
+$tk-r-lg: 1rem;
+$tk-r-xl: 1.25rem;
+$tk-r-pill: 50rem;
+
+// Transitions
+$tk-trans: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+$tk-trans-slow: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+// Breakpoints
+$tk-bp-sm: 576px;
+$tk-bp-md: 768px;
+$tk-bp-lg: 992px;
+$tk-bp-xl: 1200px;
+
+// Shadows
+$tk-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+$tk-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+$tk-shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.2);
+
+
+// --------------------------------------------
+// 2. Mixins
+// --------------------------------------------
+
+@mixin tk-media-up($bp) {
+  @media (min-width: $bp) { @content; }
+}
+
+@mixin tk-media-down($bp) {
+  @media (max-width: $bp - 0.02px) { @content; }
+}
+
+@mixin tk-flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin tk-glass($bg: $tk-glass-bg, $blur: $tk-glass-blur) {
+  background: $bg;
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+  border: 1px solid $tk-glass-border;
+}
+
+@mixin tk-hover-lift {
+  transition: $tk-trans;
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: $tk-shadow;
+  }
+}
+
+
+// --------------------------------------------
+// 3. Keyframes
+// --------------------------------------------
+
+@keyframes tk-fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes tk-glowPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba($tk-gold, 0.3); }
+  50% { box-shadow: 0 0 0 8px rgba($tk-gold, 0); }
+}
+
+
+// --------------------------------------------
+// 4. Footer Base - الأساس
+// --------------------------------------------
+
+.tk__footer {
+  position: relative;
+  font-family: $tk-font;
+  color: $tk-text-white;
+  margin-top: 0; 
+  overflow: hidden;
+
+  background: $tk-footer-bg;
+
+  @supports not (backdrop-filter: blur(1px)) {
+    background: rgba($tk-footer-bg-solid, 0.95);
+  }
+
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; /* تعديل من 30px إلى 0 */
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba($tk-gold, 0.5) 20%,
+      rgba($tk-olive-accent, 0.7) 50%,
+      rgba($tk-gold, 0.5) 80%,
+      transparent 100%
+    );
+    z-index: 2;
+  }
+
+  /* تأثير النويز يبدأ من أعلى الفوتر تماماً */
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0 0 0 0; /* تعديل من 30px إلى 0 */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .container {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: $tk-s-4 0;
+
+    @include tk-media-down($tk-bp-md) {
+      padding: $tk-s-3 0;
+    }
+  }
+}
+
+
+// --------------------------------------------
+// 5. CTA Section - قسم التواصل
+// --------------------------------------------
+
+.tk__footer__cta {
+  padding-top: $tk-s-5;
+  padding-bottom: 0;
+
+  > ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: $tk-s-3;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    @include tk-media-down($tk-bp-md) {
+      flex-direction: column;
+      align-items: stretch;
+      gap: $tk-s-2;
+    }
+
+    > li {
+      flex: 1;
+      min-width: 240px;
+      max-width: 320px;
+      animation: tk-fadeInUp 0.6s ease-out both;
+
+      &:nth-child(1) { animation-delay: 0.1s; }
+      &:nth-child(2) { animation-delay: 0.2s; }
+      &:nth-child(3) { animation-delay: 0.3s; }
+
+      @include tk-media-down($tk-bp-md) {
+        max-width: 100%;
+        min-width: auto;
+      }
+
+      a {
+        @include tk-glass(rgba(255, 255, 255, 0.06), 16px);
+        display: flex;
+        align-items: center;
+        padding: $tk-s-3 $tk-s-4;
+        border-radius: $tk-r-lg;
+        text-decoration: none;
+        color: $tk-text-white;
+        transition: $tk-trans;
+        position: relative;
+        overflow: hidden;
+
+        // Hover gradient overlay
+        &::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(
+            135deg,
+            rgba($tk-gold, 0.1) 0%,
+            rgba($olive-dark, 0.08) 100%
+          );
+          opacity: 0;
+          transition: $tk-trans;
+        }
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.12);
+          border-color: rgba($tk-gold, 0.3);
+          transform: translateY(-2px);
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+
+          &::before {
+            opacity: 1;
+          }
+
+          i {
+            color: $tk-gold;
+            transform: scale(1.1);
+          }
+        }
+
+        i {
+          font-size: 1.5rem;
+          color: $tk-text-muted;
+          margin-left: $tk-s-4;
+          transition: $tk-trans;
+          flex-shrink: 0;
+          width: 40px;
+          height: 40px;
+          @include tk-flex-center;
+          @include tk-glass(rgba($tk-gold, 0.12), 8px);
+          border-radius: $tk-r;
+
+          @include tk-media-down($tk-bp-sm) {
+            width: 36px;
+            height: 36px;
+            font-size: 1.25rem;
+          }
+        }
+
+        .ms-4 {
+          flex: 1;
+          margin-left: 0 !important;
+          margin-right: $tk-s-4;
+
+          @include tk-media-down($tk-bp-sm) {
+            margin-right: $tk-s-3;
+          }
+        }
+
+        .tk__contact_title {
+          font-size: $tk-fs-sm;
+          color: $tk-text-dim;
+          margin: 0 0 $tk-s-1 0;
+          font-weight: $tk-fw-medium;
+        }
+
+        span {
+          font-size: $tk-fs-base;
+          font-weight: $tk-fw-semibold;
+          color: $tk-text-white;
+          letter-spacing: 0.3px;
+          direction: ltr;
+        }
+      }
+    }
+  }
+}
+
+
+// --------------------------------------------
+// 6. Content Section - المحتوى الرئيسي
+// --------------------------------------------
+
+.tk__footer__content {
+  padding-top: $tk-s-6;
+  padding-bottom: $tk-s-3;
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -#{$tk-s-3};
+
+    > [class*="col-"] {
+      padding: 0 $tk-s-3;
+      animation: tk-fadeInUp 0.6s ease-out both;
+
+      &:nth-child(1) { animation-delay: 0.15s; }
+      &:nth-child(2) { animation-delay: 0.25s; }
+      &:nth-child(3) { animation-delay: 0.35s; }
+    }
+  }
+
+  // Logo & Description Column
+  .col-lg-4 {
+    &:first-child {
+      @include tk-media-down($tk-bp-lg) {
+        text-align: center;
+      }
+    }
+  }
+}
+
+// Logo
+.tk__footer__logo {
+  margin-bottom: $tk-s-3;
+
+  a {
+    display: inline-block;
+    transition: $tk-trans;
+
+    &:hover {
+      transform: scale(1.03);
+      filter: drop-shadow(0 4px 12px rgba($tk-gold, 0.2));
+    }
+
+    img {
+      max-width: 160px;
+      height: auto;
+      filter: brightness(0) invert(1);
+      opacity: 0.95;
+      transition: $tk-trans;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      @include tk-media-down($tk-bp-sm) {
+        max-width: 130px;
+      }
+    }
+  }
+}
+
+// Description Text
+.tk__footer__text {
+  p {
+    font-size: $tk-fs-sm;
+    line-height: 1.8;
+    color: $tk-text-muted;
+    margin: 0;
+    padding: 0;
+
+    &.px-3 {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    @include tk-media-down($tk-bp-lg) {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+  }
+}
+
+
+// --------------------------------------------
+// 7. Links Section - روابط المنصة
+// --------------------------------------------
+
+.tk__footer__heading {
+  margin-bottom: $tk-s-3;
+
+  h3 {
+    font-size: $tk-fs-lg;
+    font-weight: $tk-fw-bold;
+    color: $tk-text-white;
+    margin: 0;
+    position: relative;
+    display: inline-block;
+    padding-bottom: $tk-s-2;
+
+    // ═══════════════════════════════════════════
+    // التعديل الأول: الخط الذهبي 100% بطول الكلمة
+    // ═══════════════════════════════════════════
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 100%;              // ← تعديل: 100% بدل 40px
+      height: 3px;
+      background: linear-gradient(
+        90deg,
+        $tk-gold 0%,
+        $tk-olive-accent 50%,
+        rgba($tk-gold, 0.3) 100%
+      );
+      border-radius: 2px;
+    }
+  }
+}
+
+.tk__footer__content__links {
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin-bottom: $tk-s-2;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      a {
+        color: $tk-text-muted;
+        text-decoration: none;
+        font-size: $tk-fs-base;
+        transition: $tk-trans;
+        display: inline-flex;
+        align-items: center;
+        gap: $tk-s-2;
+        position: relative;
+        padding-right: 0;
+
+        &::before {
+          content: '';
+          width: 6px;
+          height: 6px;
+          background: $tk-gold;
+          border-radius: 50%;
+          opacity: 0;
+          transform: translateX(-8px);
+          transition: $tk-trans;
+        }
+
+        &:hover {
+          color: $tk-text-white;
+          padding-right: $tk-s-3;
+
+          &::before {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+      }
+    }
+  }
+}
+
+
+// --------------------------------------------
+// 8. Social Buttons - أزرار السوشال
+// --------------------------------------------
+
+.tk__footer__content__links {
+  .d-flex.mt-3 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $tk-s-2;
+    margin-top: $tk-s-4 !important;
+
+    a.btn {
+      // ═══════════════════════════════════════════
+      // التعديل الثاني: لون المربع الأخضر (الهوية الجديدة)
+      // ═══════════════════════════════════════════
+      @include tk-glass(rgba($olive-dark, 0.25), 8px);
+      color: $tk-text-white !important;
+      border: 1px solid rgba($olive-dark, 0.4);
+      border-radius: $tk-r !important;
+      padding: $tk-s-2 $tk-s-3 !important;
+      min-width: 44px;
+      min-height: 44px;
+      @include tk-flex-center;
+      transition: $tk-trans;
+      position: relative;
+      overflow: hidden;
+      margin: 0 !important;
+
+      // Remove Bootstrap warning background
+      background-color: transparent !important;
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba($olive-dark, 0.85) 0%,
+          rgba($moon-main, 0.7) 100%
+        );
+        opacity: 0;
+        transition: $tk-trans;
+      }
+
+      i {
+        position: relative;
+        z-index: 1;
+        font-size: 1rem;
+        padding: 0 !important;
+      }
+
+      &:hover {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 6px 20px rgba($olive-dark, 0.35);
+        border-color: rgba($tk-gold, 0.4);
+
+        &::before {
+          opacity: 1;
+        }
+
+        i {
+          color: $tk-text-white;
+        }
+      }
+
+      &:active {
+        transform: translateY(-1px) scale(0.98);
+      }
+    }
+  }
+}
+
+
+// --------------------------------------------
+// 9. Payment Methods - وسائل الدفع
+// --------------------------------------------
+
+.tk__payment__methods {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: $tk-s-2;
+  list-style: none;
+  padding: 0;
+  margin: $tk-s-3 0 0 0;
+  width: 100%;
+
+
+  justify-content: center;
+
+
+  li {
+    @include tk-glass(rgba(255, 255, 255, 0.08), 8px);
+    width: 47%;
+
+    border-radius: $tk-r-sm;
+    padding: $tk-s-2 $tk-s-3;
+    transition: $tk-trans;
+    @include tk-flex-center;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+    }
+
+    img {
+      height: 28px;
+      width: auto;
+      opacity: 0.85;
+      transition: $tk-trans;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      @include tk-media-down($tk-bp-sm) {
+        height: 24px;
+
+      }
+    }
+
+  }
+}
+
+
+// --------------------------------------------
+// 10. Copyright - حقوق النشر
+// --------------------------------------------
+
+.tk__copyright {
+  @include tk-glass(rgba($olive-dark, 0.35), 12px);
+  border-top: 1px solid $tk-footer-border;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  margin-top: $tk-s-5;
+  padding: $tk-s-3 0;
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: $tk-s-2;
+
+    @include tk-media-down($tk-bp-md) {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+
+  // Links group
+  .d-flex.align-items-center {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0;
+
+    a {
+      color: $tk-text-muted;
+      text-decoration: none;
+      font-size: $tk-fs-sm;
+      transition: $tk-trans;
+      position: relative;
+
+      &:hover {
+        color: $tk-gold;
+      }
+
+      &.small {
+        font-size: $tk-fs-sm;
+      }
+    }
+
+    span.mx-2 {
+      color: $tk-text-dim;
+      margin: 0 $tk-s-2;
+    }
+  }
+
+  // Copyright text
+  p {
+    margin: 0;
+    font-size: $tk-fs-sm;
+    color: $tk-text-dim;
+
+    a {
+      color: $tk-text-muted;
+      text-decoration: none;
+      transition: $tk-trans;
+      font-weight: $tk-fw-medium;
+
+      &:hover {
+        color: $tk-gold;
+      }
+    }
+  }
+}
+
+
+// --------------------------------------------
+// 11. Responsive - التجاوب
+// --------------------------------------------
+
+@include tk-media-down($tk-bp-lg) {
+  .tk__footer__content {
+    .row > [class*="col-"] {
+      margin-bottom: $tk-s-5;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .tk__footer__heading {
+    text-align: center;
+
+    h3::after {
+      right: 50%;
+      transform: translateX(50%);
+    }
+  }
+
+  .tk__footer__content__links ul {
+    text-align: center;
+
+    li a {
+      justify-content: center;
+    }
+  }
+
+  .tk__payment__methods {
+    justify-content: center;
+  }
+}
+
+@include tk-media-down($tk-bp-sm) {
+  .tk__footer__cta {
+    padding-top: $tk-s-4;
+
+    > ul > li a {
+      padding: $tk-s-3;
+
+      i {
+        margin-left: $tk-s-3;
+      }
+
+      .ms-4 {
+        margin-right: $tk-s-3;
+      }
+    }
+  }
+
+  .tk__footer__content {
+    padding-top: $tk-s-5;
+  }
+
+  .tk__copyright {
+    padding: $tk-s-3;
+
+    .container {
+      gap: $tk-s-3;
+    }
+
+    p {
+      font-size: $tk-fs-sm;
+    }
+  }
+}
+
+
+// --------------------------------------------
+// 12. Print Styles - الطباعة
+// --------------------------------------------
+
+@media print {
+  .tk__footer {
+    background: $tk-footer-bg-solid !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+
+    &::before,
+    &::after {
+      display: none !important;
+    }
+
+    .tk__footer__cta,
+    .tk__footer__content__links,
+    .tk__payment__methods {
+      display: none !important;
+    }
+
+    .tk__footer__content {
+      padding: $tk-s-3 0;
+    }
+
+    .tk__copyright {
+      background: transparent !important;
+      border: 1px solid $tk-text-dim !important;
+    }
+  }
+}
+
+
+// --------------------------------------------
+// 13. Accessibility - إمكانية الوصول
+// --------------------------------------------
+
+.tk__footer {
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid $tk-gold;
+    outline-offset: 3px;
+    border-radius: $tk-r-sm;
+  }
+
+  @media (prefers-contrast: high) {
+    .tk__footer__cta a,
+    .tk__footer__content__links a.btn,
+    .tk__payment__methods li {
+      border: 2px solid $tk-text-white;
+    }
+  }
+}

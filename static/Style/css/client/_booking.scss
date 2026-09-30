@@ -1,0 +1,360 @@
+@use "sass:color";
+@use "../config" as *;
+
+.container_booking {
+  width: 100%;
+  padding: 2rem 0;
+}
+
+.Request_service {
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.04);
+  border-top: 5px solid $olive-dark;
+
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 24px;
+  gap: 1.5rem;
+  padding: 2rem 1rem;
+
+  .btn-secondary {
+    background-color: $moon-main;
+    color: white;
+
+    &:hover {
+      background-color: $moon-main-light;
+    }
+  }
+}
+
+.top-controls {
+  width: 70%;
+  max-width: 600px;
+
+  .tk__card {
+    padding: 1.2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .tk__card_top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .tk__title {
+        font-size: x-large;
+        font-weight: bold;
+        font-family: $font-heading;
+        color: #1f1f1f;
+      }
+
+      .tk__icon {
+        width: 45px;
+        height: 45px;
+        border-radius: 14px;
+        background: rgba(57, 82, 222, 0.1);
+        color: #3952de;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        flex-shrink: 0;
+      }
+    }
+  }
+
+  .area-card,
+  .area-input-box {
+    position: relative;
+
+    .area-input {
+      width: 100%;
+      height: 68px;
+      border: 2px solid #f1f1f1;
+      border-radius: 18px;
+      background: #fafafa;
+      padding: 0 70px 0 20px;
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 800;
+      color: #111;
+
+      &::placeholder {
+        color: #bbb;
+      }
+
+      &:focus {
+        border-color: #debd39;
+        background: #fff;
+        box-shadow: 0 0 0 5px rgba(222, 156, 57, 0.1);
+        outline: none;
+      }
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      &[type="number"] {
+        -moz-appearance: textfield;
+      }
+    }
+
+    .unit {
+      position: absolute;
+      top: 50%;
+      right: 22px;
+      transform: translateY(-50%);
+      font-size: 18px;
+      font-weight: 700;
+      color: #777;
+    }
+  }
+}
+
+.property-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.property-item {
+  cursor: pointer;
+
+  input {
+    display: none;
+
+    &:checked {
+      + .property-card-item {
+        border-color: $gold;
+        background: rgba(163, 167, 189, 0.06);
+        box-shadow: 0 10px 25px rgba(57, 82, 222, 0.12);
+        transform: translateY(-2px);
+
+        .property-check {
+          opacity: 1;
+          transform: scale(1);
+          background: #c8c8c84c;
+        }
+      }
+    }
+  }
+}
+
+.property-card-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-radius: 18px;
+  background: #fafafa;
+  border: 2px solid #f1f1f1;
+  transition: 0.25s ease;
+
+  span {
+    font-size: 15px;
+    font-weight: 700;
+    color: #222;
+  }
+
+  i:first-child {
+    font-size: 18px;
+    color: #444;
+  }
+}
+
+.property-check {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: 0.25s ease;
+
+  i {
+    font-size: 12px;
+    color: #fff;
+  }
+}
+
+
+#time-slots-select:disabled {
+  background-color: #dcdcdc;
+  color: #666;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+#inspection_type_error {
+  width: 50%;
+  margin: auto;
+}
+
+
+$color-primary: #1a2a5c;
+$color-accent: #ffc107;
+$color-success: #198754;
+$color-danger: #dc3545;
+$color-bg-light: #f8f9fa;
+$color-text-muted: #6c757d;
+$color-border: #dee2e6;
+
+.services-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  width: 100%;
+
+  .service-card {
+    cursor: pointer;
+    border: 2px solid transparent;
+    width: 100%;
+    max-width: 400px;
+    background-color: $color-bg-light;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+
+    &.selected-card {
+      border-color: #d4af37;
+      background-color: #fffdf5;
+      transform: scale(1.02);
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .service-title {
+      font-family: $font-heading;
+      font-size: large;
+      font-weight: 700;
+      color: rgb(0, 0, 0);
+      background-color: wheat;
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+      margin: 0 0 1rem 0;
+    }
+
+    .service-price-hidden {
+      display: none;
+      margin-top: 1rem;
+
+      .price-value {
+        font-size: 1.25rem;
+        font-weight: bold;
+      }
+
+      .area-badge {
+        background-color: color.change(
+          $color-accent,
+          $alpha: 0.2
+        ); // تعديل شفافية اللون بأسلوب حديث
+        font-size: 0.8rem;
+        padding: 0.25rem 0.75rem;
+        border-radius: 0.5rem;
+        display: inline-block;
+        margin-top: 0.5rem;
+      }
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 1rem;
+      margin: 1.5rem 0;
+      background-color: white;
+      border-radius: 0.5rem;
+
+      .feature-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.9rem;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid $color-border;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        &.item-disabled span {
+          color: $color-text-muted;
+        }
+
+        &.item-highlighted span {
+          font-weight: bold;
+        }
+
+        .icon-success {
+          color: $color-success;
+        }
+
+        .icon-danger {
+          color: $color-danger;
+        }
+      }
+    }
+
+    .total-price-wrapper {
+      margin-top: 1.5rem;
+
+      .price-label {
+        font-size: 0.85rem;
+        color: $color-text-muted;
+        margin-bottom: 0.25rem;
+      }
+
+      .price-display {
+        .total-price {
+          font-size: 2.5rem;
+          font-weight: bold;
+          display: inline-block;
+          word-break: break-word;
+          color: $color-primary;
+        }
+      }
+
+      .vat-note {
+        display: block;
+        font-size: 0.8rem;
+        color: $color-text-muted;
+        margin-bottom: 1.5rem;
+      }
+    }
+  }
+
+  .icon-saudi_riyal {
+    font-size: 1.5rem;
+    color: #02512b;
+  }
+
+  // ميديا كويري مدمجة داخل البلوك الرئيسي مباشرة للحفاظ على الموديولية
+  @media (max-width: 992px) {
+    .feature-list {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.6s ease;
+    }
+
+    .selected-card {
+      .feature-list {
+        max-height: 350px;
+      }
+    }
+  }
+}

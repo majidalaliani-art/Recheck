@@ -1,0 +1,452 @@
+// ============================================
+// Inspector Section - Custom Identity Design
+// Based on: takkd.com inspector home page
+// ============================================
+
+// Variables
+$primary-green: #2e7d32; // الأخضر الرئيسي
+$primary-green-dark: #1b5e20; // أخضر داكن
+$gold: #f9a825; // الذهبي
+$gold-light: #fff8e1; // ذهبي فاتح
+$white: #ffffff;
+$gray-light: #f5f5f5; // رمادي فاتح جداً
+$gray-text: #616161; // رمادي للنصوص
+$dark-text: #212121; // نص داكن
+
+// ============================================
+// Main Wrapper
+// ============================================
+.inspector-wrapper {
+  padding: 30px 10px;
+  background: #f0f4f0;
+  min-height: 100vh;
+  direction: rtl;
+
+  // ============================================
+  // Main Card
+  // ============================================
+  .inspector-form-card {
+    margin: 0 auto;
+    padding: 40px;
+    background: $white;
+    border-radius: 24px;
+    box-shadow:
+      0 4px 6px rgba(0, 0, 0, 0.02),
+      0 10px 20px rgba(0, 0, 0, 0.03),
+      0 20px 40px rgba(0, 0, 0, 0.04);
+    border-top: 5px solid $primary-green;
+    max-width: 1200px;
+    position: relative;
+    overflow: hidden;
+
+    // Decorative element
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(46, 125, 50, 0.03) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    // ============================================
+    // Header Section
+    // ============================================
+    .inspector-header {
+      text-align: center;
+      margin-bottom: 40px;
+
+      .inspector-title {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+
+        .star-icon {
+          color: $gold;
+          font-size: 14px;
+          animation: pulse 2s infinite;
+        }
+
+        .title-text {
+          color: $primary-green;
+          font-size: 1.5rem;
+          font-weight: 700;
+          letter-spacing: 0.5px;
+        }
+      }
+
+      .inspector-subtitle {
+        color: $dark-text;
+        font-size: 1.75rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+        line-height: 1.4;
+      }
+
+      .inspector-description {
+        color: $gray-text;
+        font-size: 1rem;
+        line-height: 1.8;
+        max-width: 600px;
+        margin: 0 auto 30px;
+        text-align: justify;
+      }
+
+      .inspector-image {
+        max-width: 400px;
+        margin: 0 auto;
+
+        img {
+          width: 100%;
+          height: auto;
+          border-radius: 16px;
+          filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.08));
+        }
+      }
+    }
+
+    // ============================================
+    // Tabs System (CSS Only - Fixed!)
+    // ============================================
+    .tk__tabs {
+      margin: 30px 0;
+
+      // Hide radio inputs
+      input[type="radio"] {
+        display: none;
+      }
+
+      // Tab Navigation
+      .tabs-nav {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 30px;
+        border-bottom: 2px solid $gray-light;
+        padding-bottom: 0;
+
+        .tab-label {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 8px;
+          padding: 16px 32px;
+          cursor: pointer;
+          border-radius: 12px 12px 0 0;
+          transition: all 0.3s ease;
+          position: relative;
+          background: transparent;
+          border: none;
+
+          .tab-icon {
+            font-size: 1.5rem;
+            color: $gray-text;
+            transition: all 0.3s ease;
+          }
+
+          .tab-text {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: $gray-text;
+            transition: all 0.3s ease;
+          }
+
+          // Active indicator line
+          &::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: 60%;
+            height: 3px;
+            background: $gold;
+            border-radius: 3px 3px 0 0;
+            transition: transform 0.3s ease;
+          }
+
+          &:hover:not(.disabled) {
+            background: rgba(46, 125, 50, 0.05);
+
+            .tab-icon,
+            .tab-text {
+              color: $primary-green;
+            }
+          }
+
+          &.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+
+            .tab-icon,
+            .tab-text {
+              color: #bdbdbd;
+            }
+          }
+        }
+      }
+
+      // Tab Content Panels - ALL HIDDEN BY DEFAULT
+      .tabs-content {
+        .tab-panel {
+          display: none; // ✅ مخفية افتراضياً
+          animation: fadeIn 0.4s ease;
+        }
+      }
+
+      // ============================================
+      // Tab States - CSS Only Logic (Fixed!)
+      // ============================================
+
+      // Tab 1 checked → Show Panel 1 ONLY
+      #tab1:checked {
+        ~ .tabs-nav .tab-label[for="tab1"] {
+          .tab-icon,
+          .tab-text {
+            color: $primary-green;
+          }
+          &::after {
+            transform: translateX(-50%) scaleX(1);
+          }
+        }
+        ~ .tabs-content .tab-panel:nth-child(1) {
+          display: block; // ✅ يظهر بس الأول
+        }
+      }
+
+      // Tab 2 checked → Show Panel 2 ONLY
+      #tab2:checked {
+        ~ .tabs-nav .tab-label[for="tab2"] {
+          .tab-icon,
+          .tab-text {
+            color: $primary-green;
+          }
+          &::after {
+            transform: translateX(-50%) scaleX(1);
+          }
+        }
+        ~ .tabs-content .tab-panel:nth-child(2) {
+          display: block; // ✅ يظهر بس الثاني
+        }
+      }
+
+      // Tab 3 checked → Show Panel 3 ONLY
+      #tab3:checked {
+        ~ .tabs-nav .tab-label[for="tab3"] {
+          .tab-icon,
+          .tab-text {
+            color: $primary-green;
+          }
+          &::after {
+            transform: translateX(-50%) scaleX(1);
+          }
+        }
+        ~ .tabs-content .tab-panel:nth-child(3) {
+          display: block; // ✅ يظهر بس الثالث
+        }
+      }
+    }
+
+    // ============================================
+    // Features List (المزايا)
+    // ============================================
+    .features-list,
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      background: $gray-light;
+      border-radius: 16px;
+      padding: 24px;
+
+      .feature-item,
+      .step-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 20px 0;
+        position: relative;
+
+        &:first-child {
+          padding-top: 0;
+        }
+
+        &:last-child {
+          padding-bottom: 0;
+        }
+
+        &:not(:last-child) {
+          border-bottom: 1px solid #e0e0e0;
+        }
+
+        .item-counter {
+          flex-shrink: 0;
+          width: 48px;
+          height: 48px;
+          background: $gold;
+          color: $white;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.1rem;
+          font-weight: 800;
+          box-shadow: 0 4px 12px rgba(249, 168, 37, 0.3);
+        }
+
+        .item-content {
+          flex: 1;
+
+          .item-title {
+            color: $primary-green;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            display: block;
+          }
+
+          .item-description {
+            color: $gray-text;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin: 0;
+          }
+        }
+      }
+    }
+
+    // ============================================
+    // Empty State (دخول)
+    // ============================================
+    .login-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 300px;
+      background: $gray-light;
+      border-radius: 16px;
+      padding: 40px;
+
+      .placeholder-icon {
+        font-size: 3rem;
+        color: #bdbdbd;
+        margin-bottom: 16px;
+      }
+
+      .placeholder-text {
+        color: $gray-text;
+        font-size: 1rem;
+        text-align: center;
+      }
+
+      .btn-join {
+        width: 50%;
+        color: #ffffff;
+        font-size: 20px;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+// ============================================
+// Animations
+// ============================================
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ============================================
+// Responsive Design
+// ============================================
+@media (max-width: 768px) {
+  .inspector-wrapper {
+    padding: 16px 8px;
+
+    .inspector-form-card {
+      padding: 24px 16px;
+      border-radius: 16px;
+
+      .inspector-header {
+        .inspector-subtitle {
+          font-size: 1.25rem;
+        }
+
+        .inspector-description {
+          font-size: 0.9rem;
+        }
+      }
+
+      .tk__tabs {
+        .tabs-nav {
+          gap: 4px;
+
+          .tab-label {
+            padding: 12px 16px;
+
+            .tab-icon {
+              font-size: 1.2rem;
+            }
+
+            .tab-text {
+              font-size: 0.8rem;
+            }
+          }
+        }
+      }
+
+      .features-list,
+      .steps-list {
+        padding: 16px;
+
+        .feature-item,
+        .step-item {
+          .item-counter {
+            width: 40px;
+            height: 40px;
+            font-size: 0.95rem;
+          }
+
+          .item-content {
+            .item-title {
+              font-size: 1rem;
+            }
+
+            .item-description {
+              font-size: 0.85rem;
+            }
+          }
+        }
+      }
+
+      .login-placeholder{
+        .btn-join{
+          width: 100%;
+        }
+      }
+    }
+  }
+}

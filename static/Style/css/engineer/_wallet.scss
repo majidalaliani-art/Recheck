@@ -1,0 +1,333 @@
+@use "sass:color";
+
+.wallet {
+  // Variables - متغيرات الألوان
+  $card-bg: #ffffff;
+  $border-color: #e2e8f0;
+  $text-title: #64748b;
+  $text-value: #0f172a;
+  $color-earnings: #10b981; // أخضر
+  $color-pending: #f59e0b; // برتقالي
+
+  // Main Card Component
+  .stat-card {
+    background: $card-bg;
+    border-radius: 12px;
+    padding: 28px 20px;
+    border: 1px solid $border-color;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+    // سنتر النص والعناصر في المنتصف
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    // الشريط العلوي الزخرفي (Shared pseudo-element)
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+    }
+
+    // مخصص لبطاقة إجمالي الربح
+    &.card-earnings {
+      &::before {
+        background-color: $color-earnings;
+      }
+    }
+
+    // مخصص لبطاقة الرصيد المعلق
+    &.card-pending {
+      &::before {
+        background-color: $color-pending;
+      }
+    }
+
+    // العناصر الداخلية للبطاقة
+    .stat-title {
+      font-size: 0.95rem;
+      color: $text-title;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: $text-value;
+      margin: 0;
+      line-height: 1.2;
+
+      small {
+        font-size: 2rem;
+        color: $text-title;
+        font-weight: 500;
+        margin-right: 4px;
+      }
+    }
+  }
+
+  // Variables - متغيرات الألوان
+  $card-bg: #ffffff;
+  $border-color: #e2e8f0;
+  $text-title: #64748b;
+  $text-dark: #0f172a;
+  $primary-color: #136053; // أو أزرق #2563eb حسب ألوان نظامك
+
+  .action-bar-card {
+    background: $card-bg;
+    border-radius: 12px;
+    padding: 20px 24px;
+    border: 1px solid $border-color;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    position: relative;
+    overflow: hidden;
+
+    // توزيع العناصر للشاشات الكبيرة: تفاصيل الرصيد يميناً والزر يساراً
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+
+    // الشريط الجانبي للشاشات الكبيرة
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 5px;
+      height: 100%;
+      background-color: $primary-color;
+      transition: all 0.3s ease;
+    }
+
+    .action-info {
+      .action-subtitle {
+        font-size: 0.85rem;
+        color: $text-title;
+        font-weight: 600;
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .balance-display {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+
+        .balance-label {
+          font-size: 1.1rem;
+          font-weight: 700;
+          color: $text-dark;
+        }
+
+        .balance-value {
+          font-size: 1.6rem;
+          font-weight: 800;
+          color: $primary-color;
+
+          small {
+            font-size: 1.5rem;
+          }
+        }
+      }
+    }
+
+    .action-btn-wrapper,
+    form {
+      display: inline-block;
+    }
+
+    // تصميم زر طلب السحب
+    .btn-withdraw {
+      text-align: center;
+      background-color: $primary-color;
+      color: #ffffff;
+      border: none;
+      padding: 10px 28px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+      &:hover {
+        opacity: 0.9;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+    }
+
+    /* ==========================================
+     تنسيقات الجوال (Responsive Mobile View)
+  ========================================== */
+    @media (max-width: 576px) {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 24px 16px 20px;
+
+      // تحويل الشريط الملون من جانبي إلى علوي
+      &::before {
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 4px; // سمك الشريط العلوي
+      }
+
+      .action-info {
+        .balance-display {
+          justify-content: center; // سنترة المسمى مع الرقم في المنتصف
+        }
+      }
+
+      .action-btn-wrapper,
+      form,
+      .btn-withdraw {
+        width: 100%; // يجعل الزر بعرض المربع وسهل النقر
+      }
+    }
+  }
+
+  // Variables
+  $color-success-bg: #d1e7dd;
+  $color-success-text: #0f5132;
+  $color-danger-bg: #f8d7da;
+  $color-danger-text: #842029;
+
+  $color-gold-bg: #fff8e1;
+  $color-gold-border: #ffe082;
+  $color-gold-text: #b78103;
+
+  .withdrawals-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+    .withdrawals-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid #e9ecef;
+      flex-wrap: wrap;
+
+      .title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #212529;
+        margin: 0;
+      }
+
+      .count-badge {
+        background-color: $color-gold-bg;
+        color: $color-gold-text;
+        border: 1px solid $color-gold-border;
+        padding: 6px 16px;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        font-weight: 700;
+      }
+    }
+
+    .withdrawals-list {
+
+
+      .withdrawal-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        flex-wrap: wrap;
+
+        // تلوين الخلفية والحدود بناءً على الحالة
+        &.success {
+          background-color: $color-success-bg;
+          border-color: color.scale($color-success-bg, $lightness: -5%);
+        }
+
+        &.rejected {
+          background-color: $color-danger-bg;
+          border-color: color.scale($color-danger-bg, $lightness: -5%);
+
+        }
+
+        .info-group {
+          display: flex;
+          flex-direction: column;
+
+          .ref-number {
+            font-weight: 900;
+            color: #212529;
+            font-size: 1rem;
+          }
+
+          .date-text {
+            font-size: 0.8rem;
+            color: #6c757d;
+            margin-top: 2px;
+          }
+        }
+
+        .amount-group {
+          font-weight: 700;
+          font-size: 1.2rem;
+          color: #212529;
+
+          .currency {
+            font-size: 1.2rem;
+            font-weight: 400;
+          }
+        }
+
+        .status-badge {
+          padding: 6px 16px;
+          border-radius: 50px;
+          font-size: 0.85rem;
+          font-weight: 600;
+          color: #ffffff;
+
+          &.success {
+            background-color: $color-success-text;
+          }
+
+          &.rejected {
+            background-color: $color-danger-text;
+          }
+        }
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 32px 0;
+        color: #6c757d;
+      }
+    }
+  }
+}

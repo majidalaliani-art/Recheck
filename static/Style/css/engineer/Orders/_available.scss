@@ -1,0 +1,51 @@
+.order-content {
+  .orders-section-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    margin: 2.5rem 0 1.5rem;
+
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #2c3e50;
+    &::before,
+    &::after {
+      content: "";
+      flex: 1;
+      height: 4px;
+      border-radius: 25%;
+      background: #d6c08c;
+    }
+  }
+
+  .orders-body {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  .empty-orders-message {
+    width: 100%;
+    text-align: center;
+    font-size: clamp(1.5rem, 4vw, 2.8rem);
+    font-weight: 700;
+    color: #64748b;
+    padding: 5rem 1rem;
+    margin: 0;
+    letter-spacing: 0.5px;
+
+    span {
+      font-weight: 800;
+    }
+    .empty-orders-message-visit {
+      color: #60a5fa;
+    }
+    .empty-orders-message-consultation {
+      color: #60a5fa;
+    }
+  }
+}

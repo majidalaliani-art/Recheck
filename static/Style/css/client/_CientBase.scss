@@ -1,0 +1,148 @@
+@use "../config" as *;
+@use 'sass:color';
+@use "./partials/navbar";
+@use "./booking";
+@use "./homepage";
+@use "./consultation";
+@use "./login";
+@use "./orders";
+@use "./order";
+@use "./apply";
+
+
+
+$wa-color: #25d366;
+$olive-dark: #4a4526;
+$gold-accent: #c5a059;
+$light-bg: #fdfdfb;
+$border-light: #e2e2d5;
+
+.whatsapp-fixed-btn {
+  position: fixed;
+  bottom: 100px;
+  left: 30px;
+  width: 60px;
+  height: 60px;
+  background-color: #25d366;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 35px;
+  box-shadow: 2px 5px 15px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  text-decoration: none;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: #fff;
+    transform: scale(1.1);
+    background-color: color.adjust(#25d366, $lightness: -5%);
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: $wa-color;
+    border-radius: 50%;
+    z-index: -1;
+    animation: whatsapp-pulse 2s infinite;
+  }
+}
+
+
+// Form
+.tk__header_center {
+  width: 100%;
+
+  text-align: center;
+  .tk__title {
+    text-align: center;
+    color: $moon-main;
+    font-family: $font-heading;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 2rem;
+    position: relative;
+    display: inline-block;
+
+    &::after {
+      content: "";
+
+      display: block;
+      width: 60%;
+      height: 4px;
+      background: orange;
+      margin: 8px auto 0;
+      border-radius: 5px;
+      transition: 0.3s ease;
+    }
+
+    &:hover::after {
+      width: 90%;
+      background: linear-gradient(to right, orange, $moon-main);
+    }
+  }
+}
+
+.form-field {
+  margin-bottom: 20px;
+
+
+  .form-label {
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #111;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .form-control {
+    border: 1px solid $border-light;
+    border-radius: 12px;
+    padding: 14px;
+    background-color: #fafafa;
+    transition: all 0.3s ease;
+
+    &:focus {
+      border-color: $gold-accent;
+      background-color: #fff;
+      box-shadow: 0 0 0 4px rgba($gold-accent, 0.1);
+      outline: none;
+    }
+  }
+
+  .error {
+    border-color: red;
+  }
+}
+
+.container_client_base {
+  width: 100%;
+  margin-top: 3px;
+}
+
+@keyframes whatsapp-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .whatsapp-fixed-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    bottom: 100px;
+    left: 20px;
+  }
+}

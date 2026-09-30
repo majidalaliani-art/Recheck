@@ -1,0 +1,132 @@
+.calendar-icon {
+  position: absolute;
+  right: 15px;
+  font-size: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  pointer-events: none;
+}
+.orderNow {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+
+  width: 100%;
+
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+
+  border-radius: 0.5rem;
+
+  background-color: #cba35d;
+  color: white;
+  border: none;
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+
+  -webkit-tap-highlight-color: transparent;
+
+  gap: 6px;
+
+  span {
+    position: relative;
+    z-index: 2;
+  }
+
+  .icon,
+  .icon-left,
+  .icon-right {
+    display: inline-flex;
+    transition: transform 0.25s ease;
+    position: relative;
+    z-index: 2;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  &:hover .icon-left {
+    transform: translateX(-6px);
+  }
+
+  &:hover .icon-right {
+    transform: translateX(6px);
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 120%;
+    height: 100%;
+
+    background: rgba(255, 255, 255, 0.10);
+
+    transform: skewX(-20deg);
+    transition: left 0.5s ease;
+
+    z-index: 0;
+  }
+
+  &:hover::before {
+    left: 120%;
+  }
+}
+
+
+
+.flatpickr-calendar {
+    border-radius: 12px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+
+    .flatpickr-day {
+        &.today {
+            border: 2px solid #ffb700 !important;
+            color: #1f2937 !important;
+            background: #fffbeb;
+
+            &.flatpickr-disabled {
+                cursor: not-allowed;
+                opacity: 0.8;
+            }
+        }
+
+        &:not(.flatpickr-disabled) {
+            font-weight: bold !important;
+            margin: 1px;
+
+            &:hover {
+                background: #f0f7ff;
+                border-color: #ffb700 !important;
+            }
+
+            &.selected {
+                background: #007bff !important;
+                color: white !important;
+                border-color: #007bff !important;
+            }
+        }
+
+
+        &.flatpickr-disabled:not(.today) {
+            opacity: 0.3;
+        }
+    }
+}

@@ -1,0 +1,228 @@
+// ==========================================
+// General Cards & Responsive Flex Items List
+// ==========================================
+
+.general-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.general-card {
+  background-color: #ffffff;
+  border: 1px solid #f2e7cc;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+  // 1. هيدر الكرت الرئيسي (الذهبي المميز)
+  &__header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    background-color: #fdfaf2;
+    border: none;
+    border-bottom: 1px solid #f2e7cc;
+    border-right: 5px solid #c29417;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: #fcf5e5;
+    }
+
+    &:not(.collapsed) {
+      .general-card__icon svg {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .general-card__bullet {
+      color: #c29417;
+      font-size: 12px;
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 700;
+      color: #202428;
+    }
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #c29417;
+
+    svg {
+      transition: transform 0.3s ease;
+    }
+  }
+
+  &__body {
+    padding: 0;
+  }
+
+  // 2. الهيكلية الأساسية للأعمدة الصفوف (Desktop Layout)
+  .card-list-header,
+  .card-list-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    .col-loc,
+    .col-img,
+    .col-txt {
+      flex: 1 1 33.333%;
+      width: 33.333%;
+      text-align: center;
+      padding: 14px 12px;
+      word-break: break-word;
+      overflow-wrap: break-word;
+      white-space: normal;
+
+      // خط فاصل رأسي بين الأعمدة
+      &:not(:last-child) {
+        border-left: 1px solid #f2e7cc;
+      }
+    }
+  }
+
+  // شريط عناوين الأعمدة العلوي
+  .card-list-header {
+    background-color: #ffffff;
+    border-bottom: 2px solid #f2e7cc;
+    color: #2d3748;
+    font-weight: 700;
+    font-size: 14px;
+
+    .col-loc,
+    .col-img,
+    .col-txt {
+      padding: 12px;
+    }
+  }
+
+  // صفوف محتوى البيانات
+  .card-list-body {
+    .card-list-row {
+      background-color: #ffffff;
+      border-bottom: 1px solid #f2e7cc;
+      transition: background-color 0.15s ease;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:hover {
+        background-color: #fcfdf2;
+      }
+    }
+
+    .loc-title {
+      font-weight: 700;
+      color: #2d3748;
+      font-size: 14px;
+    }
+
+    .img-wrapper {
+      display: inline-block;
+
+      img {
+        width: 75px;
+        height: 75px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+        transition: transform 0.2s ease;
+
+        &:hover {
+          transform: scale(1.04);
+        }
+      }
+    }
+
+    .comment-text {
+      display: block;
+      color: #2d3748;
+      font-size: 14px;
+      line-height: 1.5;
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
+
+    .no-comment {
+      color: #a0aec0;
+      font-size: 14px;
+    }
+  }
+}
+
+// ==========================================
+// Mobile Responsive Adaptations
+// ==========================================
+
+@media (max-width: 768px) {
+  .general-card {
+    .card-list-header {
+      display: none;
+    }
+
+    .card-list-row {
+      flex-direction: column;
+      align-items: center;
+      padding: 16px;
+      gap: 12px;
+
+      .col-loc,
+      .col-img,
+      .col-txt {
+        flex: 1 1 100%;
+        width: 100%;
+        text-align: center;
+        padding: 0;
+
+        &:not(:last-child) {
+          border-left: none;
+        }
+      }
+
+      .col-loc::before {
+        content: "الموقع: ";
+        font-weight: 700;
+        color: #718096;
+        font-size: 13px;
+        margin-left: 4px;
+      }
+
+      .col-txt {
+        background-color: #faf8f2;
+        padding: 10px 12px;
+        border-radius: 8px;
+        border: 1px solid #f2e7cc;
+
+        &::before {
+          content: "التعليق:";
+          display: block;
+          font-weight: 700;
+          color: #718096;
+          font-size: 12px;
+          margin-bottom: 4px;
+        }
+      }
+    }
+  }
+}

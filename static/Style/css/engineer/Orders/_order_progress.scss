@@ -1,0 +1,71 @@
+@use "../../config" as *;
+$identity-green: #2d4a43;
+$text-muted: #718096;
+$block-bg: #f8fafc;
+$border-color: #cbd5e0;
+
+.payment__wrapper {
+
+    .main-timer-container {
+        border-bottom: 1px dashed #e2e8f0;
+        padding-bottom: 1.5rem;
+        .main-timer-title{
+            font-family: $font-heading;
+            font-size: large;
+            font-weight: 800;
+        }
+
+    }
+
+    .main-timer-title {
+        font-size: 1.05rem;
+        font-weight: 800;
+        color: $identity-green;
+        letter-spacing: 0.5px;
+    }
+
+    #countdown-timer {
+        direction: rtl;
+
+        .timer-component {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+
+            .timer-label {
+                font-size: 0.8rem;
+                font-weight: 700;
+                color: $text-muted;
+            }
+
+            .timer-block {
+                width: 100%;
+                max-width: 80px;
+                height: 70px;
+                background-color: $block-bg;
+                border: 2px solid $border-color;
+                border-radius: 10px;
+                color: $identity-green;
+                font-size: 1.8rem;
+                font-weight: 800;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+        }
+
+        &.expired {
+            .timer-block {
+                background-color: #f1f5f9;
+                color: #94a3b8;
+                border-color: #cbd5e0;
+            }
+            .timer-label {
+                color: #94a3b8;
+            }
+        }
+    }
+}

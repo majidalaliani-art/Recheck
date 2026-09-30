@@ -1,0 +1,103 @@
+@use "./config" as *;
+@use "./Base";
+@use "./registration/auth";
+@use "./engineer/EngineerBase";
+@use "./client/CientBase";
+@use "./base/base";
+@use "./Services/ServicesBase";
+@use "./order-card";
+
+
+
+@font-face {
+  font-family: "Cairo";
+  src: url("../fonts/Cairo/Cairo-VariableFont_slnt\,wght.ttf") format("truetype");
+  font-weight: 200 1000;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Tajawal";
+  src: url("../fonts/Tajawal/Tajawal-Medium.ttf") format("truetype");
+  font-weight: 200 1000;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+
+  --body-color: #{$body-color};
+  --moon-main-color: #3d5656;
+  --moon-white-color: #ffffff;
+  --moon-main-dark-color: #3d5656;
+  --moon-main-light-color: #3d5656;
+  --moon-main-lighter-color: #3d5656;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+
+
+h1,
+h2,
+.header,
+.heading-style {
+  font-family: $font-heading;
+  font-weight: 700;
+}
+
+.main-header {
+  display: flex;
+  background-color: rgb(255, 255, 255);
+
+  &.hidden {
+    display: none !important;
+  }
+  &.transparent {
+    background-color: transparent;
+    box-shadow: none;
+  }
+}
+
+body {
+
+  background-color: #f1f1f1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: $font-main;
+  font-weight: 400;
+  margin: 0;
+
+  main {
+    flex: 1;
+  }
+
+  footer {
+    background-color: #3d5656;
+    color: #ffffff;
+    text-align: center;
+    padding: 1.5rem 0;
+    width: 100%;
+
+  }
+}
+
+
+.card-wrapper {
+  padding: 30px 10px;
+  .card-form  {
+    margin: 0 auto;
+    padding: 40px;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.04);
+    border-top: 5px solid $olive-dark;
+  }
+}

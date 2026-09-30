@@ -1,0 +1,162 @@
+@use "sass:color";
+@use "../../config" as *;
+
+$nav-bg: #ffffff;
+$text-color: #1f1f1f;
+$primary-blue: #3952de;
+$primary-red: #dc3545; // لون أحمر أنيق لزر تسجيل الخروج
+$mobile-breakpoint: 992px;
+
+.tk__navbar__full {
+  direction: rtl;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 6%;
+  background-color: $nav-bg;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  .tk__logo img {
+    height: 55px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  // --- الحاوية الأساسية للمنيو ---
+  .nav-menu-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+    margin-right: 3rem;
+
+    // الكلام (الروابط المرصوصة)
+    .tk__nav__items {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li a {
+        text-decoration: none;
+        color: $text-color;
+        font-size: 18px;
+        font-weight: 700;
+        transition: color 0.3s;
+
+        &:hover { color: $primary-blue; }
+      }
+    }
+
+    // منطقة الأزرار الذكية
+    .auth-action {
+      display: flex;
+      align-items: center;
+
+      a {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        text-decoration: none;
+        padding: 0.8rem 1.6rem;
+        border-radius: 14px;
+        font-size: 18px; // تكبير خط الزر ليتناسق مع بقية الكلام
+        font-weight: 700;
+        transition: all 0.3s ease;
+      }
+
+      .btn-login {
+        background-color: rgba($primary-blue, 0.08);
+        color: $primary-blue;
+
+        &:hover {
+          background-color: $primary-blue;
+          color: white;
+        }
+      }
+
+      .btn-logout {
+        background-color: rgba($primary-red, 0.08);
+        color: $primary-red;
+
+        &:hover {
+          background-color: $primary-red;
+          color: white;
+        }
+      }
+    }
+  }
+
+  // زر الثلاث خطوط للجوال
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
+    cursor: pointer;
+
+    span {
+      width: 100%;
+      height: 3px;
+      background-color: $text-color;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+  }
+
+  // --- وضع الجوال (كل شيء تحت بعض) ---
+  @media (max-width: $mobile-breakpoint) {
+    padding: 1.2rem 1.5rem;
+
+    .menu-toggle { display: flex; }
+
+    .nav-menu-container {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background-color: $nav-bg;
+      padding: 2.5rem 1.5rem;
+      gap: 2.5rem;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+      border-top: 1px solid #f1f1f1;
+      margin-right: 0;
+
+      .tk__nav__items {
+        flex-direction: column;
+        gap: 1.8rem;
+        width: 100%;
+        text-align: center;
+      }
+
+      .auth-action {
+        width: 100%;
+        justify-content: center;
+
+        a {
+          width: 100%; // الزر يفرش بكامل العرض في الجوال ليسهل نقره
+          justify-content: center;
+        }
+      }
+    }
+
+    // تشغيل القائمة عند النقر
+    &.active {
+      .nav-menu-container { display: flex; }
+
+      .menu-toggle {
+        span:nth-child(1) { transform: translateY(8.5px) rotate(45deg); }
+        span:nth-child(2) { opacity: 0; }
+        span:nth-child(3) { transform: translateY(-8.5px) rotate(-45deg); }
+      }
+    }
+  }
+}

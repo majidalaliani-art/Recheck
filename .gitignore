@@ -51,3 +51,6 @@ celerybeat.pid
 Storage/
 !Storage/.env.example
 
+"static/Style/fontawesome/svgs/" 
+static/Style/fontawesome/metadata/ 
+static/Style/fontawesome/svgs/ 

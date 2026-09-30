@@ -1,0 +1,192 @@
+@use "sass:color";
+
+// ==========================================================================
+// Variables
+// ==========================================================================
+$spec-card-radius: 12px;
+$spec-header-bg: #ffc107;
+$spec-header-color: #212529;
+
+$spec-success-color: #198754;
+$spec-danger-color: #dc3545;
+
+$spec-border-color: #e9ecef;
+$spec-bg-light: #f8f9fa;
+
+// ==========================================================================
+// Mixins
+// ==========================================================================
+@mixin status-indicator($color) {
+  color: $color;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+
+  i {
+    color: $color;
+  }
+}
+
+@mixin soft-badge($color) {
+  background-color: rgba($color, 0.08);
+  color: $color;
+  border: 1px solid rgba($color, 0.25);
+}
+
+// ==========================================================================
+// Main Card Layout
+// ==========================================================================
+.property-spec-card {
+  border: 0;
+  border-radius: $spec-card-radius;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  margin-top: 1.5rem;
+
+  .card-header {
+    background-color: $spec-header-bg;
+    color: $spec-header-color;
+    text-align: center;
+    font-weight: 700;
+    padding: 0.9rem 1rem;
+    font-size: 1.1rem;
+    border: 0;
+  }
+
+  .card-body {
+    padding: 1.25rem;
+    background-color: #fff;
+  }
+}
+
+// ==========================================================================
+// Surroundings Grid (الشوارع والبنايات)
+// ==========================================================================
+.surroundings-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .surroundings-box {
+    text-align: center;
+    background-color: $spec-bg-light;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid $spec-border-color;
+
+    h6 {
+      font-weight: 700;
+      color: #6c757d;
+      border-bottom: 1px solid $spec-border-color;
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
+
+      i {
+        color: color.scale($spec-header-bg, $lightness: -15%);
+      }
+    }
+
+    .badges-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+
+      .badge {
+        padding: 0.45rem 0.85rem;
+        font-weight: 400;
+        font-size: 0.875rem;
+        border-radius: 6px;
+
+        &.badge-success {
+          @include soft-badge($spec-success-color);
+        }
+        &.badge-danger {
+          @include soft-badge($spec-danger-color);
+        }
+      }
+    }
+  }
+}
+
+// ==========================================================================
+// Property Specs Layout (Flexbox Container)
+// ==========================================================================
+.property-spec-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $spec-border-color;
+  border-radius: 8px;
+  background-color: #fff;
+  overflow: hidden;
+
+  // على الكمبيوتر والتابلت يتحول إلى 3 أعمدة
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+
+  .spec-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    // فاصل رأسي بين الأعمدة في الشاشات الكبيرة (RTL)
+    @media (min-width: 768px) {
+      &:not(:last-child) {
+        border-left: 1px solid $spec-border-color;
+      }
+    }
+
+    // فاصل أفقي بين الكروت في الجوال
+    @media (max-width: 767.98px) {
+      &:not(:last-child) {
+        border-bottom: 1px solid $spec-border-color;
+      }
+    }
+
+    .column-header {
+      background-color: $spec-bg-light;
+      color: #333;
+      font-weight: 700;
+      text-align: center;
+      padding: 0.85rem 0.5rem;
+      border-bottom: 1px solid $spec-border-color;
+      font-size: 0.95rem;
+    }
+
+    .items-group {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+
+      gap: 0.75rem;
+
+      span {
+        font-size: 0.88rem;
+        line-height: 1.4;
+        display: inline-flex;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+
+        i {
+          font-size: 0.95rem;
+          flex-shrink: 0;
+        }
+
+        &.is-true {
+          @include status-indicator($spec-success-color);
+        }
+        &.is-false {
+          @include status-indicator($spec-danger-color);
+        }
+      }
+    }
+  }
+}

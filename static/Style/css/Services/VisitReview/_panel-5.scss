@@ -1,0 +1,188 @@
+// ======================================
+// قائمة كروت المناطق / الغرف (بالهوية الذهبية)
+// ======================================
+
+.room-accordion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.room-card {
+  background: #ffffff;
+  border: 1px solid #f2f0ed;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.035);
+  overflow: hidden;
+  transition: all 0.25s ease-in-out;
+
+  // تأثير التمرير
+  &:hover {
+    border-color: #ded9d0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  }
+
+  // رأس الكارت (الزر)
+  &__header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    text-align: right;
+    transition: background-color 0.2s ease;
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: large;
+    font-weight: 800;
+    color: #202428;
+    transition: color 0.2s ease;
+
+    .room-card__bullet {
+      font-size: 10px;
+      color: #c29417; // المعين الجانبي باللون الذهبي
+    }
+  }
+
+  // أيقونة الدائرة والسهم
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #f9f6f1;
+    color: #c29417;
+    transition:
+      transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      background-color 0.25s ease,
+      color 0.25s ease;
+  }
+
+  // حالة الكارت عند الفتح (تأثير الهوية الذهبية)
+  &__header[aria-expanded="true"] {
+    background-color: #fdfaf2; // خلفية دافئة خفيفة جداً عند الفتح
+
+    .room-card__icon {
+      transform: rotate(180deg);
+      background-color: #c29417; // خلفية السهم باللون الذهبي
+      color: #ffffff;
+    }
+
+    .room-card__title {
+      color: #c29417; // عنوان الغرفة باللون الذهبي
+    }
+  }
+
+  // جسم ومحتوى الكارت الداخلي
+  &__body {
+    border-top: 1px solid #f2f0ed;
+    background-color: #ffffff;
+  }
+
+  &__content {
+    padding: 20px;
+    color: #4a5568;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+}
+
+// معرض الصور باستخدام Flexbox
+.room-gallery {
+  display: flex;
+  flex-wrap: wrap; // للسماح للصور بالانتقال للسطر الثاني إذا زاد العدد
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  //background-color: #dbf3bc;
+
+  &__item {
+    display: block;
+    width: 100px; // عرض العصر المصغر
+    height: 100px; // ارتفاع العصر المصغر
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #f2f0ed;
+    background-color: #fcfbf9;
+    flex-shrink: 0; // لمنع انكماش الصورة إذا ضاق المكان
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  }
+}
+
+.recommendations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+
+  .recommendation-card {
+    display: flex;
+    align-items: center;
+    gap: 16px; // مسافة منظمة بين الرقم والخط والنص
+    padding: 12px 20px;
+    background-color: #fefcf5; // خلفية دافئة خفيفة
+    border: 1px solid #f2e7cc;  // حد خارجي ناعم
+    border-right: 4px solid #c29417; // الشريط الذهبي الأيمن
+    border-radius: 10px;
+    transition: all 0.2s ease;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(194, 148, 23, 0.08);
+        background-color: #fbf8ec;
+    }
+
+    &__number {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #c29417;
+      padding-left: 14px;
+      border-left: 2px dotted rgba(0, 0, 0, 0.18);
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 32px;
+
+    }
+
+    &__text {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #202428;
+      line-height: 1.5;
+      text-align: right;
+    }
+  }
+}
+

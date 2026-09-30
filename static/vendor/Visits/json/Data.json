@@ -1,0 +1,31 @@
+{
+  "inspection_schema": {
+    "standard": [
+      {"id": "electricity", "name": "الكهرباء"},
+      {"id": "plumbing", "name": "السباكة"}
+    ],
+    "comprehensive": {
+      "room_names": {
+        "bath": "حمام",
+        "kitchen": "مطبخ",
+        "living": "غرفة معيشة",
+        "bedroom": "غرفة نوم"
+      },
+      "rooms": {
+        "bath": [
+          {"id": "electricity", "name": "الكهرباء"},
+          {"id": "plumbing", "name": "السباكة"}
+        ],
+        "kitchen": [
+          {"id": "electricity", "name": "الكهرباء"}
+        ],
+        "living": [
+          {"id": "electricity", "name": "الكهرباء"}
+        ],
+        "bedroom": [
+          {"id": "electricity", "name": "الكهرباء"}
+        ]
+      }
+    }
+  }
+}

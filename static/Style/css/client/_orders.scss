@@ -1,0 +1,97 @@
+@use "../config" as *;
+
+.orders-container {
+  .orders-header {
+    p {
+      font-size: 3.5rem;
+      font-weight: bold;
+      text-align: center;
+      cursor: pointer;
+    }
+  }
+
+  .status-pending {
+    color: #000000;
+  }
+
+  .status-in_progress {
+    color: #3498db;
+  }
+
+  .status-completed {
+    color: #27ae60;
+  }
+
+  .status-canceled {
+    color: #e74c3c;
+  }
+}
+
+// .status-orders {
+//   padding: 10px 28px;
+//   font-size: 1.3rem;
+//   text-decoration: none;
+//   font-weight: 800;
+
+//   border-radius: 12px;
+//   cursor: pointer;
+//   border: 2px solid;
+//   transition: all 0.4s ease-in-out;
+
+//   &:hover {
+//     color: white !important;
+//   }
+// }
+
+// .status-in_progress {
+//   color: #3498db;
+//   border-color: #3498db;
+// }
+
+// .status-paid {
+//   color: #000000;
+//   border-color: #000000;
+// }
+
+// .status-pending {
+//   color: red !important;
+//   border-color: red;
+//   &:hover {
+//     background-color: red;
+//   }
+// }
+
+// .status-success {
+//   color: green;
+//   border-color: green;
+//   &:hover {
+//     background-color: green;
+//   }
+// }
+
+
+
+
+// .status-failed {
+//   color: blue !important;
+//   border-color: blue !important;
+//   &:hover {
+//     background-color: blue;
+//   }
+// }
+
+// .order-pending {
+//   color: #f59e0b; /* أصفر */
+// }
+
+// .order-in_progress {
+//   color: #3b82f6; /* أزرق */
+// }
+
+// .order-completed {
+//   color: #10b981; /* أخضر */
+// }
+
+// .order-canceled {
+//   color: #ef4444; /* أحمر */
+// }

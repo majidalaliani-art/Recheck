@@ -1,4 +1,3 @@
-# from constants import VISITS_ENGINEERKEY_PATH as PATH
 from .constants import PATH
 from django.core.files.storage import default_storage
 import logging
@@ -98,11 +97,8 @@ class StaffVisitReviewView(LoginRequiredMixin,View):
         is_admin = responsible.is_superuser
         if not is_staff and not is_admin:
             return redirect("Staff:under_review_orders")
-        if Order.Request.status != "under_review" :
-            if is_admin:
-                return redirect("Admin:under_review_orders")
-            else:
-                return redirect("Staff:under_review_orders")
+        if Order.Request.status != "under_review":
+            return redirect("Staff:under_review_orders")
 
 
         form = VisitReportForm(
@@ -143,59 +139,6 @@ class StaffVisitReviewView(LoginRequiredMixin,View):
 
 
 
-
-
-
-
-# class SupervisorVisitView(View):
-#     template_name = PATH["REVIEW"]
-#     def get(self, request, pk):
-#         Order = get_object_or_404(VisitReport, Request__visit_id=pk)
-#         url_name = request.resolver_match.url_name
-#         # if url_name == "supervisor_visit_review":
-#         #     if not request.user.is_superuser:
-#         #         return redirect("Client:homepage")
-#         #     elif Order.Request.status != "under_review" :
-#         #         return redirect("Admin:under_review_orders")
-
-#         # elif url_name == "visit":
-#         #     if Order.Request.status != "completed" :
-#         #         return redirect("Client:homepage")
-
-
-
-#         unique_keys = InspectionItem.objects.filter(area__visit=Order,is_available=True).values_list('key', flat=True).distinct()
-
-
-
-
-#         results = {}
-#         for key in unique_keys:
-#              results[key] = Order.get_overall_item_score(key)
-#         print(results)
-
-
-
-
-#         overall_score = Order.get_overall_property_score()
-
-
-
-
-
-
-#         context = {
-#             "status":Order.Request.status,
-#             "visit_id": Order.Request.visit_id,
-#             "Order_id": Order.Request.order.order_id,
-#             "Visit": Order,
-
-#             "results":results,
-#             "overall_score":overall_score,
-
-#         }
-
-#         return render(request, self.template_name, context)
 
 
 

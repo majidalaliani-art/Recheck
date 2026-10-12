@@ -1,33 +1,77 @@
 {% extends 'Client/CientBase.html' %} {% block client_content %} {% load static %}
 
 <div class="homepage-wrapper">
-  <section class="main-hero-slider">
-    <div class="swiper mySwiper">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide">
-          <div class="slide-content">
-            <video class="hero-video" autoplay loop muted playsinline>
-              <source src="static/images/Client/home/img3.mp4" type="video/mp4" />
-            </video>
+  <!-- Hero Welcome Section Matching Mockup -->
+  <section class="recheck-hero-welcome mockup-style">
+    <div class="hero-mockup-container">
+      
+      <!-- Right Column: Welcome Text, 3 Features, Button -->
+      <div class="hero-mockup-content">
+        <h1 class="hero-mockup-title">
+          <span class="title-welcome">مرحباً بكم في</span>
+          <span class="title-brand">Recheck</span>
+        </h1>
+
+        <p class="hero-mockup-desc">
+          منصة متخصصة في تقديم الخدمات الهندسية لفحص العقارات
+        </p>
+
+        <div class="hero-mockup-features">
+          <div class="mockup-feature-col">
+            <div class="mockup-feature-icon">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <div class="mockup-feature-text">
+              فحص بجودة<br>واحترافية
+            </div>
+          </div>
+
+          <div class="mockup-feature-divider"></div>
+
+          <div class="mockup-feature-col">
+            <div class="mockup-feature-icon">
+              <i class="fa-solid fa-helmet-safety"></i>
+            </div>
+            <div class="mockup-feature-text">
+              مهندسون مؤهلون<br>وخبراء
+            </div>
+          </div>
+
+          <div class="mockup-feature-divider"></div>
+
+          <div class="mockup-feature-col">
+            <div class="mockup-feature-icon">
+              <i class="fa-solid fa-certificate"></i>
+            </div>
+            <div class="mockup-feature-text">
+              تقارير هندسية<br>معتمدة
+            </div>
           </div>
         </div>
 
-        <div class="swiper-slide">
-          <div class="slide-content">
-            <img src="static/images/Client/home/img1.jpeg" class="hero-img" alt="Hero Image 1" />
-          </div>
-        </div>
-
-        <div class="swiper-slide">
-          <div class="slide-content">
-            <img src="static/images/Client/home/img2.jpeg" class="hero-img" alt="Hero Image 2" />
-          </div>
+        <div class="hero-mockup-cta">
+          <a href="#services" class="btn-mockup-explore">
+            <span>استكشف باقات الفحص</span>
+            <i class="fa-solid fa-arrow-down ms-2"></i>
+          </a>
         </div>
       </div>
 
-      <div class="swiper-pagination"></div>
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
+      <!-- Left Column: Engineer Image -->
+      <div class="hero-mockup-media">
+        <img src="{% static 'images/Client/home/hero-engineer-v2.png' %}" alt="مهندس فحص ريتشيك" class="mockup-engineer-img" />
+      </div>
+
+    <!-- Background geometric lines SVG -->
+    <div class="hero-mockup-bg-lines">
+      <svg viewBox="0 0 600 600" fill="none" stroke="rgba(0, 104, 112, 0.08)" stroke-width="1.2">
+        <path d="M50 0 L320 220 L580 90 L600 420 L350 600" />
+        <path d="M220 0 L400 160 L600 110" />
+        <path d="M80 320 L320 440 L520 600" />
+        <circle cx="320" cy="220" r="3" fill="rgba(217, 107, 39, 0.25)" />
+        <circle cx="400" cy="160" r="3" fill="rgba(0, 104, 112, 0.2)" />
+        <circle cx="320" cy="440" r="3" fill="rgba(217, 107, 39, 0.25)" />
+      </svg>
     </div>
   </section>
 
@@ -35,9 +79,6 @@
     <div class="tk__header_center">
       <h2 class="tk__title">خدماتنا</h2>
     </div>
-    <!-- <h4 class="star__orange my-4 animate__animated animate__fadeIn animate__slow">
-
-    </h4> -->
     <!-- prettier-ignore -->
     <div class="tk__pricing mt-2 mt-lg-0 container-fluid">
     <!-- prettier-ignore -->
@@ -45,6 +86,7 @@
       <!-- APARTMENT -->
       {% if item.key == "apartment" %}
       <div class="tk__pricing__card animate__animated">
+        <div class="card-standard-badge">باقة الفحص الأساسية</div>
         <div class="tk__image-wrapper">
           <img src="{% static 'images/Client/home/services5.png'%}" alt="Property Image" class="tk__floating-img">
         </div>
@@ -89,6 +131,7 @@
       <!-- VILLA -->
       {% if item.key == "villa" %}
       <div class="tk__pricing__card animate__animated">
+        <div class="card-popular-badge"><i class="fa-solid fa-star"></i> الأكثر طلباً</div>
         <div class="tk__image-wrapper">
           <img src="{% static 'images/Client/home/services1.png'%}" alt="Property Image" class="tk__floating-img">
         </div>
@@ -225,7 +268,12 @@
 
   <section id="inspection" class="tk__about__section">
     <div class="tk__header_center">
+      <div class="section-pill-badge">
+        <i class="fa-solid fa-list-check"></i>
+        <span>عناصر الفحص الهندسي</span>
+      </div>
       <h2 class="tk__title">بنود فحص وتقييم العقار</h2>
+      <p class="section-subtitle">فحص دقيق وشامل لكافة الأنظمة الإنشائية والتشطيبات لضمان سلامة وجودة العقار</p>
     </div>
     <div class="container">
       <div class="cards-container">
@@ -236,10 +284,10 @@
             <span>فحص الأسقف والجدران</span>
           </div>
           <ul class="inspect-card-list">
-            <li><i class="fa-regular fa-left-from-bracket"></i>التشققات والتصدعات</li>
-            <li><i class="fa-regular fa-left-from-bracket"></i>الدهانات والديكورات</li>
-            <li><i class="fa-regular fa-left-from-bracket"></i>فتحات الصيانة</li>
-            <li><i class="fa-regular fa-left-from-bracket"></i>آثار الرطوبة</li>
+            <li><i class="fa-solid fa-circle-check"></i>التشققات والتصدعات</li>
+            <li><i class="fa-solid fa-circle-check"></i>الدهانات والديكورات</li>
+            <li><i class="fa-solid fa-circle-check"></i>فتحات الصيانة</li>
+            <li><i class="fa-solid fa-circle-check"></i>آثار الرطوبة</li>
           </ul>
         </div>
 
@@ -250,10 +298,10 @@
             <span>فحص وتقييم الكهرباء</span>
           </div>
           <ul class="inspect-card-list">
-            <li><i class="fa-regular fa-left-from-bracket"></i>الأفياش ووحدات الإنارة</li>
-            <li><i class="fa-regular fa-left-from-bracket"></i>لوحة التحكم (الطبلون)</li>
-            <li><i class="fa-regular fa-left-from-bracket"></i>حالة تجهيزات الإضاءة</li>
-            <li><i class="fa-regular fa-left-from-bracket"></i>السلامة الكهربائية</li>
+            <li><i class="fa-solid fa-circle-check"></i>الأفياش ووحدات الإنارة</li>
+            <li><i class="fa-solid fa-circle-check"></i>لوحة التحكم (الطبلون)</li>
+            <li><i class="fa-solid fa-circle-check"></i>حالة تجهيزات الإضاءة</li>
+            <li><i class="fa-solid fa-circle-check"></i>السلامة الكهربائية</li>
           </ul>
         </div>
 
@@ -264,10 +312,10 @@
             <span>فحص السباكة</span>
           </div>
           <ul class="inspect-card-list">
-            <li><i class="fa-regular fa-left-from-bracket"></i>ميول الأرضيات</li>
-            <li><i class="fa-regular fa-left-from-bracket"></i>الأدوات الصحية</li>
-            <li><i class="fa-regular fa-left-from-bracket"></i>المواسير الظاهرة</li>
-            <li><i class="fa-regular fa-left-from-bracket"></i>الخزان والمضخة</li>
+            <li><i class="fa-solid fa-circle-check"></i>ميول الأرضيات</li>
+            <li><i class="fa-solid fa-circle-check"></i>الأدوات الصحية</li>
+            <li><i class="fa-solid fa-circle-check"></i>المواسير الظاهرة</li>
+            <li><i class="fa-solid fa-circle-check"></i>الخزان والمضخة</li>
           </ul>
         </div>
 
@@ -278,10 +326,10 @@
             <span>الأرضيات</span>
           </div>
           <ul class="inspect-card-list">
-            <li><i class="fa-regular fa-left-from-bracket"></i>التشطيب</li>
-            <li><i class="fa-regular fa-left-from-bracket"></i>التطبيل</li>
-            <li><i class="fa-regular fa-left-from-bracket"></i>النعلات</li>
-            <li><i class="fa-regular fa-left-from-bracket"></i>فواصل التمدد</li>
+            <li><i class="fa-solid fa-circle-check"></i>التشطيب</li>
+            <li><i class="fa-solid fa-circle-check"></i>التطبيل</li>
+            <li><i class="fa-solid fa-circle-check"></i>النعلات</li>
+            <li><i class="fa-solid fa-circle-check"></i>فواصل التمدد</li>
           </ul>
         </div>
         <!-- كرت -->
@@ -291,10 +339,10 @@
             <span>الأبواب والنوافذ</span>
           </div>
           <ul class="inspect-card-list">
-            <li><i class="fa-regular fa-left-from-bracket"></i>الإطار والمفصلات</li>
-            <li><i class="fa-regular fa-left-from-bracket"></i>التشطيب</li>
-            <li><i class="fa-regular fa-left-from-bracket"></i>العزل الحراري</li>
-            <li><i class="fa-regular fa-left-from-bracket"></i>العزل المائي</li>
+            <li><i class="fa-solid fa-circle-check"></i>الإطار والمفصلات</li>
+            <li><i class="fa-solid fa-circle-check"></i>التشطيب</li>
+            <li><i class="fa-solid fa-circle-check"></i>العزل الحراري</li>
+            <li><i class="fa-solid fa-circle-check"></i>العزل المائي</li>
           </ul>
         </div>
 
@@ -305,10 +353,10 @@
             <span>العناصر الخارجية</span>
           </div>
           <ul class="inspect-card-list">
-            <li><i class="fa-regular fa-left-from-bracket"></i>الواجهات</li>
-            <li><i class="fa-regular fa-left-from-bracket"></i>السور</li>
-            <li><i class="fa-regular fa-left-from-bracket"></i>فواصل التمدد</li>
-            <li><i class="fa-regular fa-left-from-bracket"></i>مكافحة الحريق</li>
+            <li><i class="fa-solid fa-circle-check"></i>الواجهات</li>
+            <li><i class="fa-solid fa-circle-check"></i>السور</li>
+            <li><i class="fa-solid fa-circle-check"></i>فواصل التمدد</li>
+            <li><i class="fa-solid fa-circle-check"></i>مكافحة الحريق</li>
           </ul>
         </div>
       </div>
@@ -317,80 +365,31 @@
 
   <section id="report" class="tk__about__section">
     <div class="tk__header_center">
-      <h2 class="tk__title">تقرير شامل</h2>
+      <div class="section-pill-badge">
+        <i class="fa-solid fa-file-invoice"></i>
+        <span>التقرير الإلكتروني التفاعلي</span>
+      </div>
+      <h2 class="tk__title">تقرير شامل وتفاعلي</h2>
+      <p class="section-subtitle">تقرير هندسي معتمد يعرض الملاحظات والصور ومؤشرات التقييم بوضوح كامل</p>
     </div>
 
     <div class="star__orange">
-      <div class="d-none d-lg-block my-5"></div>
-      <div class="fw-bold h5 mb-4 text-orange lh-lg">تقرير تأكد التفاعلي شامل لكل عناصر العقار</div>
-      <div class="d-none d-lg-block my-5"></div>
-      <div class="my-2">
-        <svg
-          class="star__svg"
-          width="11"
-          height="11"
-          xmlns="http://www.w3.org/2000/svg"
-          version="1.1"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-        >
-          <g>
-            <path
-              d="M 4.5,-0.5 C 4.83333,-0.5 5.16667,-0.5 5.5,-0.5C 5.83333,2.5 7.5,4.16667 10.5,4.5C 10.5,4.83333 10.5,5.16667 10.5,5.5C 7.5,5.83333 5.83333,7.5 5.5,10.5C 5.16667,10.5 4.83333,10.5 4.5,10.5C 4.16667,7.5 2.5,5.83333 -0.5,5.5C -0.5,5.16667 -0.5,4.83333 -0.5,4.5C 2.5,4.16667 4.16667,2.5 4.5,-0.5 Z"
-            ></path>
-          </g>
-        </svg>
-        <span class="ps-2">تقرير إحترافي يستند على معايير هندسية دقيقة</span>
+      <div class="fw-bold h5 mb-3 text-orange lh-lg">تقرير ريتشيك التفاعلي شامل لكل عناصر العقار</div>
+      <div class="report-feature-item my-2">
+        <i class="fa-solid fa-circle-check text-orange ms-2"></i>
+        <span>تقرير احترافي يستند على معايير هندسية دقيقة</span>
       </div>
-      <div class="my-2">
-        <svg
-          class="star__svg"
-          width="11"
-          height="11"
-          xmlns="http://www.w3.org/2000/svg"
-          version="1.1"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-        >
-          <g>
-            <path
-              d="M 4.5,-0.5 C 4.83333,-0.5 5.16667,-0.5 5.5,-0.5C 5.83333,2.5 7.5,4.16667 10.5,4.5C 10.5,4.83333 10.5,5.16667 10.5,5.5C 7.5,5.83333 5.83333,7.5 5.5,10.5C 5.16667,10.5 4.83333,10.5 4.5,10.5C 4.16667,7.5 2.5,5.83333 -0.5,5.5C -0.5,5.16667 -0.5,4.83333 -0.5,4.5C 2.5,4.16667 4.16667,2.5 4.5,-0.5 Z"
-            ></path>
-          </g>
-        </svg>
-        <span class="ps-2">عرض الصور والملاحظات بطريقة تفاعلية</span>
+      <div class="report-feature-item my-2">
+        <i class="fa-solid fa-circle-check text-orange ms-2"></i>
+        <span>عرض الصور والملاحظات بطريقة تفاعلية</span>
       </div>
-      <div class="my-2">
-        <svg
-          class="star__svg"
-          width="11"
-          height="11"
-          xmlns="http://www.w3.org/2000/svg"
-          version="1.1"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-        >
-          <g>
-            <path
-              d="M 4.5,-0.5 C 4.83333,-0.5 5.16667,-0.5 5.5,-0.5C 5.83333,2.5 7.5,4.16667 10.5,4.5C 10.5,4.83333 10.5,5.16667 10.5,5.5C 7.5,5.83333 5.83333,7.5 5.5,10.5C 5.16667,10.5 4.83333,10.5 4.5,10.5C 4.16667,7.5 2.5,5.83333 -0.5,5.5C -0.5,5.16667 -0.5,4.83333 -0.5,4.5C 2.5,4.16667 4.16667,2.5 4.5,-0.5 Z"
-            ></path>
-          </g>
-        </svg>
-        <span class="ps-2">مؤشرات رقمية تفصيلية عن نقاط وبنود الفحص</span>
+      <div class="report-feature-item my-2">
+        <i class="fa-solid fa-circle-check text-orange ms-2"></i>
+        <span>مؤشرات رقمية تفصيلية عن نقاط وبنود الفحص</span>
       </div>
-      <div class="my-2">
-        <svg
-          class="star__svg"
-          width="11"
-          height="11"
-          xmlns="http://www.w3.org/2000/svg"
-          version="1.1"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-        >
-          <g>
-            <path
-              d="M 4.5,-0.5 C 4.83333,-0.5 5.16667,-0.5 5.5,-0.5C 5.83333,2.5 7.5,4.16667 10.5,4.5C 10.5,4.83333 10.5,5.16667 10.5,5.5C 7.5,5.83333 5.83333,7.5 5.5,10.5C 5.16667,10.5 4.83333,10.5 4.5,10.5C 4.16667,7.5 2.5,5.83333 -0.5,5.5C -0.5,5.16667 -0.5,4.83333 -0.5,4.5C 2.5,4.16667 4.16667,2.5 4.5,-0.5 Z"
-            ></path>
-          </g>
-        </svg>
-        <span class="ps-2">استعراض الملاحظات حسب العنصر والتصنيف</span>
+      <div class="report-feature-item my-2">
+        <i class="fa-solid fa-circle-check text-orange ms-2"></i>
+        <span>استعراض الملاحظات حسب العنصر والتصنيف</span>
       </div>
     </div>
 
@@ -414,7 +413,12 @@
 
   <section id="coverage-area" class="tk__about__section">
     <div class="tk__header_center">
+      <div class="section-pill-badge">
+        <i class="fa-solid fa-map-location-dot"></i>
+        <span>نطاق التغطية الجغرافية</span>
+      </div>
       <h2 class="tk__title">نطاق التغطية</h2>
+      <p class="section-subtitle">نقدم خدمات الفحص الهندسي المعتمدة في مختلف مناطق ومدن المملكة</p>
     </div>
 
     <div class="map-wrapper">
@@ -424,7 +428,12 @@
 
   <section class="tk__about__section">
     <div class="tk__header_center">
+      <div class="section-pill-badge">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>أهمية الفحص الهندسي</span>
+      </div>
       <h2 class="tk__title">لماذا تحتاج لفحص العقار؟</h2>
+      <p class="section-subtitle">ثلاثة أسباب رئيسية تجعل الفحص الهندسي المسبق هو القرار الاستثماري الأذكى</p>
     </div>
     <div class="row my-5 lh-lg animate__animated benefits-row">
       <div class="col-12 col-lg-4">
@@ -433,7 +442,7 @@
             <i class="fa-solid fa-microscope"></i>
           </div>
           <strong>معرفة حالة العقار</strong>
-          <p>يساعدك تقرير الفحص من تأكد في معرفة شاملة لحالة العقار الحالية.</p>
+          <p>يساعدك تقرير الفحص من ريتشيك في معرفة شاملة لحالة العقار الحالية.</p>
         </div>
       </div>
 
@@ -443,7 +452,7 @@
             <i class="fa-solid fa-gavel"></i>
           </div>
           <strong>المساعدة في اتخاذ القرار</strong>
-          <p>تقرير الفحص من تأكد يساعدك في إتخاذ القرار الصحيح.</p>
+          <p>تقرير الفحص من ريتشيك يساعدك في إتخاذ القرار الصحيح.</p>
         </div>
       </div>
 
@@ -460,6 +469,14 @@
   </section>
 
   <section id="testimonials" class="tk__about__section">
+    <div class="tk__header_center">
+      <div class="section-pill-badge">
+        <i class="fa-solid fa-comments"></i>
+        <span>ثقة عملائنا</span>
+      </div>
+      <h2 class="tk__title">ماذا يقول عملاؤنا؟</h2>
+      <p class="section-subtitle">تجارب حقيقية لعملاء اعتمدوا على ريتشيك في فحص عقاراتهم</p>
+    </div>
     <div class="swiper opinion-swiper">
       <div class="swiper-wrapper tk__opinion-wrapper">
         <div class="swiper-slide">
@@ -487,7 +504,7 @@
               ><i class="fa-solid fa-star"></i>
             </div>
             <p class="opinion-text">
-              خدمه مميزه ومهندس خبير ساعدني في اختيار منزلي .. شكرا لكم منصة تدارك.
+              خدمه مميزه ومهندس خبير ساعدني في اختيار منزلي .. شكرا لكم منصة ريتشيك.
             </p>
             <div class="opinion-client">
               <div class="client-icon">أ</div>
@@ -601,6 +618,14 @@
   </section>
 
   <section class="tk__faq tk__about__section">
+    <div class="tk__header_center">
+      <div class="section-pill-badge">
+        <i class="fa-solid fa-circle-question"></i>
+        <span>الأسئلة الشائعة</span>
+      </div>
+      <h2 class="tk__title">إجابات على استفساراتكم</h2>
+      <p class="section-subtitle">كل ما تود معرفته عن آلية الفحص، المهندسين الفاحصين، وموثوقية التقارير</p>
+    </div>
     <div class="container tk__accordion px-3" id="faqAccordion">
       <div class="row align-items-start">
         <div class="col-12 col-md-6 mb-4">
@@ -611,7 +636,7 @@
                 data-bs-toggle="collapse"
                 data-bs-target="#faq1"
               >
-                <span>ماذا يشمل فحص تأكد وما هي بنود الفحص؟</span>
+                <span>ماذا يشمل فحص ريتشيك وما هي بنود الفحص؟</span>
               </button>
             </div>
             <div id="faq1" class="collapse" data-bs-parent="#faqAccordion">
@@ -656,13 +681,13 @@
                 data-bs-toggle="collapse"
                 data-bs-target="#faq3"
               >
-                <span>ما هي مؤهلات وخبرات فاحصين تأكد؟</span>
+                <span>ما هي مؤهلات وخبرات فاحصين ريتشيك؟</span>
               </button>
             </div>
             <div id="faq3" class="collapse" data-bs-parent="#faqAccordion">
               <div class="card-body">
                 <small
-                  >جميع فاحصين تأكد مهندسون سعوديون لديهم شهادات معتمدة في فحص المباني الجاهزة
+                  >جميع فاحصين ريتشيك مهندسون سعوديون لديهم شهادات معتمدة في فحص المباني الجاهزة
                   ومعتمدين من الهيئة السعودية للمهندسين.</small
                 >
               </div>

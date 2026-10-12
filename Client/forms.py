@@ -1,24 +1,12 @@
-from autobahn.wamp.gen.wamp.proto import TransportChannelFraming
-from django import forms
-from .models import Order, UserPhone, VisitDetails
-from Admin.models import WorkDay
-from django.core.exceptions import ValidationError
-from config import StyledFormMixin
-from django import forms
+from datetime import date, timedelta
 import bleach
 from django import forms
-from .models import ConsultationDetails, WorkDay
-from django import forms
-from .models import VisitDetails
-from datetime import date, timedelta
-from django import forms
+from django.core.exceptions import ValidationError
 from django.utils.safestring import mark_safe
 
-from django import forms
-from .models import UserPhone
-
-from django import forms
-from .models import UserPhone
+from Admin.models import WorkDay
+from config import StyledFormMixin
+from .models import ConsultationDetails, Order, UserPhone, VisitDetails
 
 
 class PhoneForm(forms.ModelForm):

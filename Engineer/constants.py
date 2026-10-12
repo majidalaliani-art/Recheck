@@ -9,8 +9,10 @@ ENGINEER_PATH = {
     "PROGRESS_ORDER": "Engineer/Orders/order_progress.html",
     "COMPLETED_ORDERS": "Engineer/Orders/completed_orders.html",
     "WALLET": "Engineer/Wallet.html",
-    "LIST_ORDERS": "Engineer/homepage/orders_list.html",
+    "VERIFY_OTP": "email/otp.html",
 }
+
+PATH = ENGINEER_PATH
 
 
 # --- الأقسام في لوحة التحكم (Admin Sections) ---

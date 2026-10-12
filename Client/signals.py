@@ -41,27 +41,18 @@
 #         instance.field_visit.order.save()
 
 
-from django.db.models.signals import post_save
+from datetime import datetime
+from django.utils import timezone
+from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
+from django.contrib.auth import get_user_model
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 
 from Admin.models import PropertyPricing, WorkDay, ContactMethod, Region, PaymentMethod, SystemSettings
-
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-from asgiref.sync import async_to_sync
-from channels.layers import get_channel_layer
 from .models import VisitDetails, ConsultationDetails, Payment
-
-from datetime import datetime
-from django.utils import timezone
-
 from .tasks import publish_order
-from django.db.models.signals import pre_save
-# from Engineer.services.telegram.send_telegram_message import
-from django.contrib.auth.models import User
-from django.contrib.auth import get_user_model
+
 User = get_user_model()
 
 @receiver(post_save, sender=PropertyPricing)
@@ -169,10 +160,10 @@ def visit_status_changed(sender, instance, created, **kwargs):
     status_text = None
 
     if instance.order.payment.status == "success":
-        status_class = instance.status,
-        status_text = instance.get_status_display(),
+        status_class = instance.status
+        status_text = instance.get_status_display()
     else:
-        status_class = instance.order.payment.status,
+        status_class = instance.order.payment.status
         status_text = instance.order.payment.get_status_display()
     if created:
         data = {
@@ -215,11 +206,10 @@ def consultation_status_changed(sender, instance, created, **kwargs):
     status_text = None
 
     if instance.order.payment.status == "success":
-        status_class = (instance.status,)
-        status_text = instance.get_status_display(),
-
+        status_class = instance.status
+        status_text = instance.get_status_display()
     else:
-        status_class = (instance.order.payment.status,)
+        status_class = instance.order.payment.status
         status_text = instance.order.payment.get_status_display()
 
     if created:
@@ -236,8 +226,8 @@ def consultation_status_changed(sender, instance, created, **kwargs):
         data = {
             "type": "order_status_updated",
             "id": str(instance.order.order_id),
-            "status_class": status_text,
-            "status_text": status_class,
+            "status_class": status_class,
+            "status_text": status_text,
         }
 
     if instance.engineer:

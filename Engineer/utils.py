@@ -10,7 +10,7 @@ def send_custom_otp_email(recipient_email, otp_code):
     if not config:
         return False
     connection = get_connection(
-        backend=config.smtp_host,
+        backend="django.core.mail.backends.smtp.EmailBackend",
         host=config.smtp_host,
         port=config.smtp_port,
         username=config.email_user,
@@ -19,8 +19,8 @@ def send_custom_otp_email(recipient_email, otp_code):
     )
 
     context = {
-    #    'engineer_name': engineer_name,
-        'otp_code': otp_code,
+        'name': 'عميلنا العزيز',
+        'otp': otp_code,
         'subject': config.email_subject,
         'body_text': config.email_body,
         'footer_name': config.company_name,

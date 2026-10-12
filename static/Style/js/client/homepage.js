@@ -1,13 +1,15 @@
-new Swiper(".mySwiper", {
-  loop: true,
-  autoplay: {
-    delay: 2500,
-  },
-  pagination: {
-    el: ".swiper-pagination",
-    clickable: true,
-  },
-});
+if (document.querySelector(".mySwiper")) {
+  new Swiper(".mySwiper", {
+    loop: true,
+    autoplay: {
+      delay: 2500,
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+  });
+}
 
 new Swiper(".opinion-swiper", {
   loop: true,
@@ -42,21 +44,23 @@ toggle?.addEventListener("click", function () {
 });
 
 window.onload = function () {
-  const clientMap = L.map("map").setView([23.8859, 45.0792], 6);
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: "&copy; OpenStreetMap contributors",
-    maxZoom: 19,
+  const clientMap = L.map("map").setView([24.2, 45.0], 6);
+  L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}", {
+    attribution: '&copy; Esri, DeLorme, NAVTEQ',
+    maxZoom: 18,
   }).addTo(clientMap);
-  cities.forEach((city) => {
-    if (!city.is_active || !city.lat || !city.lng || city.radius <= 0)  return;
-    L.circle([city.lat, city.lng], {
-      color: "#1a73e8",
-      weight: 2,
-      fillColor: "#1a73e8",
-      fillOpacity: 0.2,
-      radius: city.radius,
-    })
-      .addTo(clientMap)
-      .bindPopup(city.name);
-  });
+  if (typeof cities !== "undefined" && Array.isArray(cities)) {
+    cities.forEach((city) => {
+      if (!city.is_active || !city.lat || !city.lng || city.radius <= 0) return;
+      L.circle([city.lat, city.lng], {
+        color: "#006870",
+        weight: 2,
+        fillColor: "#006870",
+        fillOpacity: 0.18,
+        radius: city.radius,
+      })
+        .addTo(clientMap)
+        .bindPopup(`<strong>${city.name}</strong>`);
+    });
+  }
 };

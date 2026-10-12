@@ -1,25 +1,11 @@
-from django.db import models
-# from django.contrib.auth.models import User, Group
-# from Client.models import Order
-# import datetime, random,string
-# # Create your models here.
-
-from constants import INSPECTION_CHOICES,STATUS_DICT
-
-# from django.db import models
-# from django.core.validators import MinValueValidator, MaxValueValidator
-
-
-# # Import the dictionary and choices from your new file
-from .constants import *
-
-# # from Engineer.models import Engineer
-# from Admin.models import PropertyPricing
-from django.core.validators import MaxValueValidator, MinValueValidator
-from Client.models import VisitDetails, ConsultationDetails, WalletTransaction, Payment
 import os
 import shutil
+from django.db import models
 from django.conf import settings
+from django.core.validators import MaxValueValidator, MinValueValidator
+
+from Client.models import VisitDetails, ConsultationDetails, WalletTransaction, Payment
+from .constants import *
 
 # def image_ajax(instance, filename):
 #     u_id = instance.field_visit.engineer.data.public_id

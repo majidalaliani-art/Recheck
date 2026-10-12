@@ -1,5 +1,17 @@
 from django.contrib import admin
-from .models import *
+
+from .models import (
+    ContactMethod,
+    Coupon,
+    EmailSystemSettings,
+    FinancialSettings,
+    InspectionType,
+    PaymentMethod,
+    PropertyPricing,
+    Region,
+    SystemSettings,
+    WorkDay,
+)
 
 # InspectionCategory
 
@@ -204,9 +216,6 @@ class PropertyPricingAdmin(admin.ModelAdmin):
 #     ordering = ('day_key',)  # ترتيب حسب المفتاح الإنجليزي
 
 
-from django.contrib import admin
-from .models import WorkDay
-
 @admin.register(WorkDay)
 class WorkDayAdmin(admin.ModelAdmin):
     list_display = ('number', 'name_en', 'name_ar', 'start_time', 'end_time', 'duration_minutes', 'total_price', 'is_working')
@@ -244,10 +253,6 @@ class FinancialSettingsAdmin(admin.ModelAdmin):
 #         ('Status', {'fields': ('is_active',)}),)
 
 
-from django.contrib import admin
-from .models import InspectionType
-
-
 @admin.register(InspectionType)
 class InspectionTypeAdmin(admin.ModelAdmin):
     list_display = ("name", "key")
@@ -266,10 +271,6 @@ class ContactMethodAdmin(admin.ModelAdmin):
     search_fields = ("key", "name")
 
 
-from django.contrib import admin
-from .models import PaymentMethod
-
-
 @admin.register(PaymentMethod)
 class PaymentMethodAdmin(admin.ModelAdmin):
     list_display = ("name", "key", "is_active")
@@ -278,8 +279,6 @@ class PaymentMethodAdmin(admin.ModelAdmin):
     search_fields = ("name", "key")
     prepopulated_fields = {"key": ("name",)}
 
-
-from .models import SystemSettings
 
 @admin.register(SystemSettings)
 class SystemSettingsAdmin(admin.ModelAdmin):

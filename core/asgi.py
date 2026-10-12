@@ -20,7 +20,7 @@ import Engineer.routing,Client.routing
 websocket_urlpatterns = (
     Client.routing.websocket_urlpatterns + Engineer.routing.websocket_urlpatterns
 )
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", os.getenv("DJANGO_SETTINGS_MODULE", "core.settings.local"))
 
 application = ProtocolTypeRouter(
     {

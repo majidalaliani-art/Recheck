@@ -3,7 +3,6 @@
 # ===================================================================
 PATH = {
     "VISIT": "Services/Visit/VisitBase.html",
-    "REVIEW": "Services/Visit/VisitBase.html",
     "REVIEW": "Services/VisitReview/Review.html",
 }
 

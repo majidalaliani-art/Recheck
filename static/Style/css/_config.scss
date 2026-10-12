@@ -5,13 +5,15 @@ $font-heading: "Cairo", sans-serif;
 $client-login-image: "https://i.pinimg.com/1200x/df/03/d9/df03d9830700c678db97c56988978830.jpg";
 $staff-login-image: "../images/Logan_staff.webp";
 
-$body-color: #d8e2e2;
+$body-color: #f8fafc;
 
-$moon-main: #3d5656;
+// Recheck Identity Colors
+$recheck-teal: #006870;
+$recheck-orange: #f37214;
+$moon-main: #006870;
 $moon-white: #ffffff;
-$gold: #d4af37;
-$olive-dark: #4a4526;
-
+$gold: #f37214;
+$olive-dark: #004d53;
 
 $moon-main-dark: color.adjust($moon-main, $lightness: -10%);
 $moon-main-light: color.adjust($moon-main, $lightness: 20%);

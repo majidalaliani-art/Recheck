@@ -1,49 +1,16 @@
-from celery import shared_task
-from django.utils import timezone
 import logging
-
-# إعداد السجلات
-logger = logging.getLogger(__name__)
-
-
-from celery import shared_task
-from django.utils import timezone
-from django.apps import apps
-import logging
-
-logger = logging.getLogger(__name__)
-
-
-from celery import shared_task
-from django.utils import timezone
-from django.apps import apps
-import logging
-
-logger = logging.getLogger(__name__)
-
-
-from celery import shared_task
-from django.utils import timezone
-from django.apps import apps
-import logging
-
-# استيراد أدوات Channels
 from asgiref.sync import async_to_sync
+from celery import shared_task
 from channels.layers import get_channel_layer
-
-logger = logging.getLogger(__name__)
-
-
 from django.apps import apps
+from django.core.files.storage import default_storage
 from django.utils import timezone
-from asgiref.sync import async_to_sync
-from channels.layers import get_channel_layer
-import logging
-from Client.models import VisitDetails, ConsultationDetails,WalletTransaction
-from django.utils import timezone
+
+from Client.models import ConsultationDetails, VisitDetails, WalletTransaction
 from Visits.models import VisitReport
 
-from django.core.files.storage import default_storage
+logger = logging.getLogger(__name__)
+
 
 # @shared_task
 # def send_wallet_update_task(app_label, model_name, object_id):
@@ -87,14 +54,15 @@ from django.core.files.storage import default_storage
 
 @shared_task
 def expire_order(ID, order):
-    if order == "visit":
-        visit = VisitDetails.objects.filter(visit_id=ID,status='in_progress').first()
+    order_type = str(order).lower()
+    if order_type == "visit":
+        visit = VisitDetails.objects.filter(visit_id=ID, status='in_progress').first()
 
         if not visit:
             return
-        transaction = WalletTransaction.objects.filter(order=visit.order,status="pending").last()
+        transaction = WalletTransaction.objects.filter(order=visit.order, status="pending").last()
 
-        if transaction and visit.end_at <= timezone.now():
+        if transaction and visit.end_at and visit.end_at <= timezone.now():
             instance = VisitReport.objects.filter(Request=visit).first()
             if instance:
                 if hasattr(default_storage, "bucket"):
@@ -111,12 +79,17 @@ def expire_order(ID, order):
             transaction.cancelled_at = timezone.now()
             transaction.save()
 
+    elif order_type == "consultation":
+        consultation = ConsultationDetails.objects.filter(consultation_id=ID, status='in_progress').first()
+        if consultation and consultation.end_at and consultation.end_at <= timezone.now():
+            consultation.engineer = None
+            consultation.status = "published"
+            consultation.start_at = None
+            consultation.end_at = None
+            consultation.save()
 
-    elif order == "Consultation":
-        Consultation = ConsultationDetails.objects.filter(Consultation_id=ID).first()
-        if Consultation and Consultation.status == "in_progress" and Consultation.end_at <= timezone.now():
-            Consultation.engineer = None
-            Consultation.status = "published"
-            Consultation.start_at = None
-            Consultation.end_at = None
-            Consultation.save()
+            transaction = WalletTransaction.objects.filter(order=consultation.order, status="pending").last()
+            if transaction:
+                transaction.status = "cancel"
+                transaction.cancelled_at = timezone.now()
+                transaction.save()

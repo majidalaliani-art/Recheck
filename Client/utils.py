@@ -1,9 +1,11 @@
-from Admin.models import FinancialSettings
 from decimal import Decimal
-from .models import PropertyPricing
-from .models import Order
 import requests
 from django.shortcuts import render, redirect
+from geopy.geocoders import Nominatim
+
+from Admin.models import FinancialSettings, PropertyPricing
+from Client.models import Order, UserPhone
+from config import session_value
 
 def get_financial_settings():
     settings = FinancialSettings.objects.first()
@@ -28,7 +30,6 @@ def calculate_inspection_price(p_type, i_type, p_size):
         return 0
 
 
-from geopy.geocoders import Nominatim
 def get_address_from_coords(lat, lon):
     try:
         geolocator = Nominatim(user_agent="v_inspection_system")
@@ -50,8 +51,6 @@ def get_address_from_coords(lat, lon):
     return None
 
 
-from config import session_value
-from Client.models import UserPhone
 def get_logged_user(request):
     phone = session_value(request, key="user")
     if not phone:

@@ -186,7 +186,7 @@ class SignUpView(View):
         if not profile:
             return redirect("Staff:apply")
         elif hasattr(profile, 'staff_data'):
-            return redirect("Admin:login")
+            return redirect("Base:login")
         form = RegisterForm(initial={"email": profile.email,})
         return render(request, self.template_name, {"form": form})
     def post(self, request):
@@ -199,7 +199,7 @@ class SignUpView(View):
         if not profile:
             return redirect("Staff:apply")
         elif hasattr(profile, 'staff_data'):
-            return redirect("Admin:login")
+            return redirect("Base:login")
 
         form = RegisterForm(request.POST, initial={"email": profile.email})
         if form.is_valid():
@@ -296,7 +296,7 @@ class OrdersOverviewView(LoginRequiredMixin, View):
                     return redirect("Staff:in_progress_orders")
 
                 elif accept == "Consultation":
-                    consultation = VisitDetails.objects.filter(consultation_id=consultation_id,engineer__isnull=True,status="published").select_for_update().first()
+                    consultation = ConsultationDetails.objects.filter(consultation_id=consultation_id,engineer__isnull=True,status="published").select_for_update().first()
 
                     if not consultation:
                         return redirect(request.path)
@@ -304,9 +304,15 @@ class OrdersOverviewView(LoginRequiredMixin, View):
                     payment = Payment.objects.filter(order=consultation.order).first()
                     if not is_consultation or not payment:
                         return redirect(request.path)
+                    consultation.start_at = timezone.now()
+                    consultation.end_at = timezone.now() + timedelta(days=1)
                     consultation.engineer = request.user
                     consultation.status = "in_progress"
                     consultation.save()
+                    expire_order.apply_async(
+                        args=[consultation.consultation_id, "consultation"],
+                        countdown=86400,
+                    )
                     create_or_reactivate_transaction(Order=consultation.order,Wallet=staff_profile.wallet,Amount=payment.engineer_amount)
                     return redirect("Staff:in_progress_orders")
         return redirect(request.path)

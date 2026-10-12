@@ -13,7 +13,6 @@ PATH = {
     "MAX_ATTEMPTS": 5,  # Maximum number of OTP requests allowed
     "ATTEMPT_WINDOW": 60,  # Time window in seconds (1 minute)
     "OTP": 4,  # Number of digits for the OTP
-    "MAX_ATTEMPTS": 5,  # Maximum allowed OTP requests per IP
     "WINDOW": 0,  # Time window in seconds to count attempts
 }
 

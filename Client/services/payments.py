@@ -4,7 +4,7 @@ from django.urls import reverse
 stripe.api_key = settings.PAYMENT_SECRET_KEY
 
 def create_checkout_session(order):
-    # success_url = reverse("order_success", args=[order.order_id])
+    # success_url = reverse("Client:order", args=[order.order_id])
 
     session = stripe.checkout.Session.create(
         payment_method_types=["card"],

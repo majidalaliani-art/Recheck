@@ -110,27 +110,6 @@ def cache_value(request, key=None, value=None, default=None, check_key=None, che
     # 5. Handle Retrieval
     return stored_data if stored_data is not None else (default if default is not None else {})
 
-CLIENTKEY = {
-    "LOGIN": 'Client/login.html',  # User login via phone number
-
-    'HOMEPAGE': 'Client/homepage.html',  # Homepage of the site
-    'VILLA':'Client/villa.html',
-    'BUYING' :'Client/buying.html',
-    # 'APARTMENT':'',
-    'OTP_TTL':5 * 60, # 5 minutes in seconds
-    'OTP_RESEND_DELAY': 60 , # Waiting time before requesting a new OTP: 60 seconds
-    'MAX_ATTEMPTS'  :5 , # Maximum number of OTP requests allowed
-    'ATTEMPT_WINDOW' : 60, # Time window in seconds (1 minute)
-    'OTP': 4,  # Number of digits for the OTP
-    'MAX_ATTEMPTS': 5,       # Maximum allowed OTP requests per IP
-    'WINDOW': 0 , # Time window in seconds to count attempts
-}
-
-
-VISITS_ENGINEERKEY_PATH = {
-    'START_VISIT' : 'Engineer/Visits/start_visit.html',
-}
-
 
 ##########################################################################################################################################################################################################################################################################################################
 class StyledFormMixin:

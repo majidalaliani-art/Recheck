@@ -1,8 +1,8 @@
 {% load static %}
 <div class="tk__navbar__full">
   <div class="tk__logo">
-    <a href="/">
-      <img src="{% static 'images/favicon.ico' %}" class="nav-logo-small" alt="لوجو" />
+    <a href="/" class="recheck-brand-header">
+      <img src="{% static 'images/recheck_logo.png' %}" class="nav-brand-badge" alt="ريتشيك" />
     </a>
   </div>
 
@@ -18,10 +18,15 @@
 
     <div class="auth-action">
       {% if request.session.user %}
-        <a href="{% url 'Base:logout' %}?app={{ request.resolver_match.app_name }}&next={{ request.path }}" class="btn-logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> تسجيل الخروج</a>
+        <a href="{% url 'Base:logout' %}?app={{ request.resolver_match.app_name }}&next={{ request.path }}" class="btn-auth-pill btn-logout" title="تسجيل الخروج">
+          <span class="auth-text">تسجيل الخروج</span>
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        </a>
       {% else %}
-
-        <a href="{% url 'Client:login' %}?app={{ request.resolver_match.app_name }}&next={{ request.path }}" class="btn-login"><i class="fa-solid fa-user-clock"></i> تسجيل الدخول</a>
+        <a href="{% url 'Client:login' %}?app={{ request.resolver_match.app_name }}&next={{ request.path }}" class="btn-auth-pill btn-login" title="تسجيل الدخول">
+          <span class="auth-text">تسجيل الدخول</span>
+          <i class="fa-solid fa-arrow-right-to-bracket"></i>
+        </a>
       {% endif %}
     </div>
 

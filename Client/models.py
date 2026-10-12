@@ -1,20 +1,15 @@
-from django.db import models
-from django.core.validators import MinValueValidator
-from Client.constants import*
-
-from Admin.models import Region,WorkDay
-import random,string
-from django.db import models
-from config import generate_number
-
-from django.db import models
-from Admin.models import PropertyPricing, InspectionType,TimeSlot
-from django.core.validators import MinValueValidator
-from django.core.validators import RegexValidator
-from .constants import *
+import random
+import string
 import uuid
-from django.contrib.auth.models import User
+
 from django.contrib.auth import get_user_model
+from django.core.validators import MinValueValidator, RegexValidator
+from django.db import models
+
+from Admin.models import InspectionType, PropertyPricing, Region, TimeSlot, WorkDay
+from config import generate_number
+from .constants import *
+
 User = get_user_model()
 
 class UserPhone(models.Model):
@@ -49,11 +44,6 @@ ORDER_LABELS = {
     "entrance_image": "صورة العقار",
     "processed": "تمت المعالجة",
 }
-
-
-import random
-import string
-from django.db import models
 
 
 def get_upload_path(instance, filename):

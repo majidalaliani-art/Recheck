@@ -1,41 +1,24 @@
-from django.db import models
-from django.core.validators import RegexValidator,MinLengthValidator
-from django.utils import timezone
+import os
+import shutil
 import uuid
-from .constants import *
-# from localflavor.ar.forms import
-from Admin.models import Region
-
-import uuid
-from django.db import models
-
-from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator
-
-from Client.models import UserPhone
-from django.utils import timezone
 from datetime import timedelta
 
-
-from django.utils import timezone
-from datetime import timedelta
-
-
+from django.conf import settings
+from django.contrib.auth.models import User
+from django.core.validators import (
+    FileExtensionValidator,
+    MaxValueValidator,
+    MinValueValidator,
+    RegexValidator,
+)
+from django.db import models
 from django.db.models import Sum
 from django.utils import timezone
-from datetime import timedelta
 
+from Admin.models import Region
+from Client.models import UserPhone
+from .constants import *
 
-import uuid
-from django.db import models
-from django.contrib.auth.models import User
-from django.db import models
-from django.contrib.auth.models import User
-
-
-from django.core.validators import FileExtensionValidator, RegexValidator
-
-from django.utils import timezone
 
 def engineer_directory_path(instance, filename):
 
@@ -60,13 +43,6 @@ phone_validator = RegexValidator(
     regex=r"^[+]?[0-9]+$",
     message="خطأ: يجب أن يحتوي الحقل على أرقام فقط، ويمكن أن يبدأ بعلامة + أو * في أول النص فقط.",
 )
-
-
-import os
-import shutil
-from django.conf import settings
-from django.db import models
-from django.contrib.auth.models import User
 
 
 # def folder_path(instance, file, filename):
@@ -114,10 +90,6 @@ class DynamicPathUploader:
             [self.file],
             {},
         )
-
-
-from django.db import models
-from django.db.models import Sum
 
 
 class Wallet(models.Model):

@@ -1,19 +1,20 @@
-from django import forms
-from django.core.validators import RegexValidator
-from django.core.exceptions import ValidationError
-from .models import Engineer
-from django.db import models
-from schwifty import IBAN
 import re
-from .models import EngineerApplication
 from PIL import Image
-from config import StyledFormMixin
-from django.core.cache import cache
-from django.utils.safestring import mark_safe
-from .utils import check_and_compress_file
-from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
-from django.contrib.auth.models import User
+from schwifty import IBAN
+
+from django import forms
 from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, UserCreationForm
+from django.core.cache import cache
+from django.core.exceptions import ValidationError
+from django.core.validators import RegexValidator
+from django.db import models
+from django.utils.safestring import mark_safe
+
+from config import StyledFormMixin
+from .models import Engineer, EngineerApplication
+from .utils import check_and_compress_file
+
 User = get_user_model()
 
 
@@ -132,27 +133,6 @@ class ApplyViewForm(StyledFormMixin, FormStylingMixin, forms.ModelForm):
 
         return cleaned_data
 
-
-from django import forms
-from django.contrib.auth import get_user_model
-
-User = get_user_model() # يجيب موديل المستخدم المعتمد في المشروع
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import get_user_model
-
-User = get_user_model()
-
-from django import forms
-from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm
-
-User = get_user_model()
-
-from django import forms
-from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm
-
-User = get_user_model()
 
 class RegisterForm(StyledFormMixin, FormStylingMixin, UserCreationForm):
     class Meta(UserCreationForm.Meta):
